@@ -1,12 +1,12 @@
-import './App.css'
-import Search from "./components/Search.jsx";
+import './App.css';
+import SearchAndDisplay from "./components/SearchAndDisplay/SearchAndDisplay.jsx";
 
 function App() {
 
   return (
     <>
       <h1>Loopify</h1>
-      <Search />
+      <SearchAndDisplay placeholder="Search..."/>
     </>
   )
 }
