@@ -1,14 +1,21 @@
 import './App.css';
-import SearchAndDisplay from "./components/SearchAndDisplay/SearchAndDisplay.jsx";
+import SearchAndDisplay from './components/SearchAndDisplay/SearchAndDisplay.jsx';
 
 function App() {
-
   return (
     <>
-      <h1>Loopify</h1>
-      <SearchAndDisplay placeholder="Search..."/>
+      <header>
+        <img
+          id='logo'
+          src='src/assets/loopifyLogo_dark.svg'
+          alt='Loopify Logo'
+        />
+      </header>
+      <main>
+        <SearchAndDisplay placeholder='Search...' />
+      </main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
