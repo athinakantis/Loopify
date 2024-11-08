@@ -1,0 +1,60 @@
+.leftNav {
+  width: 250px;
+  background-color: var(--backgroundDark);
+  height: 100vh;
+  border-right: 1px rgb(171, 195, 248, 0.5) solid;
+  padding: 30px;
+}
+
+.leftNavNarrow {
+  width: 90px;
+  background-color: var(--backgroundDark);
+  height: 100vh;
+  border-right: 1px rgb(171, 195, 248, 0.5) solid;
+  padding: 30px;
+}
+
+#menuIcon {
+  margin-top: 25px;
+}
+
+.menuButton{
+  outline: none;
+  background: none;
+  border: none;
+}
+
+nav ul {
+  color: var(--accentDark);
+  margin-top: 60px;
+}
+
+nav ul li{
+  list-style-type: none;
+  margin: 30px 0;
+  font-size: inherit;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: var(--accentDark);
+  font-family: inherit;
+  font-size: inherit;
+}
+
+#logInButton {
+  color: var(--accentDark);
+  font-size: inherit;
+  font-family: inherit;
+  background: none;
+  outline: none;
+  border: none;
+}
+
+#logInButton:hover {
+  cursor: pointer;
+}
+
+#logoutIcon {
+  height: 33px;
+}
