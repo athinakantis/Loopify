@@ -2,6 +2,7 @@ import './App.css';
 import SearchAndDisplay from './components/SearchAndDisplay/SearchAndDisplay.jsx';
 import LandingPage from './components/LandingPage/LandingPage.jsx';
 import { useEffect, useState } from 'react';
+import Header from '../src/components/Header/Header.jsx';
 
 function App() {
     const [accessToken, setAccessToken] = useState('');
@@ -9,36 +10,38 @@ function App() {
     useEffect(() => {
         const hash = window.location.hash;
         let token = window.localStorage.getItem('accessToken');
+        let expiration = window.localStorage.getItem('expiration');
 
-        if (!token && hash) {
+        const currentTime = new Date()
+
+        if (currentTime > expiration) {
+            localStorage.removeItem('accessToken')
+            localStorage.removeItem('expiration')
+            setAccessToken('')
+        };
+
+        if (token) {
+            setAccessToken(token)
+        } else if (!token && hash) {
             token = hash
                 .substring(1)
                 .split('&')
                 .find((el) => el.startsWith('access_token'))
                 .split('=')[1];
 
-            console.log('accesstoken: ', token);
-
             window.location.hash = '';
             setAccessToken(token);
             localStorage.setItem('accessToken', token);
-        } else if (token) {
-            setAccessToken(token);
+            localStorage.setItem('expiration', currentTime.setHours(currentTime.getHours() + 1))
         }
-    });
+    }, []);
 
     return (
         <>
-            <header>
-                <img
-                    id='logo'
-                    src='src/assets/loopifyLogo_dark.svg'
-                    alt='Loopify Logo'
-                />
-            </header>
+            <Header />
             <main>
-                {!accessToken && <LandingPage />}
-                <SearchAndDisplay placeholder='Search...' />
+                    {!accessToken && <LandingPage />}
+                    <SearchAndDisplay placeholder='Search...' />
             </main>
         </>
     );
