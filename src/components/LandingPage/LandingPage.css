@@ -9,6 +9,8 @@
     flex-direction: column;
     background-color: rgba(23, 25, 28, 0.5);
     backdrop-filter: blur(30px);
+    left: 0;
+    
 }
 
 .landingContainer {
@@ -30,6 +32,11 @@
     margin: 0 auto;
     display: block;
     filter: var(--shadow);
+    font-weight: bold;
+    border-radius: var(--radiusRound);
+    padding: 1rem 3rem;
+    background-color: var(--accentDark);
+    color: var(--backgroundDark);
 }
 
 #landingPage a {
@@ -37,13 +44,4 @@
 }
 
 /* General Button styling ?*/
-button {
-    background-color: var(--accentDark);
-    color: var(--backgroundDark);
-    padding: 1rem 3rem;
-    border: none;
-    border-radius: var(--radiusRound);
-    font-weight: bold;
-    font-size: inherit;
-    font-family: inherit;
-}
+
