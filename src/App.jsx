@@ -1,16 +1,17 @@
 import './App.css';
 import SearchAndDisplay from './components/SearchAndDisplay/SearchAndDisplay.jsx';
 import LandingPage from './components/LandingPage/LandingPage.jsx';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import Header from '../src/components/Header/Header.jsx';
 
 function App() {
     const [accessToken, setAccessToken] = useState('');
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        const hash = window.location.hash;
         let token = window.localStorage.getItem('accessToken');
         let expiration = window.localStorage.getItem('expiration');
+        const hash = window.location.hash;
 
         const currentTime = new Date()
 
@@ -34,15 +35,21 @@ function App() {
             localStorage.setItem('accessToken', token);
             localStorage.setItem('expiration', currentTime.setHours(currentTime.getHours() + 1))
         }
+
+        setLoading(false);
     }, []);
+
+    if (loading) return <p>Loading...</p>
 
     return (
         <>
-            <Header />
-            <main>
+            <Suspense fallback={<p>Loading...</p>}>
+                <Header />
+                <main>
                     {!accessToken && <LandingPage />}
                     <SearchAndDisplay placeholder='Search...' />
-            </main>
+                </main>
+            </Suspense>
         </>
     );
 }
