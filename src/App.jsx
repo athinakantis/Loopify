@@ -18,14 +18,14 @@ function App() {
         // When login is approved by user, the accesstoken can be found in the hash.
         const hash = window.location.hash;
 
-        // If currenttime is more than the expiration of the accesstoken, remove both these items
+        // If current time is more than the expiration of the accesstoken, remove the accesstoken.
         if (currentTime > expiration) {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('expiration');
             setAccessToken('');
         }
 
-        // If there is still a token, set accesstoken
+        // If there is still a token (Meaning it has not yet expired), set accesstoken
         if (token) {
             setAccessToken(token);
         } else if (!token && hash) {
