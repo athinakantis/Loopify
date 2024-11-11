@@ -1,0 +1,7 @@
+button {
+    color: var(--backgroundDark);
+    border: none;
+    border-radius: var(--radiusRound);
+    font-size: inherit;
+    font-family: inherit;
+}

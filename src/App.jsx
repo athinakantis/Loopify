@@ -2,6 +2,7 @@ import './App.css';
 import SearchAndDisplay from './components/SearchAndDisplay/SearchAndDisplay.jsx';
 import LandingPage from './components/LandingPage/LandingPage.jsx';
 import { useEffect, useState } from 'react';
+import Header from './components/Header/Header.jsx'
 
 function App() {
     const [accessToken, setAccessToken] = useState('');
@@ -29,13 +30,7 @@ function App() {
 
     return (
         <>
-            <header>
-                <img
-                    id='logo'
-                    src='src/assets/loopifyLogo_dark.svg'
-                    alt='Loopify Logo'
-                />
-            </header>
+            <Header/>
             <main>
                 {!accessToken && <LandingPage />}
                 <SearchAndDisplay placeholder='Search...' />

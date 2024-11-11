@@ -30,20 +30,15 @@
     margin: 0 auto;
     display: block;
     filter: var(--shadow);
+    padding: 1rem 3rem;
+    background-color: var(--accentDark);
+    font-weight: bold;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 #landingPage a {
     text-decoration: none;
-}
-
-/* General Button styling ?*/
-button {
-    background-color: var(--accentDark);
-    color: var(--backgroundDark);
-    padding: 1rem 3rem;
-    border: none;
-    border-radius: var(--radiusRound);
-    font-weight: bold;
-    font-size: inherit;
-    font-family: inherit;
 }
