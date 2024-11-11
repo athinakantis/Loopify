@@ -14,7 +14,7 @@ function LandingPage() {
         }, 1000);
 
         return () => clearInterval(carouselInterval);
-    }, [moods.length]);
+    }, []);
 
     return (
         <section id='landingPage'>
