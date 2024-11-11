@@ -12,14 +12,14 @@ function App() {
     useEffect(() => {
         // Check if there is a token in localstorage and what the expiration of the token is.
         let token = window.localStorage.getItem('accessToken');
-        let expiration = window.localStorage.getItem('expiration');
-        const currentTime = new Date();
+        let expiration = parseInt(window.localStorage.getItem('expiration'), 10);
+        const currentTime = Date.now()
 
         // When login is approved by user, the accesstoken can be found in the hash.
         const hash = window.location.hash;
 
         // If current time is more than the expiration of the accesstoken, remove the accesstoken.
-        if (currentTime > expiration) {
+        if (expiration && currentTime > expiration) {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('expiration');
             setAccessToken('');
@@ -41,7 +41,7 @@ function App() {
             localStorage.setItem('accessToken', token);
             localStorage.setItem(
                 'expiration',
-                currentTime.setHours(currentTime.getHours() + 1)
+                (Date.now() + 3600000).toString()
             );
         }
 
