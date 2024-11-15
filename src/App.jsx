@@ -4,6 +4,7 @@ import LandingPage from './components/LandingPage/LandingPage.jsx';
 import { useEffect, useState } from 'react';
 import Header from '../src/components/Header/Header.jsx';
 import UserPlaylists from './components/UserPlaylists/UserPlaylists.jsx';
+
 function App() {
     // using state to manage accesstoken, and set when page is finished loading
     const [accessToken, setAccessToken] = useState('');
