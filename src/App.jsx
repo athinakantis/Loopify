@@ -3,6 +3,7 @@ import SearchAndDisplay from './components/SearchAndDisplay/SearchAndDisplay.jsx
 import LandingPage from './components/LandingPage/LandingPage.jsx';
 import { useEffect, useState } from 'react';
 import Header from '../src/components/Header/Header.jsx';
+import UserPlaylists from './components/UserPlaylist/UserPlaylist.jsx';
 
 function App() {
     // using state to manage accesstoken, and set when page is finished loading
@@ -63,6 +64,7 @@ function App() {
                     accesstoken={accessToken}
                     placeholder='Search...'
                 />
+                <UserPlaylists accessToken={accessToken}/>
             </main>
         </>
     );
