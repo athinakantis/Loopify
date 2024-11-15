@@ -53,7 +53,8 @@ function App() {
     return (
         <>
             <Header 
-            setPage={setPage}/>
+            setPage={setPage}
+            accessToken={accessToken}/>
             <main>
                 {!accessToken && <LandingPage />}
                 {page === 'Search' && <SearchAndDisplay
