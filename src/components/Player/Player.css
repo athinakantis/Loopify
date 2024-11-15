@@ -1,0 +1,12 @@
+.player button {
+    background-color: transparent;
+}
+
+.player .songCard {
+    border: none;
+    opacity: 0.2;
+}
+
+.player {
+    margin: auto 0 0;
+}
