@@ -8,7 +8,7 @@ function LandingPage() {
     const clientID = '31b7c8cccb774c259278744de0c20018';
     const redirectURI = 'http://localhost:5173/'; // Update URI after deployment
     const scopes = [
-        'playlist-read-private', 'playlist-read-collaborative', 'playlist-modify-public', 'playlist-modify-private',
+        'playlist-read-private', 'playlist-read-collaborative', 'playlist-modify-public', 'playlist-modify-private', 'user-modify-playback-state', 'user-read-playback-state'
     ];
 
     // Updates the mood every 1000ms, resets the mood if it's reached the full length of moods array
