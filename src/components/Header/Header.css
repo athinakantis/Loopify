@@ -5,6 +5,8 @@ header {
     border-right: 1px solid rgba(171, 195, 248, 0.5);
     padding: 30px;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .leftNav {

@@ -1,7 +1,8 @@
 import './Header.css';
 import { useState } from 'react';
+import Player from '../Player/Player';
 
-function Header({ setPage }) {
+function Header({ setPage, accessToken }) {
     const [isOpen, setIsOpen] = useState(true);
 
     const toggleMenu = () => {
@@ -65,6 +66,7 @@ function Header({ setPage }) {
                     </li>
                 </ul>
             </nav>
+            <Player accessToken={accessToken}/>
         </header>
     );
 }
