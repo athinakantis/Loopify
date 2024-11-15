@@ -26,30 +26,26 @@ nav ul {
     margin-top: 6rem;
 }
 
-nav ul li {
-    list-style-type: none;
-    margin: 30px 0;
-    font-size: inherit;
-}
-
-nav ul li a {
+nav ul button {
     text-decoration: none;
     color: var(--accentDark);
-    font-family: inherit;
-    font-size: inherit;
+    margin: 0 0 2rem;
+    border: none;
+    outline: none;
+    background-color: transparent;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 nav ul img {
+    height: fit-content;
     width: 1.7rem;
 }
 
 #logInButton {
     color: var(--accentDark);
-    font-size: inherit;
-    font-family: inherit;
-    background: none;
-    outline: none;
-    border: none;
     width: max-content;
 }
 

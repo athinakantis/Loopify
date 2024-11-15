@@ -6,9 +6,10 @@ import Header from "../src/components/Header/Header.jsx";
 import UserPlaylists from "./components/UserPlaylists/UserPlaylists.jsx";
 
 function App() {
-  // using state to manage accesstoken, and set when page is finished loading
-  const [accessToken, setAccessToken] = useState("");
-  const [loading, setLoading] = useState(true);
+    // using state to manage accesstoken, and set when page is finished loading
+    const [accessToken, setAccessToken] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [page, setPage] = useState('Search')
 
   useEffect(() => {
     // Check if there is a token in localstorage and what the expiration of the token is.
@@ -49,16 +50,21 @@ function App() {
 
   if (loading) return <p>Loading...</p>;
 
-  return (
-    <>
-      <Header />
-      <main>
-        {!accessToken && <LandingPage />}
-        <SearchAndDisplay accesstoken={accessToken} placeholder="Search..." />
-        <UserPlaylists accessToken={accessToken} />
-      </main>
-    </>
-  );
+    return (
+        <>
+            <Header 
+            setPage={setPage}/>
+            <main>
+                {!accessToken && <LandingPage />}
+                {page === 'Search' && <SearchAndDisplay
+                    accesstoken={accessToken}
+                    placeholder='Search...'
+                />}
+
+                {page === 'Playlists' && <UserPlaylists accessToken={accessToken} />}
+            </main>
+        </>
+    );
 }
 
 export default App;
