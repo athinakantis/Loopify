@@ -36,7 +36,7 @@ export default function SearchAndDisplay(props) {
             .then(data => setPlaylists(data.playlists.items))
             .catch(error => console.error('Error fetching playlists:', error))
         }
-
+        console.log(albums)
     }, [searchTerm])
 
   function handleKeyUp(event) {
@@ -80,7 +80,7 @@ export default function SearchAndDisplay(props) {
                                 key={track.id}
                                 songTitle={track.name}
                                 songArtist={track.artists.map((artist) => artist.name).join(', ')}
-                                img={track.album.images[0]?.url}
+                                img={track.album.images[2]?.url}
                             />
                     ))}
                 </div>
@@ -92,7 +92,7 @@ export default function SearchAndDisplay(props) {
             <div className="albums">
             {albums.map(album => (
                 <div className="album" key={album.id}>
-                    <img src={album.images[0]?.url} width="150px" height="150px"/>
+                    <img src={album.images[1]?.url} width="150px" height="150px"/>
                     <p>{album.name.slice(0, 20) + (album.name.length > 20 && "...")}</p>
                     <p>{album.artists[0].name}</p>
                 </div>
