@@ -1,5 +1,23 @@
-.search-bar {}
+.search-bar {
+  margin: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
-.search-bar input {}
+.search-bar input {
+  padding: 10px 20px;
+  width: 350px;
+  height: 38px;
+  outline: none;
+  border: none;
+  background-color: var(--accentDark);
+  font-size: 16px;
+  border-radius: 30px;
+}
 
-.search-bar a {}
+.search-bar a {
+  position: absolute;
+  right: 5%;
+  height: 24px;
+}
