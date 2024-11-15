@@ -12,8 +12,11 @@ function App() {
     useEffect(() => {
         // Check if there is a token in localstorage and what the expiration of the token is.
         let token = window.localStorage.getItem('accessToken');
-        let expiration = parseInt(window.localStorage.getItem('expiration'), 10);
-        const currentTime = Date.now()
+        let expiration = parseInt(
+            window.localStorage.getItem('expiration'),
+            10
+        );
+        const currentTime = Date.now();
 
         // When login is approved by user, the accesstoken can be found in the hash.
         const hash = window.location.hash;
@@ -45,8 +48,8 @@ function App() {
             );
         }
 
-        //Once the token is set or removed, set loading to false. 
-        setLoading(false); 
+        //Once the token is set or removed, set loading to false.
+        setLoading(false);
     }, []);
 
     if (loading) return <p>Loading...</p>;
@@ -56,7 +59,10 @@ function App() {
             <Header />
             <main>
                 {!accessToken && <LandingPage />}
-                <SearchAndDisplay accesstoken={accessToken} placeholder='Search...' />
+                <SearchAndDisplay
+                    accesstoken={accessToken}
+                    placeholder='Search...'
+                />
             </main>
         </>
     );
