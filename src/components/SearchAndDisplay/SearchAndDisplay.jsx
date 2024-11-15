@@ -1,7 +1,8 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useSpotifyToken from '../useSpotifyToken/useSpotifyToken.jsx';
 import SongCard from '../SongCard/SongCard.jsx';
+import './SearchAndDisplay.css'
 
 export default function SearchAndDisplay(props) {
     const { type, placeholder, name, className, ...rest } = props;
@@ -10,30 +11,34 @@ export default function SearchAndDisplay(props) {
     const accessToken = useSpotifyToken();
     const [searchTerm, setSearchTerm] = useState('');
     const [tracks, setTracks] = useState([]);
+    const [albums, setAlbums] = useState([]);
+    const [playlists, setPlaylists] = useState([]);
 
 
-    async function searchTracks(query) {
-        if (!query || !accessToken) return;
+    useEffect(() => {
 
-        try {
-            // encodeURIComponent(query) safely encodes query, so even if it contains spaces or special symbols, it won’t break the URL
-            const response = await fetch(
-                `https://api.spotify.com/v1/search?q=${encodeURIComponent(
-                    query
-                )}&type=track&limit=5`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                }
-            );
-
-            const data = await response.json();
-            setTracks(data.tracks.items);
-        } catch (error) {
-            console.error('Error fetching tracks:', error);
+        if (searchTerm) {
+            fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(searchTerm)}&type=track&limit=50`,
+            {headers: {Authorization: `Bearer ${accessToken}`}})
+            .then(response => response.json())
+            .then(data => setTracks(data.tracks.items))
+            .catch(error => console.error('Error fetching tracks:', error))
+        
+        fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(searchTerm)}&type=album&limit=15`,
+        {headers: {Authorization: `Bearer ${accessToken}`}})
+            .then(response => response.json())
+            .then(data => setAlbums(data.albums.items))
+            .catch(error => console.error('Error fetching albums:', error))
+        
+        fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(searchTerm)}&type=playlist&limit=15`,
+        {headers: {Authorization: `Bearer ${accessToken}`}})
+            .then(response => response.json())
+            .then(data => setPlaylists(data.playlists.items))
+            .catch(error => console.error('Error fetching playlists:', error))
         }
-    }
+
+    }, [searchTerm])
+
 
     function handleKeyUp(event) {
         event.preventDefault();
@@ -43,11 +48,10 @@ export default function SearchAndDisplay(props) {
 
         if (query.trim() === '') {
             setTracks([]);
+            setAlbums([]);
+            setPlaylists([]);
             return;
         }
-
-        searchTracks(query);
-    console.log(tracks)
 
     }
 
@@ -62,8 +66,11 @@ export default function SearchAndDisplay(props) {
                 {...rest}
             />
 
+            <div className="displaySongs">
+            <h2>Top songs</h2>
+
             {tracks.length > 0 && (
-                 <div className='listOfTracks'>
+                 <div className='top-songs'>
                     {tracks.map((track) => (
                             <SongCard
                                 key={track.id}
@@ -74,6 +81,32 @@ export default function SearchAndDisplay(props) {
                     ))}
                 </div>
             )}
+            </div>
+
+            <div className="displayAlbums">
+            <h2>Albums</h2>
+            <div className="albums">
+            {albums.map(album => (
+                <div className="album" key={album.id}>
+                    <img src={album.images[0]?.url} width="150px" height="150px"/>
+                    <p>{album.name.slice(0, 20) + (album.name.length > 20 && "...")}</p>
+                    <p>{album.artists[0].name}</p>
+                </div>
+            ))}
+            </div>
+            </div>
+
+            <div className="displayPlaylists">
+            <h2>Playlists</h2>
+            <div className="playlists">
+            {playlists.map(playlist => (
+                <div className="playlist" key={playlist.id}>
+                    <img src={playlist.images[0]?.url} width="150px" height="150px"/>
+                    <p>{playlist.name.slice(0, 20) + (playlist.name.length > 20 && "...")}</p>
+                </div>
+            ))}
+            </div>
+            </div>
         </>
     );
 }
