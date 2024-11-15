@@ -15,10 +15,6 @@ export default function SearchAndDisplay(props) {
     const [albums, setAlbums] = useState([]);
     const [playlists, setPlaylists] = useState([]);
 
-export default function SearchAndDisplay(props) {
-  const { type, placeholder, name, className, ...rest } = props;
-  const classes = clsx(className);
-
     useEffect(() => {
 
         if (searchTerm) {
