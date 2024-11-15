@@ -5,18 +5,15 @@ function Header() {
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(prev => !prev);
   };
 
   return (
     <header className={isOpen ? 'leftNav' : 'leftNavNarrow'}>
       <nav>
         <button className="menuButton" onClick={toggleMenu}>
-          {isOpen ? (
-            <img id="logo" src="src/assets/loopifyLogo_dark.svg" alt="Loopify Logo" />
-          ) : (
-            <img id="menuIcon" src="src/assets/menuIcon.svg" alt="Menu Icon" />
-          )}
+          <img className={isOpen ? 'visible' : 'invisible'} id="logo" src="src/assets/loopifyLogo_dark.svg" alt="Loopify Logo" />
+          <img className={isOpen ? 'invisible' : 'visible'} id="menuIcon" src="src/assets/menuIcon.svg" alt="Menu Icon" />
         </button>
         <ul className="menu">
           {isOpen ? (
