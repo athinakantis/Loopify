@@ -26,49 +26,43 @@ function Header({ setPage }) {
                     />
                 </button>
                 <ul className='menu'>
-                    {isOpen ? (
-                        <>
-                            <li>
-                                <button onClick={() => setPage('Search')}>
-                                    Search
-                                </button>
-                            </li>
-                            <li>
-                                <button onClick={() => setPage('Playlists')}>
-                                    Playlists
-                                </button>
-                            </li>
-                            <li>
-                                <button id='logInButton'>Log Out</button>
-                            </li>
-                        </>
-                    ) : (
-                        <>
-                            <li>
-                                <a href='#'>
-                                    <img
-                                        src='src/assets/searchIcon.svg'
-                                        alt='Search'
-                                    />
-                                </a>
-                            </li>
-                            <li>
-                                <a href='#'>
-                                    <img
-                                        src='src/assets/playlistIcon.svg'
-                                        alt='Browse'
-                                    />
-                                </a>
-                            </li>
-                            <button id='logInButton'>
+                    <li>
+                        <button onClick={() => setPage('Search')}>
+                            {isOpen ? (
+                                'Search'
+                            ) : (
+                                <img
+                                    src='src/assets/searchIcon.svg'
+                                    alt='Search'
+                                />
+                            )}
+                        </button>
+                    </li>
+                    <li>
+                        <button onClick={() => setPage('Playlists')}>
+                            {isOpen ? (
+                                'Playlists'
+                            ) : (
+                                <img
+                                    src='src/assets/playlistIcon.svg'
+                                    alt='Browse'
+                                />
+                            )}
+                        </button>
+                    </li>
+                    <li>
+                        <button id='logInButton'>
+                            {isOpen ? (
+                                'Log Out'
+                            ) : (
                                 <img
                                     id='logoutIcon'
                                     src='src/assets/logoutIcon.svg'
                                     alt='Log Out'
                                 />
-                            </button>
-                        </>
-                    )}
+                            )}
+                        </button>
+                    </li>
                 </ul>
             </nav>
         </header>
