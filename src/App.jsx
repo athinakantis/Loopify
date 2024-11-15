@@ -9,6 +9,7 @@ function App() {
     // using state to manage accesstoken, and set when page is finished loading
     const [accessToken, setAccessToken] = useState('');
     const [loading, setLoading] = useState(true);
+    const [page, setPage] = useState('Search')
 
     useEffect(() => {
         // Check if there is a token in localstorage and what the expiration of the token is.
@@ -57,14 +58,16 @@ function App() {
 
     return (
         <>
-            <Header />
+            <Header 
+            setPage={setPage}/>
             <main>
                 {!accessToken && <LandingPage />}
-                <SearchAndDisplay
+                {page === 'Search' && <SearchAndDisplay
                     accesstoken={accessToken}
                     placeholder='Search...'
-                />
-                <UserPlaylists accessToken={accessToken}/>
+                />}
+
+                {page === 'Playlists' && <UserPlaylists accessToken={accessToken} />}
             </main>
         </>
     );

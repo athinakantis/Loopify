@@ -8,7 +8,7 @@ const UserPlaylists = ({ accessToken }) => {
   useEffect(() => {
     const fetchPlaylists = async () => {
       try {
-        const response = await fetch("https://api.spotify.com/v1/me/playlists", {
+        const response = await fetch("https://api.spotify.com/v1/me/playlists?limit=5", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ const UserPlaylists = ({ accessToken }) => {
 
     const fetchNewReleases = async () => {
       try {
-        const response = await fetch("https://api.spotify.com/v1/browse/new-releases", {
+        const response = await fetch("https://api.spotify.com/v1/browse/new-releases?limit=5", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
@@ -44,6 +44,7 @@ const UserPlaylists = ({ accessToken }) => {
     if (accessToken) {
       fetchPlaylists();
       fetchNewReleases();
+      console.log(playlists)
     }
   }, [accessToken]); // re-runs useEffect function when accessToken changes
 
@@ -53,7 +54,6 @@ const UserPlaylists = ({ accessToken }) => {
       <ul>
         {playlists.map((playlist) => (
           <li key={playlist.id}>
-            <img src={playlist.images[0]?.url} alt={playlist.name} className='playlist'/>
             <span>{playlist.name}</span>
           </li>
         ))}
