@@ -54,6 +54,7 @@ const UserPlaylists = ({ accessToken }) => {
       <ul>
         {playlists.map((playlist) => (
           <li key={playlist.id}>
+            <img src={playlist.images[0]?.url} alt={playlist.name} className='userPlaylist'/>
             <span>{playlist.name}</span>
           </li>
         ))}
@@ -62,7 +63,7 @@ const UserPlaylists = ({ accessToken }) => {
       <ul>
         {newReleases.map((item) => (
           <li key={item.id}>
-            <img src={item.images[0]?.url} alt={item.name} className='playlist'/>
+            <img src={item.images[0]?.url} alt={item.name} className='userPlaylist'/>
             <span>{item.name}</span>
           </li>
         ))}
