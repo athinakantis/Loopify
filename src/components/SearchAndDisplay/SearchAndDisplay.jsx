@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import useSpotifyToken from '../useSpotifyToken/useSpotifyToken.jsx';
 import SongCard from '../SongCard/SongCard.jsx';
 import './SearchAndDisplay.css'
+import "./SearchBar.css";
 
 export default function SearchAndDisplay(props) {
     const { type, placeholder, name, className, ...rest } = props;
@@ -14,6 +15,9 @@ export default function SearchAndDisplay(props) {
     const [albums, setAlbums] = useState([]);
     const [playlists, setPlaylists] = useState([]);
 
+export default function SearchAndDisplay(props) {
+  const { type, placeholder, name, className, ...rest } = props;
+  const classes = clsx(className);
 
     useEffect(() => {
 
@@ -39,32 +43,36 @@ export default function SearchAndDisplay(props) {
 
     }, [searchTerm])
 
+  function handleKeyUp(event) {
+    event.preventDefault();
+    const query = event.target.value;
 
-    function handleKeyUp(event) {
-        event.preventDefault();
-        const query = event.target.value;
+    setSearchTerm(query);
 
-        setSearchTerm(query);
-
-        if (query.trim() === '') {
-            setTracks([]);
-            setAlbums([]);
-            setPlaylists([]);
-            return;
-        }
-
+    if (query.trim() === '') {
+        setTracks([]);
+        setAlbums([]);
+        setPlaylists([]);
+        return;
     }
 
-    return (
-        <>
-            <input
-                onKeyUp={handleKeyUp}
-                className={classes}
-                type={type}
-                placeholder={placeholder}
-                name={name}
-                {...rest}
-            />
+}
+
+  return (
+    <>
+      <div className="search-bar">
+        <input
+          onKeyUp={handleKeyUp}
+          className={classes}
+          type={type}
+          placeholder={placeholder}
+          name={name}
+          {...rest}
+        />
+        <a href="#">
+          <span class="material-symbols-outlined">search</span>
+        </a>
+      </div>
 
             <div className="displaySongs">
             <h2>Top songs</h2>

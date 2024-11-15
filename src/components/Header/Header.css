@@ -1,60 +1,85 @@
+header {
+    transition: width 500ms;
+    background-color: var(--backgroundDark);
+    height: 100vh;
+    border-right: 1px solid rgba(171, 195, 248, 0.5);
+    padding: 30px;
+    position: relative;
+}
+
 .leftNav {
-  width: 250px;
-  background-color: var(--backgroundDark);
-  height: 100vh;
-  border-right: 1px rgb(171, 195, 248, 0.5) solid;
-  padding: 30px;
+    width: 250px;
 }
 
 .leftNavNarrow {
-  width: 90px;
-  background-color: var(--backgroundDark);
-  height: 100vh;
-  border-right: 1px rgb(171, 195, 248, 0.5) solid;
-  padding: 30px;
+    width: 90px;
 }
 
-#menuIcon {
-  margin-top: 25px;
-}
-
-.menuButton{
-  outline: none;
-  background: none;
-  border: none;
+.menuButton {
+    outline: none;
+    background: none;
+    border: none;
 }
 
 nav ul {
-  color: var(--accentDark);
-  margin-top: 60px;
+    color: var(--accentDark);
+    margin-top: 6rem;
 }
 
-nav ul li{
-  list-style-type: none;
-  margin: 30px 0;
-  font-size: inherit;
+nav ul li {
+    list-style-type: none;
+    margin: 30px 0;
+    font-size: inherit;
 }
 
 nav ul li a {
-  text-decoration: none;
-  color: var(--accentDark);
-  font-family: inherit;
-  font-size: inherit;
+    text-decoration: none;
+    color: var(--accentDark);
+    font-family: inherit;
+    font-size: inherit;
+}
+
+nav ul img {
+    width: 1.7rem;
 }
 
 #logInButton {
-  color: var(--accentDark);
-  font-size: inherit;
-  font-family: inherit;
-  background: none;
-  outline: none;
-  border: none;
+    color: var(--accentDark);
+    font-size: inherit;
+    font-family: inherit;
+    background: none;
+    outline: none;
+    border: none;
+    width: max-content;
 }
 
 #logInButton:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 #logoutIcon {
-  height: 33px;
+    height: 33px;
+}
+
+.visible {
+    transition: opacity 300ms;
+    transition-delay: 300ms;
+    opacity: 1;
+}
+
+.invisible {
+    transition: opacity 300ms;
+    opacity: 0;
+}
+
+.menuButton img {
+    position: absolute;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+#logo {
+    top: 2rem;
 }
