@@ -72,12 +72,14 @@ nav ul img {
 
 .menuButton img {
     position: absolute;
+    left: 2rem;
+    top: 2rem;
 
     &:hover {
         cursor: pointer;
     }
 }
 
-#logo {
-    top: 2rem;
+#menuIcon {
+    top: 3rem;
 }

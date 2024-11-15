@@ -9,4 +9,10 @@
 
 .player {
     margin: auto 0 0;
+    display: flex;
+    justify-content: center;
+}
+
+#playerControls {
+    margin: auto;
 }

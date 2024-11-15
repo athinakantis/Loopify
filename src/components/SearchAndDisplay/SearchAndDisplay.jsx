@@ -36,7 +36,6 @@ export default function SearchAndDisplay(props) {
             .then(data => setPlaylists(data.playlists.items))
             .catch(error => console.error('Error fetching playlists:', error))
         }
-        console.log(albums)
     }, [searchTerm])
 
   function handleKeyUp(event) {

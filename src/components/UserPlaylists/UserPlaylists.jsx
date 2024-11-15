@@ -44,7 +44,6 @@ const UserPlaylists = ({ accessToken }) => {
     if (accessToken) {
       fetchPlaylists();
       fetchNewReleases();
-      console.log(playlists)
     }
   }, [accessToken]); // re-runs useEffect function when accessToken changes
 
@@ -63,7 +62,7 @@ const UserPlaylists = ({ accessToken }) => {
       <ul>
         {newReleases.map((item) => (
           <li key={item.id}>
-            <img src={item.images[0]?.url} alt={item.name} className='userPlaylist'/>
+            <img src={item.images[2]?.url} alt={item.name} className='userPlaylist'/>
             <span>{item.name}</span>
           </li>
         ))}

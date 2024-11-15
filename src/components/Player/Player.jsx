@@ -6,7 +6,7 @@ function Player({ accessToken }) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [deviceID, setDeviceID] = useState('');
     const [playItem, setPlayItem] = useState(
-        "spotify:album:4vg4m0qGPeoNTLyJkjBsBs"
+        'spotify:album:4vg4m0qGPeoNTLyJkjBsBs'
     );
 
     const playEndpoint = `https://api.spotify.com/v1/me/player/play`;
@@ -59,28 +59,33 @@ function Player({ accessToken }) {
 
     return (
         <div className='player'>
-            <button id='playPause' onClick={handlePlaying}>
-                {isPlaying ? (
+            <div id='playerControls'>
+                <button id='skipPrev'>
                     <img
-                        src='src/assets/player_pauseIcon.svg'
-                        alt='Pause Icon'
+                        src='src/assets/player_skipPrevious.svg'
+                        alt='Skip to previous song'
                     />
-                ) : (
-                    <img src='src/assets/player_playIcon.svg' alt='Play Icon' />
-                )}
-            </button>
-            <button id='skipPrev'>
-                <img
-                    src='src/assets/player_skipPrevious.svg'
-                    alt='Skip to previous song'
-                />
-            </button>
-            <button id='skipNext'>
-                <img
-                    src='src/assets/player_skipNext.svg'
-                    alt='Skip to next song'
-                />
-            </button>
+                </button>
+                <button id='playPause' onClick={handlePlaying}>
+                    {isPlaying ? (
+                        <img
+                            src='src/assets/player_pauseIcon.svg'
+                            alt='Pause Icon'
+                        />
+                    ) : (
+                        <img
+                            src='src/assets/player_playIcon.svg'
+                            alt='Play Icon'
+                        />
+                    )}
+                </button>
+                <button id='skipNext'>
+                    <img
+                        src='src/assets/player_skipNext.svg'
+                        alt='Skip to next song'
+                    />
+                </button>
+            </div>
         </div>
     );
 }

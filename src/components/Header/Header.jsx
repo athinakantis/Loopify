@@ -7,11 +7,11 @@ function Header({ setPage, accessToken }) {
 
     const toggleMenu = () => {
         setIsOpen((prev) => !prev);
+
     };
 
     return (
         <header className={isOpen ? 'leftNav' : 'leftNavNarrow'}>
-            <nav>
                 <button className='menuButton' onClick={toggleMenu}>
                     <img
                         className={isOpen ? 'visible' : 'invisible'}
@@ -26,6 +26,7 @@ function Header({ setPage, accessToken }) {
                         alt='Menu Icon'
                     />
                 </button>
+            <nav>
                 <ul className='menu'>
                     <li>
                         <button onClick={() => setPage('Search')}>
