@@ -1,4 +1,4 @@
-import './UserPlaylist.css';
+import './UserPlaylists.css';
 import React, { useEffect, useState } from 'react';
 
 const UserPlaylists = ({ accessToken }) => {
