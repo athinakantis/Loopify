@@ -1,10 +1,10 @@
 import './AlbumCard.css'
 
-function AlbumCard(props) {
+function AlbumCard({img, title}) {
     return (
-        <div className="albumCard">
-            <img src={props.img} alt={props.songTitle}/>
-            <p>{props.albumName}</p>
+        <div className='albumCard'>
+            <img src={img} alt={title}/>
+            <p>{title}</p>
         </div>
     )
 }
