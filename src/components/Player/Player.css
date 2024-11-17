@@ -8,11 +8,22 @@
 }
 
 .player {
-    margin: auto 0 0;
+    margin: auto 1rem 1rem;
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 #playerControls {
-    margin: auto;
+    margin: 0.5rem auto 0;
+}
+
+.playerCard img {
+    width: 100%;
+    border-radius: 3px;
+    margin: 0.6rem 0 0;
+}
+
+.playerCard p:first-of-type {
+    font-weight: 500;
 }

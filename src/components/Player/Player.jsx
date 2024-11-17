@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import AlbumCard from '../AlbumCard/AlbumCard'
 import './Player.css';
 
-function Player({ accessToken, playItem, setIsPlaying, isPlaying }) {
+function Player({ isOpen, setAccessToken, accessToken, playItem, setIsPlaying, isPlaying }) {
     const [deviceID, setDeviceID] = useState('');
 
     function handlePlaying() {
@@ -22,6 +22,9 @@ function Player({ accessToken, playItem, setIsPlaying, isPlaying }) {
     });
 
     useEffect(() => {
+        const { uri, isTrack } = playItem;
+        let body;
+        isTrack ? body = JSON.stringify({ uris: [uri] }) : body = JSON.stringify({ context_uri: uri })
         if (isPlaying) {
             fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceID}`, {
                 method: 'PUT',
@@ -29,21 +32,38 @@ function Player({ accessToken, playItem, setIsPlaying, isPlaying }) {
                     Authorization: `Bearer ${accessToken}`,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ context_uri: playItem }),
-            });
+                body: body,
+            })
+                .catch((error) => {
+                    if (error.status === 401) {
+                        localStorage.clear();
+                        setAccessToken('')
+                    }
+                })
         } else if (!isPlaying) {
             fetch(`https://api.spotify.com/v1/me/player/pause?device_id=${deviceID}`, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
-            });
+            })
+                .catch((error) => {
+                    if (error.status === 401) {
+                        localStorage.clear();
+                        setAccessToken('')
+                    }
+                })
         }
     }, [isPlaying, playItem]);
 
     return (
         <div className='player'>
-            
+            <div className='playerCard'>
+                <p>{playItem.title}</p>
+                <p>{playItem.artist}</p>
+                <img src={playItem.img} alt={playItem.title} />
+            </div>
+
             <div id='playerControls'>
                 <button id='skipPrev'>
                     <img
