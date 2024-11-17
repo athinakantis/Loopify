@@ -1,32 +1,16 @@
 import { useEffect, useState } from 'react';
-import SongCard from '../SongCard/SongCard';
+import AlbumCard from '../AlbumCard/AlbumCard'
 import './Player.css';
 
-function Player({ accessToken }) {
-    const [isPlaying, setIsPlaying] = useState(false);
+function Player({ accessToken, playItem, setIsPlaying, isPlaying }) {
     const [deviceID, setDeviceID] = useState('');
-    const [playItem, setPlayItem] = useState(
-        'spotify:album:4vg4m0qGPeoNTLyJkjBsBs'
-    );
-
-    const playEndpoint = `https://api.spotify.com/v1/me/player/play`;
-    const deviceEndpoint = `https://api.spotify.com/v1/me/player/devices`;
-    const pauseEndpoint = `https://api.spotify.com/v1/me/player/pause`;
 
     function handlePlaying() {
         setIsPlaying((prev) => !prev);
     }
 
-    const playOption = {
-        method: 'PUT',
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-        },
-    };
-
     useEffect(() => {
-        fetch(deviceEndpoint, {
+        fetch(`https://api.spotify.com/v1/me/player/devices`, {
             headers: { Authorization: `Bearer ${accessToken}` },
         })
             .then((response) => response.json())
@@ -38,8 +22,8 @@ function Player({ accessToken }) {
     });
 
     useEffect(() => {
-        if (!isPlaying) {
-            fetch(`${playEndpoint}?device_id=${deviceID}`, {
+        if (isPlaying) {
+            fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceID}`, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -47,18 +31,19 @@ function Player({ accessToken }) {
                 },
                 body: JSON.stringify({ context_uri: playItem }),
             });
-        } else if (isPlaying) {
-            fetch(`${pauseEndpoint}?device_id=${deviceID}`, {
+        } else if (!isPlaying) {
+            fetch(`https://api.spotify.com/v1/me/player/pause?device_id=${deviceID}`, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
         }
-    }, [isPlaying]);
+    }, [isPlaying, playItem]);
 
     return (
         <div className='player'>
+            
             <div id='playerControls'>
                 <button id='skipPrev'>
                     <img
