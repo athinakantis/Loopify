@@ -60,13 +60,13 @@ nav ul img {
 }
 
 .visible {
-    transition: opacity 300ms;
+    transition: opacity 150ms;
     transition-delay: 300ms;
     opacity: 1;
 }
 
 .invisible {
-    transition: opacity 300ms;
+    transition: opacity 150ms;
     opacity: 0;
 }
 
