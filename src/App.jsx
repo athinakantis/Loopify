@@ -10,6 +10,8 @@ function App() {
     const [accessToken, setAccessToken] = useState('');
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState('Search')
+    const [playItem, setPlayItem] = useState('')
+    const [isPlaying, setIsPlaying] = useState(false)
 
   useEffect(() => {
     // Check if there is a token in localstorage and what the expiration of the token is.
@@ -54,10 +56,17 @@ function App() {
         <>
             <Header 
             setPage={setPage}
-            accessToken={accessToken}/>
+            accessToken={accessToken}
+            playItem={playItem}
+            setPlayItem={setPlayItem}
+            isPlaying={isPlaying}
+            setIsPlaying={setIsPlaying}
+            />
             <main>
                 {!accessToken && <LandingPage />}
                 {page === 'Search' && <SearchAndDisplay
+                    setPlayItem={setPlayItem}
+                    setIsPlaying={setIsPlaying}
                     accesstoken={accessToken}
                     placeholder='Search...'
                 />}
