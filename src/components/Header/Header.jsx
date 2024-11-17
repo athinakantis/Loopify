@@ -2,30 +2,29 @@ import './Header.css';
 import { useState } from 'react';
 import Player from '../Player/Player';
 
-function Header({ setPage, accessToken }) {
+function Header({ setPage, accessToken, isPlaying, setIsPlaying, playItem }) {
     const [isOpen, setIsOpen] = useState(true);
 
     const toggleMenu = () => {
         setIsOpen((prev) => !prev);
-
     };
 
     return (
         <header className={isOpen ? 'leftNav' : 'leftNavNarrow'}>
-                <button className='menuButton' onClick={toggleMenu}>
-                    <img
-                        className={isOpen ? 'visible' : 'invisible'}
-                        id='logo'
-                        src='src/assets/loopifyLogo_dark.svg'
-                        alt='Loopify Logo'
-                    />
-                    <img
-                        className={isOpen ? 'invisible' : 'visible'}
-                        id='menuIcon'
-                        src='src/assets/menuIcon.svg'
-                        alt='Menu Icon'
-                    />
-                </button>
+            <button className='menuButton' onClick={toggleMenu}>
+                <img
+                    className={isOpen ? 'visible' : 'invisible'}
+                    id='logo'
+                    src='src/assets/loopifyLogo_dark.svg'
+                    alt='Loopify Logo'
+                />
+                <img
+                    className={isOpen ? 'invisible' : 'visible'}
+                    id='menuIcon'
+                    src='src/assets/menuIcon.svg'
+                    alt='Menu Icon'
+                />
+            </button>
             <nav>
                 <ul className='menu'>
                     <li>
@@ -67,7 +66,7 @@ function Header({ setPage, accessToken }) {
                     </li>
                 </ul>
             </nav>
-            <Player accessToken={accessToken}/>
+            <Player setIsPlaying={setIsPlaying} playItem={playItem} isPlaying={isPlaying} accessToken={accessToken} />
         </header>
     );
 }
