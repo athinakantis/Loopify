@@ -10,7 +10,14 @@ function App() {
     const [accessToken, setAccessToken] = useState('');
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState('Search')
-    const [playItem, setPlayItem] = useState('')
+    const [playItem, setPlayItem] = useState({
+      id: null,
+      artist: '',
+      title: '',
+      uri: '',
+      isTrack: false,
+      img: '',
+    })
     const [isPlaying, setIsPlaying] = useState(false)
 
   useEffect(() => {
@@ -57,6 +64,7 @@ function App() {
             <Header 
             setPage={setPage}
             accessToken={accessToken}
+            setAccessToken={setAccessToken}
             playItem={playItem}
             setPlayItem={setPlayItem}
             isPlaying={isPlaying}
