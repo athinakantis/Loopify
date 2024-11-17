@@ -1,12 +1,21 @@
 import './SongCard.css';
 
-function SongCard(props) {
+function SongCard({img, title, artist, setIsPlaying, setPlayItem, uri}) {
+    function handlePlay(trackUri) {
+        const jsonTracks = JSON.stringify({uris: [trackUri]})
+        console.log(jsonTracks)
+        setPlayItem(jsonTracks)
+        setIsPlaying(true)
+    }
+
     return (
         <div className='songCard'>
-            <img src={props.img} alt={props.songtitle} />
+            <button onClick={() => handlePlay(uri)}>
+            <img src={img} alt={title} />
+            </button>
             <div className='songDetails'>
-            <p>{props.songTitle}</p>
-            <p>{props.songArtist}</p>
+            <p>{title}</p>
+            <p>{artist}</p>
             </div>
         </div>
     );
