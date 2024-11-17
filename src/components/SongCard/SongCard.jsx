@@ -1,10 +1,15 @@
 import './SongCard.css';
 
-function SongCard({img, title, artist, setIsPlaying, setPlayItem, uri}) {
-    function handlePlay(trackUri) {
-        const jsonTracks = JSON.stringify({uris: [trackUri]})
-        console.log(jsonTracks)
-        setPlayItem(jsonTracks)
+function SongCard({img, id, title, artist, setIsPlaying, setPlayItem, uri}) {
+    function handlePlay() {
+        setPlayItem({
+            id: id,
+            artist: artist,
+            uri: uri,
+            title: title,
+            img: img,
+            isTrack: true
+        })
         setIsPlaying(true)
     }
 
