@@ -24,9 +24,15 @@ export default function SearchAndDisplay(props) {
         };
     }, []);
 
-    function handlePlay(uri) {
-        setPlayItem(uri)
-        setIsPlaying(true)
+    function handlePlay(id, artist, uri, title, img) {
+        setPlayItem({
+            id: id,
+            artist: artist,
+            uri: uri,
+            title: title,
+            img: img,
+            isTrack: false
+        })
     }
 
     useEffect(() => {
@@ -96,13 +102,14 @@ export default function SearchAndDisplay(props) {
                  <div className='top-songs'>
                     {tracks.map((track) => (
                             <SongCard
+                                id={track.id}
                                 key={track.id}
                                 setPlayItem={setPlayItem}
                                 setIsPlaying={setIsPlaying}
                                 uri={track.uri}
                                 title={track.name}
                                 artist={track.artists.map((artist) => artist.name).join(', ')}
-                                img={track.album.images[2]?.url}
+                                img={track.album.images[0]?.url}
                             />
                     ))}
                 </div>
@@ -114,7 +121,7 @@ export default function SearchAndDisplay(props) {
             <div className="albums">
             {albums.map(album => (
                 <div className="album" key={album.id}>
-                    <button onClick={() => handlePlay(album.uri)}>
+                    <button onClick={() => handlePlay(album.id, album.artist, album.uri, album.title, album.images[1].url)}>
                     <img src={album.images[1]?.url} width="150px" height="150px"/>
                     </button>
                     <p className='albumName'>{album.name}</p>
@@ -129,7 +136,7 @@ export default function SearchAndDisplay(props) {
             <div className="playlists">
             {playlists.map(playlist => (
                 <div className="playlist" key={playlist.id}>
-                    <img src={playlist.images[1]?.url} width="150px" height="150px"/>
+                    <img src={playlist.images[0]?.url} width="150px" height="150px"/>
                     <p className='playlistName'>{playlist.name}</p>
                 </div>
             ))}
