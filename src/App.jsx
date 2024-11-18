@@ -21,6 +21,7 @@ function App() {
     const [isPlaying, setIsPlaying] = useState(false)
 
   useEffect(() => {
+    console.log(accessToken)
     // Check if there is a token in localstorage and what the expiration of the token is.
     let token = window.localStorage.getItem("accessToken");
     let expiration = parseInt(window.localStorage.getItem("expiration"), 10);
@@ -30,7 +31,10 @@ function App() {
     const hash = window.location.hash;
 
     // If current time is more than the expiration of the accesstoken, remove the accesstoken.
-    if (expiration && currentTime > expiration) {
+    if (!token) {
+      setAccessToken('')
+    } else if (expiration && currentTime > expiration) {
+      console.log(expiration, currentTime > expiration)
       localStorage.removeItem("accessToken");
       localStorage.removeItem("expiration");
       setAccessToken("");
