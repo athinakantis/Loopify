@@ -4,6 +4,7 @@ import './Player.css';
 
 function Player({ isOpen, setAccessToken, accessToken, playItem, setIsPlaying, isPlaying }) {
     const [deviceID, setDeviceID] = useState('');
+    console.log(playItem)
 
     function handlePlaying() {
         setIsPlaying((prev) => !prev);
@@ -64,7 +65,7 @@ function Player({ isOpen, setAccessToken, accessToken, playItem, setIsPlaying, i
                 <img src={playItem.img} alt={playItem.title} />
             </div>
 
-            <div id='playerControls'>
+            <div className={isOpen ? 'Expanded' : 'Collapsed'} id='playerControls'>
                 <button id='skipPrev'>
                     <img
                         src='src/assets/player_skipPrevious.svg'

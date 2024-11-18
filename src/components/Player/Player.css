@@ -18,6 +18,22 @@
     margin: 0.5rem auto 0;
 }
 
+
+#playerControls.Collapsed > button {
+    display: block;
+}
+
+#playerControls.Expanded > button {
+    display: inline;
+    animation: fadeIn 500ms;
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0}
+    60% {opacity: 0}
+    100% {opacity: 1}
+}
+
 .playerCard img {
     width: 100%;
     border-radius: 3px;
