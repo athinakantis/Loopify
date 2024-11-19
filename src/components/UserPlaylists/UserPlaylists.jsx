@@ -28,7 +28,6 @@ const UserPlaylists = ({ accessToken }) => {
 
     if (accessToken) {
       fetchPlaylists();
-      console.log(playlists)
     }
   }, [accessToken]); // re-runs useEffect function when accessToken changes
 
@@ -80,12 +79,12 @@ const UserPlaylists = ({ accessToken }) => {
         <div>
           <h2>Your Playlists</h2>
           <div className='playlistStyle'>
-            {playlists.map((playlist) => (
+            {playlists.length > 0 && playlists.map((playlist) => (
               <PlaylistCard
                 key={playlist.id}
                 onClick={() => playlistClick(playlist.id)}
                 playlistName={playlist.name}
-                img={playlist.images[0]?.url}
+                img={playlist?.images?.[0]?.url}
               />
             ))}
           </div>
