@@ -1,0 +1,38 @@
+.top-songs {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+.albums {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(1, 1fr);
+    gap: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+.playlists {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(1, 1fr);
+    gap: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+.displaySongs,
+.displayAlbums,
+.displayPlaylists {
+    margin: 20px;
+}
