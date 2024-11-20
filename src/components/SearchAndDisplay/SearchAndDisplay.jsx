@@ -6,7 +6,7 @@ import './SearchAndDisplay.css'
 import "./SearchBar.css";
 
 export default function SearchAndDisplay(props) {
-    const { type, placeholder, name, className, setPlayItem, setIsPlaying, ...rest } = props;
+    const { type, placeholder, name, className, setPlayItem, setIsPlaying, player, ...rest } = props;
     const classes = clsx(className);
 
     const accessToken = useSpotifyToken();
@@ -24,85 +24,84 @@ export default function SearchAndDisplay(props) {
         };
     }, []);
 
-    function handlePlay(id, artist, uri, title, img) {
+    function handlePlay(artist, title, imgUrl, uri, isTrack = false) {
         setPlayItem({
-            id: id,
+            name: title,
             artist: artist,
+            img: imgUrl,
             uri: uri,
-            title: title,
-            img: img,
-            isTrack: false
+            isTrack: isTrack
         })
+        setIsPlaying(true)
     }
 
     useEffect(() => {
         const handler = debounce((value) => setDebouncedSearchTerm(value), 500);
         handler(searchTerm);
-        return () => handler.cancel && handler.cancel(); // Clean up if needed
+        return () => handler.cancel && handler.cancel();
     }, [searchTerm, debounce]);
 
     useEffect(() => {
 
         if (debouncedSearchTerm) {
             fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(debouncedSearchTerm)}&type=track&limit=50`,
-            {headers: {Authorization: `Bearer ${accessToken}`}})
-            .then(response => response.json())
-            .then(data => setTracks(data.tracks.items))
-            .catch(error => console.error('Error fetching tracks:', error))
-        
-        fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(debouncedSearchTerm)}&type=album&limit=15`,
-        {headers: {Authorization: `Bearer ${accessToken}`}})
-            .then(response => response.json())
-            .then(data => setAlbums(data.albums.items))
-            .catch(error => console.error('Error fetching albums:', error))
-        
-        fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(debouncedSearchTerm)}&type=playlist&limit=15`,
-        {headers: {Authorization: `Bearer ${accessToken}`}})
-            .then(response => response.json())
-            .then(data => setPlaylists(data.playlists.items))
-            .catch(error => console.error('Error fetching playlists:', error))
+                { headers: { Authorization: `Bearer ${accessToken}` } })
+                .then(response => response.json())
+                .then(data => setTracks(data.tracks.items))
+                .catch(error => console.error('Error fetching tracks:', error))
+
+            fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(debouncedSearchTerm)}&type=album&limit=15`,
+                { headers: { Authorization: `Bearer ${accessToken}` } })
+                .then(response => response.json())
+                .then(data => setAlbums(data.albums.items))
+                .catch(error => console.error('Error fetching albums:', error))
+
+            fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(debouncedSearchTerm)}&type=playlist&limit=15`,
+                { headers: { Authorization: `Bearer ${accessToken}` } })
+                .then(response => response.json())
+                .then(data => setPlaylists(data.playlists.items))
+                .catch(error => console.error('Error fetching playlists:', error))
         }
     }, [debouncedSearchTerm, accessToken])
 
-  function handleKeyUp(event) {
-    event.preventDefault();
-    const query = event.target.value;
+    function handleKeyUp(event) {
+        event.preventDefault();
+        const query = event.target.value;
 
-    setSearchTerm(query)
+        setSearchTerm(query)
 
-    if (query.trim() === '') {
-        setTracks([]);
-        setAlbums([]);
-        setPlaylists([]);
-        return;
+        if (query.trim() === '') {
+            setTracks([]);
+            setAlbums([]);
+            setPlaylists([]);
+            return;
+        }
+
     }
 
-    }
-
-  return (
-    <>
-      <div className="search-bar">
-        <input
-          onKeyUp={handleKeyUp}
-          className={classes}
-          type={type}
-          placeholder={placeholder}
-          name={name}
-          {...rest}
-        />
-        <a href="#">
-          <span class="material-symbols-outlined">search</span>
-        </a>
-      </div>
+    return (
+        <>
+            <div className="search-bar">
+                <input
+                    onKeyUp={handleKeyUp}
+                    className={classes}
+                    type={type}
+                    placeholder={placeholder}
+                    name={name}
+                    {...rest}
+                />
+                <a href="#">
+                    <span class="material-symbols-outlined">search</span>
+                </a>
+            </div>
 
             <div className="displaySongs">
-            <h2>Top songs</h2>
+                <h2>Top songs</h2>
 
-            {tracks.length > 0 && (
-                 <div className='top-songs'>
-                    {tracks.map((track) => (
+                {tracks.length > 0 && (
+                    <div className='top-songs'>
+                        {tracks.map((track) => (
                             <SongCard
-                                id={track.id}
                                 key={track.id}
                                 setPlayItem={setPlayItem}
                                 setIsPlaying={setIsPlaying}
@@ -111,36 +110,38 @@ export default function SearchAndDisplay(props) {
                                 artist={track.artists.map((artist) => artist.name).join(', ')}
                                 img={track.album.images[0]?.url}
                             />
-                    ))}
-                </div>
-            )}
+                        ))}
+                    </div>
+                )}
             </div>
 
             <div className="displayAlbums">
-            <h2>Albums</h2>
-            <div className="albums">
-            {albums.map(album => (
-                <div className="album" key={album.id}>
-                    <button onClick={() => handlePlay(album.id, album.artists[0].name, album.uri, album.title, album.images[1].url)}>
-                    <img src={album.images[1]?.url} width="150px" height="150px"/>
-                    </button>
-                    <p className='albumName'>{album.name}</p>
-                    <p>{album.artists[0].name}</p>
+                <h2>Albums</h2>
+                <div className="albums">
+                    {albums.map(album => (
+                        <div className="album" key={album.id}>
+                            <button onClick={() => {
+                                handlePlay(album.artists[0].name, album.title, album.images[1].url, album.uri)
+                            }}>
+                                <img src={album.images[1]?.url} width="150px" height="150px" />
+                            </button>
+                            <p className='albumName'>{album.name}</p>
+                            <p>{album.artists[0].name}</p>
+                        </div>
+                    ))}
                 </div>
-            ))}
-            </div>
             </div>
 
             <div className="displayPlaylists">
-            <h2>Playlists</h2>
-            <div className="playlists">
-            {playlists.map(playlist => (
-                <div className="playlist" key={playlist.id}>
-                    <img src={playlist.images[0]?.url} width="150px" height="150px"/>
-                    <p className='playlistName'>{playlist.name}</p>
+                <h2>Playlists</h2>
+                <div className="playlists">
+                    {playlists.map(playlist => (
+                        <div className="playlist" key={playlist.id}>
+                            <img src={playlist.images[0]?.url} width="150px" height="150px" />
+                            <p className='playlistName'>{playlist.name}</p>
+                        </div>
+                    ))}
                 </div>
-            ))}
-            </div>
             </div>
         </>
     );
