@@ -1,13 +1,13 @@
-.player button {
+#player button {
     background-color: transparent;
 }
 
-.player .songCard {
+#player .songCard {
     border: none;
     opacity: 0.2;
 }
 
-.player {
+#player {
     margin: auto 1rem 1rem;
     display: flex;
     justify-content: center;
