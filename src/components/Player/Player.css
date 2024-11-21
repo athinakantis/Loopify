@@ -1,44 +1,93 @@
 #player button {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #player .songCard {
-    border: none;
-    opacity: 0.2;
+  border: none;
+  opacity: 0.2;
 }
 
 #player {
-    margin: auto 1rem 1rem;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+  margin: auto 1rem 1rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 #playerControls {
-    margin: 0.5rem auto 0;
+  display: flex;
+  align-items: center;
 }
 
-#playerControls.Collapsed > button {
-    display: block;
+#playerControls.Collapsed {
+  flex-direction: column-reverse;
+  gap: 1rem;
 }
 
-#playerControls.Expanded > button {
-    display: inline;
-    animation: fadeIn 500ms;
+.playPause {
+  display: flex;
+  margin: 0.5rem auto;
+}
+
+.Collapsed .playPause {
+  flex-direction: column;
+}
+
+.Expanded .playPause {
+  flex-direction: row;
+}
+
+#playerControls.Expanded {
+  animation: fadeIn 500ms;
+}
+
+#playerControls.Collapsed .playPause button {
+  display: block;
+}
+
+#playerControls.Expanded .playPause button {
+  display: inline;
 }
 
 @keyframes fadeIn {
-    0% {opacity: 0}
-    60% {opacity: 0}
-    100% {opacity: 1}
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .playerCard img {
-    width: 100%;
-    border-radius: 3px;
-    margin: 0.6rem 0 0;
+  width: 100%;
+  border-radius: 3px;
+  margin: 0.6rem 0 0;
 }
 
 .playerCard p:first-of-type {
-    font-weight: 500;
+  font-weight: 500;
+}
+
+#player input[type="range"] {
+  accent-color: var(--accentDark);
+}
+
+#player input[type="range"]::-moz-range-thumb {
+  width: 8px;
+  height: 8px;
+}
+
+#player .Expanded input[type="range"] {
+  height: 4px;
+  width: 100%;
+}
+
+#player .Collapsed input[type="range"] {
+  writing-mode: vertical-rl;
+  width: 4px;
+  margin: 0 auto;
+  height: 6rem;
 }

@@ -15,7 +15,6 @@ function App() {
   const [isReady, setIsReady] = useState(false);
   const [device, setDevice] = useState('')
 
-
   const [track, setTrack] = useState();
   const [paused, setPaused] = useState()
 
@@ -88,20 +87,26 @@ function App() {
           console.log('Device ID has gone offline', device_id);
         });
 
-        spotifyPlayer.addListener('player_state_changed', (state => {
-          if (!state) {
-            return;
+        spotifyPlayer.addListener('player_state_changed', (state) => {
+          if (!state) return;
+        
+          setPaused(state.paused); // Sync paused state with Spotify player
+          setIsPlaying(!state.paused);
+        
+          if (state.track_window && state.track_window.current_track) {
+            setPlayItem({
+              name: state.track_window.current_track.name,
+              img: state.track_window.current_track.album.images[0].url,
+              artist: state.track_window.current_track.artists[0].name,
+              uri: state.track_window.current_track.uri,
+            });
           }
-
-          setTrack(state.track_window.current_track);
-          setPaused(state.paused);
-
-
-          spotifyPlayer.getCurrentState().then(state => {
-            (!state) ? setActive(false) : setActive(true)
+        
+          spotifyPlayer.getCurrentState().then((playerState) => {
+            setPaused(!playerState); // Update the paused state correctly
+            setIsPlaying(!!playerState && !playerState.paused); // Avoid triggering play accidentally
           });
-
-        }));
+        });
 
         spotifyPlayer.connect();
         setPlayer(spotifyPlayer);
@@ -114,11 +119,6 @@ function App() {
         }
       };
     }, [player]);
-
-    return (
-      <div id='player'>
-      </div>
-    )
   };
 
   // When playItem is updated, a fetch request is sent with the song/context uri.
