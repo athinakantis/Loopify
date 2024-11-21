@@ -3,6 +3,7 @@ import { useState } from "react";
 
 function Player({ isOpen, player, playItem, setIsPlaying, isPlaying }) {
   const [volume, setVolume] = useState(0.3);
+
   // Toggle player
   function handlePlaying() {
     player.togglePlay();
@@ -16,11 +17,11 @@ function Player({ isOpen, player, playItem, setIsPlaying, isPlaying }) {
 
   return (
     <div id="player">
-      {playItem && isOpen && (
+      {isOpen && playItem && (
         <div className="playerCard">
           <p>{playItem.name}</p>
           <p>{playItem.artist}</p>
-          <img src={playItem.img} alt={playItem.title} />
+          <img src={playItem.img} alt={playItem.name} />
         </div>
       )}
 
