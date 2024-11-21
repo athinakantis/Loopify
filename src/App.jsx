@@ -6,17 +6,24 @@ import Header from "../src/components/Header/Header.jsx";
 import UserPlaylists from "./components/UserPlaylists/UserPlaylists.jsx";
 
 function App() {
-  const [accessToken, setAccessToken] = useState('');
+  const [accessToken, setAccessToken] = useState("");
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState('Search')
-  const [playItem, setPlayItem] = useState({})
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [player, setPlayer] = useState(null)
-  const [isReady, setIsReady] = useState(false);
-  const [device, setDevice] = useState('')
+  const [page, setPage] = useState("Search");
+  const [playItem, setPlayItem] = useState({});
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [player, setPlayer] = useState(null);
+  const [device, setDevice] = useState("");
 
-  const [track, setTrack] = useState();
-  const [paused, setPaused] = useState()
+  function handlePlay(artist, title, imgUrl, uri, type = "track") {
+    setPlayItem({
+      name: title,
+      artist: artist,
+      img: imgUrl,
+      uri: uri,
+      type: type,
+    });
+    setIsPlaying(true);
+  }
 
   // Effect that gets accesstoken on mount
   useEffect(() => {
@@ -27,7 +34,7 @@ function App() {
     const hash = window.location.hash;
 
     if (!token) {
-      setAccessToken('')
+      setAccessToken("");
     } else if (expiration && currentTime > expiration) {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("expiration");
@@ -52,19 +59,15 @@ function App() {
     setLoading(false);
   }, []);
 
-
   // Player component and effect to set it up/listen for events.
   const SpotifyPlayer = () => {
-    const [isReady, setIsReady] = useState(false);
-    const [active, setActive] = useState(false);
-
     useEffect(() => {
       const loadSpotifySDK = () => {
         // Check if the SDK script already exists
-        if (!document.getElementById('spotify-sdk')) {
-          const script = document.createElement('script');
-          script.id = 'spotify-sdk';
-          script.src = 'https://sdk.scdn.co/spotify-player.js';
+        if (!document.getElementById("spotify-sdk")) {
+          const script = document.createElement("script");
+          script.id = "spotify-sdk";
+          script.src = "https://sdk.scdn.co/spotify-player.js";
           script.async = true;
           document.body.appendChild(script);
         }
@@ -74,36 +77,37 @@ function App() {
 
       window.onSpotifyWebPlaybackSDKReady = () => {
         const spotifyPlayer = new Spotify.Player({
-          name: 'Web Playback SDK Quick Start Player',
-          getOAuthToken: cb => { cb(accessToken); },
+          name: "Loopify Player",
+          getOAuthToken: (cb) => {
+            cb(accessToken);
+          },
         });
 
-        spotifyPlayer.addListener('ready', ({ device_id }) => {
-          console.log('Ready with Device ID', device_id);
-          setDevice(device_id)
+        spotifyPlayer.addListener("ready", ({ device_id }) => {
+          console.log("Ready with Device ID", device_id);
+          setDevice(device_id);
         });
 
-        spotifyPlayer.addListener('not_ready', ({ device_id }) => {
-          console.log('Device ID has gone offline', device_id);
+        spotifyPlayer.addListener("not_ready", ({ device_id }) => {
+          console.log("Device ID has gone offline", device_id);
         });
 
-        spotifyPlayer.addListener('player_state_changed', (state) => {
+        spotifyPlayer.addListener("player_state_changed", (state) => {
           if (!state) return;
-        
-          setPaused(state.paused); // Sync paused state with Spotify player
+
           setIsPlaying(!state.paused);
-        
+
           if (state.track_window && state.track_window.current_track) {
             setPlayItem({
               name: state.track_window.current_track.name,
-              img: state.track_window.current_track.album.images[0].url,
+              img: state.track_window.current_track.album.images?.[0]?.url,
               artist: state.track_window.current_track.artists[0].name,
               uri: state.track_window.current_track.uri,
+              type: state.track_window.current_track.type,
             });
           }
-        
+
           spotifyPlayer.getCurrentState().then((playerState) => {
-            setPaused(!playerState); // Update the paused state correctly
             setIsPlaying(!!playerState && !playerState.paused); // Avoid triggering play accidentally
           });
         });
@@ -125,19 +129,20 @@ function App() {
   useEffect(() => {
     if (isPlaying) {
       let body;
-      playItem.isTrack ? body = JSON.stringify({ uris: [playItem.uri] }) : body = JSON.stringify({ context_uri: playItem.uri })
+      playItem.isTrack
+        ? (body = JSON.stringify({ uris: [playItem.uri] }))
+        : (body = JSON.stringify({ context_uri: playItem.uri }));
+
       fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
           Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: body
-      })
+        body: body,
+      });
     }
-  }, [playItem, isPlaying])
-
-
+  }, [playItem, isPlaying]);
 
   if (loading) return <p>Loading...</p>;
 
@@ -148,20 +153,23 @@ function App() {
         player={player}
         playItem={playItem}
         setIsPlaying={setIsPlaying}
-        isPlaying={isPlaying}>
-      </Header>
+        isPlaying={isPlaying}
+      ></Header>
       <SpotifyPlayer />
       <main>
         {!accessToken && <LandingPage />}
-        {page === 'Search' && <SearchAndDisplay
-          setPlayItem={setPlayItem}
-          setIsPlaying={setIsPlaying}
-          accesstoken={accessToken}
-          placeholder='Search...'
-          player={player}
-        />}
+        {page === "Search" && (
+          <SearchAndDisplay
+            setPlayItem={setPlayItem}
+            setIsPlaying={setIsPlaying}
+            handlePlay={handlePlay}
+            accesstoken={accessToken}
+            placeholder="Search..."
+            player={player}
+          />
+        )}
 
-        {page === 'Playlists' && <UserPlaylists accessToken={accessToken} />}
+        {page === "Playlists" && <UserPlaylists accessToken={accessToken} />}
       </main>
     </>
   );
