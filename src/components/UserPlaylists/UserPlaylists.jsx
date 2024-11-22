@@ -2,6 +2,7 @@ import './UserPlaylists.css';
 import React, { useEffect, useState } from 'react';
 import PlaylistCard from './PlaylistCard';
 import SongCard from '../SongCard/SongCard';
+import CreatePlaylist from './CreatePlaylist';
 
 const UserPlaylists = ({ accessToken }) => {
   const [playlists, setPlaylists] = useState([]);
@@ -77,7 +78,7 @@ const UserPlaylists = ({ accessToken }) => {
         </div>
       ) : (
         <div>
-          <h2>Your Playlists</h2>
+          <h2>Your Playlists <CreatePlaylist accessToken={accessToken}/></h2>
           <div className='playlistStyle'>
             {playlists.length > 0 && playlists.map((playlist) => (
               <PlaylistCard
