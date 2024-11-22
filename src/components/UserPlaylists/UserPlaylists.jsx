@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PlaylistCard from './PlaylistCard';
 import SongCard from '../SongCard/SongCard';
 import CreatePlaylist from './CreatePlaylist';
+import UpdatePlaylist from './UpdatePlaylist';
 
 const UserPlaylists = ({ accessToken }) => {
   const [playlists, setPlaylists] = useState([]);
@@ -20,7 +21,7 @@ const UserPlaylists = ({ accessToken }) => {
           },
         });
         const data = await response.json();
-        setPlaylists(data.items); // store the playlists in state
+        setPlaylists(data.items); // store the playlists in state as array
 
       } catch (error) {
         console.error('Error fetching playlists:', error);
@@ -59,6 +60,8 @@ const UserPlaylists = ({ accessToken }) => {
         <div>
           <button className='playlistBtn' onClick={backToPlaylists}>&larr; Back To Playlists</button>
           <h2>{playlists.find((i) => i.id === selectedPlaylist)?.name}</h2>
+
+          <div><UpdatePlaylist accessToken={accessToken} playlist={selectedPlaylist}/></div>
           <div className='songStyle'>
             {tracks.length > 0 ? (
               <div className='songStyle'>

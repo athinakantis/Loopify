@@ -1,0 +1,28 @@
+.container {
+  font-family: var(--mainFont);
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+}
+
+input {
+  background-color: var(--accentDark);
+  border-radius: 8px;
+  color: var(--accentDark);
+  padding: 7px;
+}
+
+textarea {
+  background-color: var(--accentDark);
+  border-radius: 8px;
+  color: var(--accentDark);
+  padding: 7px;
+}
+
+.updateButton {
+  background-color: var(--accentDark);
+  color: var(--backgroundDark);
+  border-radius: 100px;
+  width: 150px;
+  padding: 10px;
+}
