@@ -13,17 +13,7 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [player, setPlayer] = useState(null);
   const [device, setDevice] = useState("");
-
-  function handlePlay(artist, title, imgUrl, uri, type = "track") {
-    setPlayItem({
-      name: title,
-      artist: artist,
-      img: imgUrl,
-      uri: uri,
-      type: type,
-    });
-    setIsPlaying(true);
-  }
+  const [displayItem, setDisplayItem] = useState({});
 
   // Effect that gets accesstoken on mount
   useEffect(() => {
@@ -59,11 +49,9 @@ function App() {
     setLoading(false);
   }, []);
 
-  // Player component and effect to set it up/listen for events.
   const SpotifyPlayer = () => {
     useEffect(() => {
       const loadSpotifySDK = () => {
-        // Check if the SDK script already exists
         if (!document.getElementById("spotify-sdk")) {
           const script = document.createElement("script");
           script.id = "spotify-sdk";
@@ -83,6 +71,15 @@ function App() {
           },
         });
 
+        spotifyPlayer.addListener("player_state_changed", (state) => {
+          const currentTrack = state.track_window.current_track;
+          setDisplayItem({
+            name: currentTrack?.name,
+            artist: currentTrack?.artists?.[0]?.name,
+            img: currentTrack?.album?.images?.[0]?.url,
+          });
+        });
+
         spotifyPlayer.addListener("ready", ({ device_id }) => {
           console.log("Ready with Device ID", device_id);
           setDevice(device_id);
@@ -90,26 +87,6 @@ function App() {
 
         spotifyPlayer.addListener("not_ready", ({ device_id }) => {
           console.log("Device ID has gone offline", device_id);
-        });
-
-        spotifyPlayer.addListener("player_state_changed", (state) => {
-          if (!state) return;
-
-          setIsPlaying(!state.paused);
-
-          if (state.track_window && state.track_window.current_track) {
-            setPlayItem({
-              name: state.track_window.current_track.name,
-              img: state.track_window.current_track.album.images?.[0]?.url,
-              artist: state.track_window.current_track.artists[0].name,
-              uri: state.track_window.current_track.uri,
-              type: state.track_window.current_track.type,
-            });
-          }
-
-          spotifyPlayer.getCurrentState().then((playerState) => {
-            setIsPlaying(!!playerState && !playerState.paused); // Avoid triggering play accidentally
-          });
         });
 
         spotifyPlayer.connect();
@@ -125,11 +102,11 @@ function App() {
     }, [player]);
   };
 
-  // When playItem is updated, a fetch request is sent with the song/context uri.
+  // When the playItem is updated, a fetch request is sent with the song/context
   useEffect(() => {
     if (isPlaying) {
       let body;
-      playItem.isTrack
+      playItem.type === "track"
         ? (body = JSON.stringify({ uris: [playItem.uri] }))
         : (body = JSON.stringify({ context_uri: playItem.uri }));
 
@@ -141,9 +118,13 @@ function App() {
         },
         body: body,
       });
+
+      fetch(`https://api.spotify.com/v1/me/player/repeat?state=context`, {
+        method: "PUT",
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
     }
   }, [playItem, isPlaying]);
-
   if (loading) return <p>Loading...</p>;
 
   return (
@@ -151,7 +132,7 @@ function App() {
       <Header
         setPage={setPage}
         player={player}
-        playItem={playItem}
+        displayItem={displayItem}
         setIsPlaying={setIsPlaying}
         isPlaying={isPlaying}
       ></Header>
@@ -162,10 +143,8 @@ function App() {
           <SearchAndDisplay
             setPlayItem={setPlayItem}
             setIsPlaying={setIsPlaying}
-            handlePlay={handlePlay}
             accesstoken={accessToken}
             placeholder="Search..."
-            player={player}
           />
         )}
 
