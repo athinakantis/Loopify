@@ -8,7 +8,6 @@ import "./SearchBar.css";
 export default function SearchAndDisplay(props) {
   const { type, placeholder, name, className, ...rest } = props;
   const classes = clsx(className);
-  console.log(className);
 
   const accessToken = useSpotifyToken();
   const [searchTerm, setSearchTerm] = useState("");
