@@ -1,84 +1,96 @@
-import "./UserPlaylists.css";
-import React, { useEffect, useState } from "react";
+import './UserPlaylists.css';
+import React, { useEffect, useState } from 'react';
+import PlaylistCard from './PlaylistCard';
+import SongCard from '../SongCard/SongCard';
 
 const UserPlaylists = ({ accessToken }) => {
   const [playlists, setPlaylists] = useState([]);
-  const [newReleases, setNewReleases] = useState([]);
+  const [selectedPlaylist, setSelectedPlaylist] = useState(null);
+  const [tracks, setTracks] = useState([]);
 
   useEffect(() => {
     const fetchPlaylists = async () => {
       try {
-        const response = await fetch(
-          "https://api.spotify.com/v1/me/playlists?limit=5",
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        // to add a limit, add => ?limit=10
+        const response = await fetch("https://api.spotify.com/v1/me/playlists", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+        });
         const data = await response.json();
-        setPlaylists(data.items);
-      } catch (error) {
-        console.error("Error fetching playlists:", error);
-      }
-    };
+        setPlaylists(data.items); // store the playlists in state
 
-    const fetchNewReleases = async () => {
-      try {
-        const response = await fetch(
-          "https://api.spotify.com/v1/browse/new-releases?limit=5",
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setNewReleases(data.albums.items);
       } catch (error) {
-        console.error("Error fetching new releases:", error);
+        console.error('Error fetching playlists:', error);
       }
     };
 
     if (accessToken) {
       fetchPlaylists();
-      fetchNewReleases();
     }
   }, [accessToken]); // re-runs useEffect function when accessToken changes
 
+  // Playlist click to fetch the tracks
+
+  const playlistClick = async (playlistId) => {
+    const response = await fetch (`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, 
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    const data = await response.json();
+    setTracks(data.items);
+    setSelectedPlaylist(playlistId);
+  };
+
+  const backToPlaylists = () => {
+    setSelectedPlaylist(null); // reset the selected playlist to show playlists again
+    setTracks([]); // clear the tracks
+  };
+
   return (
-    <div>
-      <h2>Your Playlists</h2>
-      <ul>
-        {playlists.map((playlist) => (
-          <li key={playlist.id}>
-            <img
-              src={playlist.images[0]?.url}
-              alt={playlist.name}
-              className="userPlaylist"
-            />
-            <span>{playlist.name}</span>
-          </li>
-        ))}
-      </ul>
-      <h2>New Releases</h2>
-      <ul>
-        {newReleases.map((item) => (
-          <li key={item.id}>
-            <img
-              src={item.images[0]?.url}
-              alt={item.name}
-              className="userPlaylist"
-            />
-            <span>{item.name}</span>
-          </li>
-        ))}
-      </ul>
+    <div className='containerStyle'>
+      {selectedPlaylist ? (
+        <div>
+          <button className='playlistBtn' onClick={backToPlaylists}>&larr; Back To Playlists</button>
+          <h2>{playlists.find((i) => i.id === selectedPlaylist)?.name}</h2>
+          <div className='songStyle'>
+            {tracks.length > 0 ? (
+              <div className='songStyle'>
+                {tracks.map((track) => (
+                  <SongCard
+                      key={track.track.id}
+                      songTitle={track.track.name}
+                      songArtist={track.track.artists.map((artist) => artist.name).join(', ')}
+                      img={track.track.album.images[0]?.url}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p>No tracks available.</p>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div>
+          <h2>Your Playlists</h2>
+          <div className='playlistStyle'>
+            {playlists.length > 0 && playlists.map((playlist) => (
+              <PlaylistCard
+                key={playlist.id}
+                onClick={() => playlistClick(playlist.id)}
+                playlistName={playlist.name}
+                img={playlist?.images?.[0]?.url}
+              />
+            ))}
+          </div>
+        </div>
+        )
+      }
     </div>
   );
 };
