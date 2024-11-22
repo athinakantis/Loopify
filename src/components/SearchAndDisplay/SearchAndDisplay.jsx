@@ -50,10 +50,7 @@ export default function SearchAndDisplay(props) {
         { headers: { Authorization: `Bearer ${accessToken}` } }
       )
         .then((response) => response.json())
-        .then((data) => {
-          setAlbums(data.albums.items);
-          console.log(data.albums.items);
-        })
+        .then((data) => setAlbums(data.albums.items))
         .catch((error) => console.error("Error fetching albums:", error));
 
       fetch(
@@ -63,10 +60,7 @@ export default function SearchAndDisplay(props) {
         { headers: { Authorization: `Bearer ${accessToken}` } }
       )
         .then((response) => response.json())
-        .then((data) => {
-          setAlbums(data.playlists.items);
-          console.log(data.playlists.items);
-        })
+        .then((data) => setAlbums(data.playlists.items))
         .catch((error) => console.error("Error fetching playlists:", error));
     }
   }, [searchTerm, accessToken]);
