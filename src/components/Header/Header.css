@@ -1,9 +1,8 @@
 header {
-    transition: width 500ms;
+    transition: all 500ms;
     background-color: var(--backgroundDark);
     height: 100vh;
     border-right: 1px solid rgba(171, 195, 248, 0.5);
-    padding: 30px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -25,7 +24,7 @@ header {
 
 nav ul {
     color: var(--accentDark);
-    margin-top: 6rem;
+    margin: 8rem 2rem;
 }
 
 nav ul button {
@@ -60,13 +59,13 @@ nav ul img {
 }
 
 .visible {
-    transition: opacity 300ms;
+    transition: opacity 150ms;
     transition-delay: 300ms;
     opacity: 1;
 }
 
 .invisible {
-    transition: opacity 300ms;
+    transition: opacity 150ms;
     opacity: 0;
 }
 

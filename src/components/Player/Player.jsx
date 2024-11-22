@@ -1,93 +1,72 @@
-import { useEffect, useState } from 'react';
-import SongCard from '../SongCard/SongCard';
-import './Player.css';
+import "./Player.css";
+import { useState } from "react";
 
-function Player({ accessToken }) {
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [deviceID, setDeviceID] = useState('');
-    const [playItem, setPlayItem] = useState(
-        'spotify:album:4vg4m0qGPeoNTLyJkjBsBs'
-    );
+function Player({ isOpen, player, setIsPlaying, displayItem, isPlaying }) {
+  const [volume, setVolume] = useState(0.3);
 
-    const playEndpoint = `https://api.spotify.com/v1/me/player/play`;
-    const deviceEndpoint = `https://api.spotify.com/v1/me/player/devices`;
-    const pauseEndpoint = `https://api.spotify.com/v1/me/player/pause`;
+  function handleVolume(e) {
+    setVolume(e.target.value);
+    player.setVolume(e.target.value);
+  }
 
-    function handlePlaying() {
-        setIsPlaying((prev) => !prev);
-    }
+  function handlePlay() {
+    setIsPlaying((prev) => !prev);
+    player.togglePlay();
+  }
 
-    const playOption = {
-        method: 'PUT',
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-        },
-    };
+  function handleSkipNext() {
+    player.nextTrack();
+    setIsPlaying(true);
+  }
 
-    useEffect(() => {
-        fetch(deviceEndpoint, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                setDeviceID(data.devices?.[0]?.id);
-            });
+  function handleSkipPrevious() {
+    player.previousTrack();
+    setIsPlaying(true);
+  }
 
-        [accessToken];
-    });
-
-    useEffect(() => {
-        if (!isPlaying) {
-            fetch(`${playEndpoint}?device_id=${deviceID}`, {
-                method: 'PUT',
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ context_uri: playItem }),
-            });
-        } else if (isPlaying) {
-            fetch(`${pauseEndpoint}?device_id=${deviceID}`, {
-                method: 'PUT',
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-        }
-    }, [isPlaying]);
-
-    return (
-        <div className='player'>
-            <div id='playerControls'>
-                <button id='skipPrev'>
-                    <img
-                        src='src/assets/player_skipPrevious.svg'
-                        alt='Skip to previous song'
-                    />
-                </button>
-                <button id='playPause' onClick={handlePlaying}>
-                    {isPlaying ? (
-                        <img
-                            src='src/assets/player_pauseIcon.svg'
-                            alt='Pause Icon'
-                        />
-                    ) : (
-                        <img
-                            src='src/assets/player_playIcon.svg'
-                            alt='Play Icon'
-                        />
-                    )}
-                </button>
-                <button id='skipNext'>
-                    <img
-                        src='src/assets/player_skipNext.svg'
-                        alt='Skip to next song'
-                    />
-                </button>
-            </div>
+  return (
+    <div id="player">
+      {isOpen && displayItem && (
+        <div className="playerCard">
+          <p>{displayItem.name}</p>
+          <p>{displayItem.artist}</p>
+          <img src={displayItem.img} alt={displayItem.name} />
         </div>
-    );
+      )}
+
+      <div className={isOpen ? "Expanded" : "Collapsed"} id="playerControls">
+        <div className="playPause">
+          <button id="skipPrev" onClick={handleSkipPrevious}>
+            <img
+              src="src/assets/player_skipPrevious.svg"
+              alt="Skip to previous song"
+            />
+          </button>
+          <button id="playPause" onClick={handlePlay}>
+            {isPlaying ? (
+              <img src="src/assets/player_pauseIcon.svg" alt="Pause Icon" />
+            ) : (
+              <img src="src/assets/player_playIcon.svg" alt="Play Icon" />
+            )}
+          </button>
+          <button id="skipNext" onClick={handleSkipNext}>
+            <img src="src/assets/player_skipNext.svg" alt="Skip to next song" />
+          </button>
+        </div>
+
+        <input
+          type="range"
+          onChange={handleVolume}
+          name="volume"
+          id="volume"
+          min="0"
+          max="1"
+          step="0.01"
+          value={volume}
+        />
+      </div>
+    </div>
+  );
 }
 
 export default Player;

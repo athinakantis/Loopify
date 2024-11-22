@@ -64,7 +64,7 @@ const UserPlaylists = ({ accessToken }) => {
             <img
               src={playlist.images[0]?.url}
               alt={playlist.name}
-              className="userPlaylist"
+              className='userPlaylist'
             />
             <span>{playlist.name}</span>
           </li>
@@ -77,7 +77,7 @@ const UserPlaylists = ({ accessToken }) => {
             <img
               src={item.images[0]?.url}
               alt={item.name}
-              className="userPlaylist"
+              className='userPlaylist'
             />
             <span>{item.name}</span>
           </li>
