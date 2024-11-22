@@ -1,15 +1,12 @@
 # Loopify
 
-An app to help users discover new music based on his/her mood. <br>
+An app to help users discover new music based on his/her mood.  
 There is a search functionality which will allow the user to search music.
 
 ## Technologies used
 
--   React.js
--   Node.js
+-   React
 -   Spotifty API
--   Github
--   Trello
 
 ## Authors
 
