@@ -24,6 +24,8 @@
 
 #root {
     display: flex;
+    position: relative;
+    height: auto;
 }
 
 
@@ -41,4 +43,6 @@ body :where(h1, h2, h3, h4, h5, h6) {
 
 main {
     overflow: hidden;
+    margin: 20px 40px;
+    flex: 1;
 }
