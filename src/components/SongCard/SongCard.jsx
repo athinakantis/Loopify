@@ -5,8 +5,8 @@ function SongCard(props) {
     <div className="songCard">
       <img src={props.img} alt={props.songtitle} />
       <div className="songDetails">
-        <p className="songName">{props.songTitle}</p>
-        <p className="songArtist">{props.songArtist}</p>
+        <p>{props.songTitle}</p>
+        <p>{props.songArtist}</p>
       </div>
     </div>
   );

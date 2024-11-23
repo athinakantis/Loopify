@@ -1,12 +1,20 @@
 import clsx from "clsx";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import useSpotifyToken from "../useSpotifyToken/useSpotifyToken.jsx";
 import SongCard from "../SongCard/SongCard.jsx";
 import "./SearchAndDisplay.css";
 import "./SearchBar.css";
 
 export default function SearchAndDisplay(props) {
-  const { type, placeholder, name, className, ...rest } = props;
+  const {
+    type,
+    placeholder,
+    name,
+    className,
+    setPlayItem,
+    setIsPlaying,
+    ...rest
+  } = props;
   const classes = clsx(className);
 
   const accessToken = useSpotifyToken();
@@ -14,6 +22,14 @@ export default function SearchAndDisplay(props) {
   const [tracks, setTracks] = useState([]);
   const [albums, setAlbums] = useState([]);
   const [playlists, setPlaylists] = useState([]);
+
+  function handlePlay(uri, type = "track") {
+    setPlayItem({
+      uri: uri,
+      type: type,
+    });
+    setIsPlaying(true);
+  }
 
   useEffect(() => {
     if (searchTerm) {
@@ -44,10 +60,10 @@ export default function SearchAndDisplay(props) {
         { headers: { Authorization: `Bearer ${accessToken}` } }
       )
         .then((response) => response.json())
-        .then((data) => setPlaylists(data.playlists.items))
+        .then((data) => setAlbums(data.playlists.items))
         .catch((error) => console.error("Error fetching playlists:", error));
     }
-  }, [searchTerm]);
+  }, [searchTerm, accessToken]);
 
   function handleKeyUp(event) {
     event.preventDefault();
@@ -86,12 +102,14 @@ export default function SearchAndDisplay(props) {
           <div className="top-songs">
             {tracks.map((track) => (
               <SongCard
-                key={track.id}
-                songTitle={track.name}
-                songArtist={track.artists
-                  .map((artist) => artist.name)
-                  .join(", ")}
-                img={track.album.images[0]?.url}
+                setPlayItem={setPlayItem}
+                key={track?.id}
+                uri={track?.uri}
+                name={track?.name}
+                artist={track?.artists
+                  ?.map((artist) => artist?.name)
+                  ?.join(", ")}
+                img={track?.album?.images?.[0]?.url}
               />
             ))}
           </div>
@@ -102,16 +120,20 @@ export default function SearchAndDisplay(props) {
         <h2>Albums</h2>
         <div className="albums">
           {albums.map((album) => (
-            <div className="album" key={album.id}>
-              <div className="albumImg">
-                <img src={album.images[0]?.url} width="150px" height="150px" />
-              </div>
-              <div className="albumInfo">
-                <p className="albumName">
-                  {album.name.slice(0, 20) + (album.name.length > 20 && "...")}
-                </p>
-                <p className="albumArtist">{album.artists[0].name}</p>
-              </div>
+            <div className="album" key={album?.id}>
+              <button
+                onClick={() => {
+                  handlePlay(album?.uri, "album");
+                }}
+              >
+                <img
+                  src={album?.images?.[0]?.url}
+                  width="150px"
+                  height="150px"
+                />
+              </button>
+              <p className="albumName">{album?.name}</p>
+              <p>{album?.artists?.[0]?.name}</p>
             </div>
           ))}
         </div>
@@ -121,12 +143,19 @@ export default function SearchAndDisplay(props) {
         <h2>Playlists</h2>
         <div className="playlists">
           {playlists.map((playlist) => (
-            <div className="playlist" key={playlist.id}>
-              <img src={playlist.images[0]?.url} width="150px" height="150px" />
-              <p>
-                {playlist.name.slice(0, 20) +
-                  (playlist.name.length > 20 && "...")}
-              </p>
+            <div className="playlist" key={playlist?.id}>
+              <button
+                onClick={() => {
+                  handlePlay(playlist?.uri, "playlist");
+                }}
+              >
+                <img
+                  src={playlist?.images?.[0]?.url}
+                  width="150px"
+                  height="150px"
+                />
+              </button>
+              <p className="playlistName">{playlist?.name}</p>
             </div>
           ))}
         </div>

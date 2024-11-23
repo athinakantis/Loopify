@@ -15,6 +15,11 @@
   background-color: var(--accentDark);
   font-size: 16px;
   border-radius: 30px;
+
+  &::placeholder {
+    color: var(--backgroundDark);
+    opacity: 0.5;
+  }
 }
 
 .search-bar a {
