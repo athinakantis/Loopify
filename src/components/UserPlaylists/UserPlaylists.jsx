@@ -9,6 +9,7 @@ const UserPlaylists = ({ accessToken }) => {
   const [playlists, setPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const [tracks, setTracks] = useState([]);
+  const [refreshList, setRefreshList] = useState(0); // State to trigger playlist refresh
 
   useEffect(() => {
     const fetchPlaylists = async () => {
@@ -31,7 +32,11 @@ const UserPlaylists = ({ accessToken }) => {
     if (accessToken) {
       fetchPlaylists();
     }
-  }, [accessToken]); // re-runs useEffect function when accessToken changes
+  }, [accessToken, refreshList]); // re-runs useEffect function when accessToken or playlists change
+
+  const refreshPlaylists = () => {
+    setRefreshList((prev) => prev + 1); // Increment refreshList to trigger a refresh
+  };
 
   // Playlist click to fetch the tracks
 
@@ -81,7 +86,7 @@ const UserPlaylists = ({ accessToken }) => {
         </div>
       ) : (
         <div>
-          <h2>Your Playlists <CreatePlaylist accessToken={accessToken}/></h2>
+          <h2>Your Playlists <CreatePlaylist accessToken={accessToken} refreshPlaylists={refreshPlaylists}/></h2>
           <div className='playlistStyle'>
             {playlists.length > 0 && playlists.map((playlist) => (
               <PlaylistCard

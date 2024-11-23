@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import './CreatePlaylist.css';
 
-const CreatePlaylist = ({ accessToken }) => {
+const CreatePlaylist = ({ accessToken, refreshPlaylists }) => {
 
     /*
     const [playlistName, setPlaylistName] = useState('');
     const [playlistDescription, setPlaylistDescription] = useState('');
     const [isPrivate, setIsPrivate] = useState(false);
     */
-
-    const[isNotifVisible, setIsNotifVisible] = useState(false);
 
     // get user profile
     const createPlaylist = async () => {
@@ -39,7 +37,7 @@ const CreatePlaylist = ({ accessToken }) => {
             if (playlistResponse.ok) {
                 const playlistData = await playlistResponse.json();
                 console.log('Playlist created:', playlistData);
-                alert('Playlist created!');
+                refreshPlaylists(); // Trigger refresh
             } else {
                 const errorData = await playlistResponse.json();
                 console.error('Failed to create playlist:', errorData);
