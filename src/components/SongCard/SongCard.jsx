@@ -14,8 +14,8 @@ function SongCard({ name, artist, img, uri, setPlayItem }) {
         <img src={img} alt={name} />
       </button>
       <div className="songDetails">
-        <p>{name}</p>
-        <p>{artist}</p>
+        <p className="songName">{name}</p>
+        <p className="songArtist">{artist}</p>
       </div>
     </div>
   );

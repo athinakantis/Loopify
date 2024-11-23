@@ -121,19 +121,27 @@ export default function SearchAndDisplay(props) {
         <div className="albums">
           {albums.map((album) => (
             <div className="album" key={album?.id}>
-              <button
-                onClick={() => {
-                  handlePlay(album?.uri, "album");
-                }}
-              >
-                <img
-                  src={album?.images?.[0]?.url}
-                  width="150px"
-                  height="150px"
-                />
-              </button>
-              <p className="albumName">{album?.name}</p>
-              <p>{album?.artists?.[0]?.name}</p>
+              <div className="albumImg">
+                <div className="albumIcons">
+                  <span class="material-symbols-outlined">play_arrow</span>
+                  <span class="material-symbols-outlined">playlist_add</span>
+                </div>
+                <button
+                  onClick={() => {
+                    handlePlay(album?.uri, "album");
+                  }}
+                >
+                  <img
+                    src={album?.images?.[0]?.url}
+                    width="150px"
+                    height="150px"
+                  />
+                </button>
+              </div>
+              <div className="albumInfo">
+                <p className="albumName">{album?.name}</p>
+                <p>{album?.artists?.[0]?.name}</p>
+              </div>
             </div>
           ))}
         </div>
