@@ -28,17 +28,22 @@ function Player({ isOpen, player, setIsPlaying, displayItem, isPlaying }) {
 
   return (
     <div id='player'>
-      {isOpen && displayItem && (
-        <div className='playerCard'>
-          <p>{displayItem.name}</p>
-          <p>{displayItem.artist}</p>
+      <div className='playerCard'>
+        {isOpen && (
+          <>
+            <p>{displayItem.name}</p>
+            <p>{displayItem.artist}</p>
+          </>
+        )}
+        <div className='frame'>
           <LazyLoadImage
+            className={isOpen ? 'expanded' : 'collapsed'}
             effect='opacity'
             src={displayItem.img}
             alt={displayItem.name}
           />
         </div>
-      )}
+      </div>
 
       <div className={isOpen ? 'Expanded' : 'Collapsed'} id='playerControls'>
         <div className='playPause'>
