@@ -1,38 +1,116 @@
 .top-songs {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: repeat(2, 1fr);
-    gap: 10px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    width: 100%;
-    max-width: 100vw;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 .albums {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: repeat(1, 1fr);
-    gap: 10px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    width: 100%;
-    max-width: 100vw;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(1, 1fr);
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 .playlists {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: repeat(1, 1fr);
-    gap: 10px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    width: 100%;
-    max-width: 100vw;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(1, 1fr);
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 .displaySongs,
 .displayAlbums,
 .displayPlaylists {
-    margin: 20px;
+  margin: 20px;
+}
+
+.album {
+  position: relative;
+}
+
+.album:first-of-type::after {
+  content: 'L';
+  font-size: 4rem;
+  font-weight: 900;
+  position: absolute;
+  top: 1.8rem;
+  left: 3.6rem;
+  color: var(--accentDark);
+}
+
+.album:nth-of-type(2)::after,
+.album:nth-of-type(3)::after {
+  content: 'O';
+  font-size: 4rem;
+  font-weight: 900;
+  position: absolute;
+  top: 1.8rem;
+  left: 3.6rem;
+  color: var(--accentDark);
+}
+
+.album:nth-of-type(4)::after {
+  content: 'P';
+  font-size: 4rem;
+  font-weight: 900;
+  position: absolute;
+  top: 1.8rem;
+  left: 3.6rem;
+  color: var(--accentDark);
+}
+
+.album:nth-of-type(5)::after {
+  content: 'I';
+  font-size: 4rem;
+  font-weight: 900;
+  position: absolute;
+  top: 1.8rem;
+  left: 3.6rem;
+  color: var(--accentDark);
+}
+
+.album:nth-of-type(6)::after {
+  content: 'F';
+  font-size: 4rem;
+  font-weight: 700;
+  position: absolute;
+  top: 1.8rem;
+  left: 3.6rem;
+  color: var(--accentDark);
+}
+
+.album:nth-of-type(7)::after {
+  content: 'Y';
+  font-size: 4rem;
+  font-weight: 900;
+  position: absolute;
+  top: 1.8rem;
+  left: 3.6rem;
+  color: var(--accentDark);
+}
+
+.album p {
+  font-size: 1rem;
+}
+
+.album span {
+  position: relative;
+  z-index: 2;
+}
+
+.album button {
+  background-color: var(--backgroundDark);
 }

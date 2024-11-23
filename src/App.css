@@ -1,9 +1,15 @@
 button {
-    border: none;
-    font-size: inherit;
-    font-family: inherit;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
 
-    &:hover {
-        cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.album img,
+.songCard img,
+.playlist img {
+  background-color: var(--backgroundDark);
 }

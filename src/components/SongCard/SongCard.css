@@ -1,14 +1,17 @@
 .songCard {
-    background-color: var(--accentDark);
-    color: var( --backgroundDark);
-    height: 50px;
-    width: 200px;
-    display: flex;
-    border-radius: var(--radiusSmall);
+  background-color: var(--accentDark);
+  color: var(--backgroundDark);
+  height: 50px;
+  width: 200px;
+  display: flex;
+  border-radius: var(--radiusSmall);
 }
 
-
 .songCard img {
-    width: 50px;
-    height: 100%;
+  width: 50px;
+  height: 100%;
+}
+
+.songCard button {
+  background-color: var(--accentDark);
 }

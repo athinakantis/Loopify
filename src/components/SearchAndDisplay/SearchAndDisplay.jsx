@@ -1,9 +1,14 @@
-import clsx from "clsx";
-import { useState, useEffect, useCallback } from "react";
-import useSpotifyToken from "../useSpotifyToken/useSpotifyToken.jsx";
-import SongCard from "../SongCard/SongCard.jsx";
-import "./SearchAndDisplay.css";
-import "./SearchBar.css";
+import clsx from 'clsx';
+import { useState, useEffect } from 'react';
+import useSpotifyToken from '../useSpotifyToken/useSpotifyToken.jsx';
+import SongCard from '../SongCard/SongCard.jsx';
+import './SearchAndDisplay.css';
+import './SearchBar.css';
+import {
+  LazyLoadComponent,
+  LazyLoadImage,
+} from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/opacity.css';
 
 export default function SearchAndDisplay(props) {
   const {
@@ -18,12 +23,12 @@ export default function SearchAndDisplay(props) {
   const classes = clsx(className);
 
   const accessToken = useSpotifyToken();
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [tracks, setTracks] = useState([]);
   const [albums, setAlbums] = useState([]);
   const [playlists, setPlaylists] = useState([]);
 
-  function handlePlay(uri, type = "track") {
+  function handlePlay(uri, type = 'track') {
     setPlayItem({
       uri: uri,
       type: type,
@@ -41,7 +46,7 @@ export default function SearchAndDisplay(props) {
       )
         .then((response) => response.json())
         .then((data) => setTracks(data.tracks.items))
-        .catch((error) => console.error("Error fetching tracks:", error));
+        .catch((error) => console.error('Error fetching tracks:', error));
 
       fetch(
         `https://api.spotify.com/v1/search?q=${encodeURIComponent(
@@ -51,7 +56,7 @@ export default function SearchAndDisplay(props) {
       )
         .then((response) => response.json())
         .then((data) => setAlbums(data.albums.items))
-        .catch((error) => console.error("Error fetching albums:", error));
+        .catch((error) => console.error('Error fetching albums:', error));
 
       fetch(
         `https://api.spotify.com/v1/search?q=${encodeURIComponent(
@@ -61,7 +66,7 @@ export default function SearchAndDisplay(props) {
       )
         .then((response) => response.json())
         .then((data) => setAlbums(data.playlists.items))
-        .catch((error) => console.error("Error fetching playlists:", error));
+        .catch((error) => console.error('Error fetching playlists:', error));
     }
   }, [searchTerm, accessToken]);
 
@@ -71,7 +76,7 @@ export default function SearchAndDisplay(props) {
 
     setSearchTerm(query);
 
-    if (query.trim() === "") {
+    if (query.trim() === '') {
       setTracks([]);
       setAlbums([]);
       setPlaylists([]);
@@ -81,7 +86,7 @@ export default function SearchAndDisplay(props) {
 
   return (
     <>
-      <div className="search-bar">
+      <div className='search-bar'>
         <input
           onKeyUp={handleKeyUp}
           className={classes}
@@ -90,16 +95,16 @@ export default function SearchAndDisplay(props) {
           name={name}
           {...rest}
         />
-        <a href="#">
-          <span class="material-symbols-outlined">search</span>
+        <a href='#'>
+          <span class='material-symbols-outlined'>search</span>
         </a>
       </div>
 
-      <div className="displaySongs">
+      <div className='displaySongs'>
         <h2>Top songs</h2>
 
         {tracks.length > 0 && (
-          <div className="top-songs">
+          <div className='top-songs'>
             {tracks.map((track) => (
               <SongCard
                 setPlayItem={setPlayItem}
@@ -108,7 +113,7 @@ export default function SearchAndDisplay(props) {
                 name={track?.name}
                 artist={track?.artists
                   ?.map((artist) => artist?.name)
-                  ?.join(", ")}
+                  ?.join(', ')}
                 img={track?.album?.images?.[0]?.url}
               />
             ))}
@@ -116,46 +121,47 @@ export default function SearchAndDisplay(props) {
         )}
       </div>
 
-      <div className="displayAlbums">
+      <div className='displayAlbums'>
         <h2>Albums</h2>
-        <div className="albums">
+        <div className='albums'>
           {albums.map((album) => (
-            <div className="album" key={album?.id}>
+            <div className='album' key={album?.id}>
               <button
                 onClick={() => {
-                  handlePlay(album?.uri, "album");
+                  handlePlay(album?.uri, 'album');
                 }}
               >
-                <img
+                <LazyLoadImage
+                  effect='opacity'
                   src={album?.images?.[0]?.url}
-                  width="150px"
-                  height="150px"
+                  width='150px'
+                  height='150px'
                 />
               </button>
-              <p className="albumName">{album?.name}</p>
+              <p className='albumName'>{album?.name}</p>
               <p>{album?.artists?.[0]?.name}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="displayPlaylists">
+      <div className='displayPlaylists'>
         <h2>Playlists</h2>
-        <div className="playlists">
+        <div className='playlists'>
           {playlists.map((playlist) => (
-            <div className="playlist" key={playlist?.id}>
+            <div className='playlist' key={playlist?.id}>
               <button
                 onClick={() => {
-                  handlePlay(playlist?.uri, "playlist");
+                  handlePlay(playlist?.uri, 'playlist');
                 }}
               >
                 <img
                   src={playlist?.images?.[0]?.url}
-                  width="150px"
-                  height="150px"
+                  width='150px'
+                  height='150px'
                 />
               </button>
-              <p className="playlistName">{playlist?.name}</p>
+              <p className='playlistName'>{playlist?.name}</p>
             </div>
           ))}
         </div>
