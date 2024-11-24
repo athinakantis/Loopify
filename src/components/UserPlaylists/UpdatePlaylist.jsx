@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import './UpdatePlaylist.css'
 
-const UpdatePlaylist = ({ accessToken, playlist }) => {
+const UpdatePlaylist = ({ accessToken, playlist_id, playlist, description, isItPublic }) => {
     // State for editable playlist details
-    const [playlistName, setPlaylistName] = useState(playlist.name);
-    console.log(playlist.name)
-    const [playlistDescription, setPlaylistDescription] = useState(playlist.description || '');
-    const [isPublic, setIsPublic] = useState(playlist.public);
+    const [playlistName, setPlaylistName] = useState(playlist);
+    const [playlistDescription, setPlaylistDescription] = useState(description || '');
+    const [isPublic, setIsPublic] = useState(isItPublic);
 
     const handleUpdatePlaylist = async () => {
         if (!playlistName.trim()) {
@@ -16,7 +15,7 @@ const UpdatePlaylist = ({ accessToken, playlist }) => {
 
         try {
             // Spotify API request to update playlist details
-            const response = await fetch(`https://api.spotify.com/v1/playlists/${playlist.id}`, {
+            const response = await fetch(`https://api.spotify.com/v1/playlists/${playlist_id}`, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -55,28 +54,22 @@ const UpdatePlaylist = ({ accessToken, playlist }) => {
                     required
                 />
             </label>
-            <br />
-
             <label>
                 Description:
                 <textarea
                     value={playlistDescription}
                     onChange={(e) => setPlaylistDescription(e.target.value)}
-                    placeholder="Enter playlist description (optional)"
+                    placeholder="Enter description (optional)"
                 />
             </label>
-            <br />
-
-            <label>
+            <label className='checkbox'>
                 <input
                     type="checkbox"
                     checked={isPublic}
                     onChange={(e) => setIsPublic(e.target.checked)}
                 />
                 Make Playlist Public
-            </label>
-            <br />
-
+            </label>            
             <button
               className='updateButton'
               onClick={handleUpdatePlaylist}
@@ -85,33 +78,6 @@ const UpdatePlaylist = ({ accessToken, playlist }) => {
             </button>
         </div>
     );
-};
-
-// Basic styling
-const styles = {
-    input: {
-        width: '90%',
-        padding: '8px',
-        margin: '10px 0',
-        borderRadius: '4px',
-        border: '1px solid #ccc',
-    },
-    textarea: {
-        width: '90%',
-        padding: '8px',
-        margin: '10px 0',
-        borderRadius: '4px',
-        border: '1px solid #ccc',
-        resize: 'none',
-    },
-    button: {
-        padding: '10px 15px',
-        backgroundColor: '#4CAF50',
-        color: '#fff',
-        border: 'none',
-        borderRadius: '4px',
-        cursor: 'pointer',
-    },
 };
 
 export default UpdatePlaylist;

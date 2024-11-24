@@ -22,8 +22,7 @@ const UserPlaylists = ({ accessToken }) => {
           },
         });
         const data = await response.json();
-        setPlaylists(data.items); // store the playlists in state as array
-
+        setPlaylists(data.items);
       } catch (error) {
         console.error('Error fetching playlists:', error);
       }
@@ -35,11 +34,10 @@ const UserPlaylists = ({ accessToken }) => {
   }, [accessToken, refreshList]); // re-runs useEffect function when accessToken or playlists change
 
   const refreshPlaylists = () => {
-    setRefreshList((prev) => prev + 1); // Increment refreshList to trigger a refresh
+    setRefreshList((prev) => !prev);
   };
 
-  // Playlist click to fetch the tracks
-
+  // Fetch tracks of the selected playlist
   const playlistClick = async (playlistId) => {
     const response = await fetch (`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, 
       {
@@ -56,17 +54,29 @@ const UserPlaylists = ({ accessToken }) => {
 
   const backToPlaylists = () => {
     setSelectedPlaylist(null); // reset the selected playlist to show playlists again
-    setTracks([]); // clear the tracks
+    setTracks([]);
   };
+
+  const selectedPlaylistDetails = playlists.find((playlist) => playlist.id === selectedPlaylist);
 
   return (
     <div className='containerStyle'>
       {selectedPlaylist ? (
         <div>
           <button className='playlistBtn' onClick={backToPlaylists}>&larr; Back To Playlists</button>
-          <h2>{playlists.find((i) => i.id === selectedPlaylist)?.name}</h2>
+          <h2>
+            {selectedPlaylistDetails.name}
+          </h2>
 
-          <div><UpdatePlaylist accessToken={accessToken} playlist={selectedPlaylist}/></div>
+          <div>
+            <UpdatePlaylist
+              accessToken={accessToken}
+              playlist_id={selectedPlaylist}
+              playlist={selectedPlaylistDetails?.name}
+              description={selectedPlaylistDetails?.description}
+              isItPublic={selectedPlaylistDetails?.public}
+            />
+          </div>
           <div className='songStyle'>
             {tracks.length > 0 ? (
               <div className='songStyle'>
