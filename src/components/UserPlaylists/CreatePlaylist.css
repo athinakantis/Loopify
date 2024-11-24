@@ -1,0 +1,14 @@
+.addButton {
+  height: 30px;
+  margin-right: 10px;
+  background-color: var(--backgroundDark);
+  color: var(--accentDark);
+  font-size: 1rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.addButton:hover {
+  opacity: 0.75;
+  cursor: pointer;
+}
