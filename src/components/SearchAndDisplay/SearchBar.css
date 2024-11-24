@@ -1,5 +1,6 @@
 .search-bar {
-  margin: 20px;
+  margin-bottom: 40px;
+  width: 350px;
   position: relative;
   display: flex;
   align-items: center;
@@ -14,6 +15,11 @@
   background-color: var(--accentDark);
   font-size: 16px;
   border-radius: 30px;
+
+  &::placeholder {
+    color: var(--backgroundDark);
+    opacity: 0.5;
+  }
 }
 
 .search-bar a {

@@ -83,8 +83,8 @@ const UserPlaylists = ({ accessToken }) => {
                 {tracks.map((track) => (
                   <SongCard
                       key={track.track.id}
-                      songTitle={track.track.name}
-                      songArtist={track.track.artists.map((artist) => artist.name).join(', ')}
+                      name={track.track.name}
+                      artist={track.track.artists.map((artist) => artist.name).join(', ')}
                       img={track.track.album.images[0]?.url}
                   />
                 ))}

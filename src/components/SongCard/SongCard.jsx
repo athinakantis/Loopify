@@ -1,15 +1,24 @@
-import './SongCard.css';
+import "./SongCard.css";
 
-function SongCard(props) {
-    return (
-        <div className='songCard'>
-            <img src={props.img} alt={props.songtitle} />
-            <div className='songDetails'>
-            <p>{props.songTitle}</p>
-            <p>{props.songArtist}</p>
-            </div>
-        </div>
-    );
+function SongCard({ name, artist, img, uri, setPlayItem }) {
+  function handlePlay() {
+    setPlayItem({
+      uri: uri,
+      type: "track",
+    });
+  }
+
+  return (
+    <div className="songCard">
+      <button onClick={handlePlay}>
+        <img src={img} alt={name} />
+      </button>
+      <div className="songDetails">
+        <p className="songName">{name}</p>
+        <p className="songArtist">{artist}</p>
+      </div>
+    </div>
+  );
 }
 
 export default SongCard;
