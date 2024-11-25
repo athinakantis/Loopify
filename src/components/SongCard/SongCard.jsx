@@ -1,17 +1,19 @@
-import "./SongCard.css";
+import './SongCard.css';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/opacity.css';
 
 function SongCard({ name, artist, img, uri, setPlayItem }) {
   function handlePlay() {
     setPlayItem({
       uri: uri,
-      type: "track",
+      type: 'track',
     });
   }
 
   return (
-    <div className="songCard">
+    <div className='songCard'>
       <button onClick={handlePlay}>
-        <img src={img} alt={name} />
+        <LazyLoadImage effect='opacity' src={img} alt={name} />
       </button>
       <div className="songDetails">
         <p className="songName">{name}</p>
