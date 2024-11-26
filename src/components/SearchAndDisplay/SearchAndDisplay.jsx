@@ -69,7 +69,7 @@ export default function SearchAndDisplay(props) {
                 { headers: { Authorization: `Bearer ${accessToken}` } }
             )
                 .then((response) => response.json())
-                .then((data) => setAlbums(data.playlists.items))
+                .then((data) => setPlaylists(data.playlists.items))
                 .catch((error) =>
                     console.error('Error fetching playlists:', error)
                 );
