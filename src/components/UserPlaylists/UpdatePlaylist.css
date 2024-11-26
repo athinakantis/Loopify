@@ -1,0 +1,62 @@
+.container {
+  font-family: var(--mainFont);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid var(--accentDark);
+  border-radius: var(--radiusSmall);
+  background-color: var(--backgroundDark);
+}
+
+.container h3 {
+  margin-bottom: 20px;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+label input[type="text"],
+label textarea {
+  flex: 1;
+  margin-left: 10px;
+  padding: 10px;
+  border-radius: var(--radiusSmall);
+  border: 1px solid var(--accentDark);
+  background-color: var(--accentDark);
+}
+
+textarea{
+  resize: none;
+  height: 40px;
+}
+
+label input[type="checkbox"] {
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+label.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.updateButton {
+  background-color: var(--accentDark);
+  color: var(--backgroundDark);
+  border-radius: 100px;
+  width: 150px;
+  padding: 10px;
+}
