@@ -10,10 +10,14 @@ header {
 
 .leftNav {
     width: 250px;
+    position: sticky;
+    top: 0;
 }
 
 .leftNavNarrow {
     width: 90px;
+    position: sticky;
+    top: 0;
 }
 
 .menuButton {
