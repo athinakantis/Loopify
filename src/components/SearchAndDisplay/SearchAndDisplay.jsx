@@ -168,7 +168,8 @@ export default function SearchAndDisplay(props) {
                                     handlePlay(playlist?.uri, 'playlist');
                                 }}
                             >
-                                <img
+                                <LazyLoadImage
+                                    effect='opacity'
                                     src={playlist?.images?.[0]?.url}
                                     width='150px'
                                     height='150px'
