@@ -109,7 +109,8 @@
     z-index: 2;
 }
 
-.album button {
+.album button,
+.playlist button {
     background-color: var(--backgroundDark);
 }
 
