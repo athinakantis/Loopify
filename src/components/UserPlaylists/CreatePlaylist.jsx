@@ -3,13 +3,11 @@ import './CreatePlaylist.css';
 
 const CreatePlaylist = ({ accessToken, refreshPlaylists }) => {
 
-    /*
     const [playlistName, setPlaylistName] = useState('');
     const [playlistDescription, setPlaylistDescription] = useState('');
     const [isPrivate, setIsPrivate] = useState(false);
-    */
+    const [formIsShowing, setFormIsShowing] = useState(false);
 
-    // get user profile
     const createPlaylist = async () => {
         try {
             const response = await fetch('https://api.spotify.com/v1/me', {
@@ -28,9 +26,9 @@ const CreatePlaylist = ({ accessToken, refreshPlaylists }) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    "name": 'Loopify Playlist',
-                    "description": 'Created via Loopify',
-                    "public": true,
+                    name: playlistName,
+                    description: playlistDescription,
+                    public: !isPrivate,
                 }),
             });
 
@@ -48,13 +46,62 @@ const CreatePlaylist = ({ accessToken, refreshPlaylists }) => {
     };
 
     return (
-        <div>
+        <div className='create-container'>
             <button
                 className='addButton' 
-                onClick={createPlaylist}
-            ><img className='addButton' src="src/assets/addCircle.svg" alt="New Playlist" />
+                onClick={() => setFormIsShowing(true)}
+            >
+            <img className='addButton' src="src/assets/addCircle.svg" alt="New Playlist" />
             <span>Create a New Playlist</span>
             </button>
+
+            {formIsShowing && (
+                <div className='form-container'>
+                    <h3>Create a New Playlist</h3>
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            createPlaylist();
+                            setFormIsShowing(false);
+                        }}
+                    >
+                        <label>
+                            Playlist Name: 
+                            <input
+                                type='text'
+                                value={playlistName}
+                                onChange={(e) => setPlaylistName(e.target.value)}
+                                required
+                            />
+                        </label>
+                        <label>
+                            Description:
+                            <textarea
+                                value={playlistDescription}
+                                onChange={(e) => setPlaylistDescription(e.target.value)}
+                                placeholder="Enter description (optional)"
+                            />
+                        </label>
+                        <label className='checkbox'>
+                            <input
+                                type="checkbox"
+                                checked={isPrivate}
+                                onChange={(e) => setIsPrivate(e.target.checked)}
+                            />
+                            Make Playlist Private
+                        </label>            
+                        <button 
+                            type='submit'
+                            className='formButton'
+                        >Create Playlist</button>
+                    </form>
+
+                    <button 
+                        onClick={() => setFormIsShowing(false)}
+                        className='formButton'
+                    >&larr; Back</button>
+                </div>
+            )}
         </div>
     );
 };

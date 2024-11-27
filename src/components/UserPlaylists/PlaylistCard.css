@@ -6,4 +6,7 @@
 
 .playlistCard {
   cursor: pointer;
+  width: 150px;
+  height: 150px;
+  margin: 10px;
 }
