@@ -6,6 +6,7 @@ import './SearchAndDisplay.css';
 import './SearchBar.css';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
+import moods from '../../moods.js';
 
 export default function SearchAndDisplay(props) {
     const {
@@ -18,7 +19,6 @@ export default function SearchAndDisplay(props) {
         ...rest
     } = props;
     const classes = clsx(className);
-
     const accessToken = useSpotifyToken();
     const [searchTerm, setSearchTerm] = useState('');
     const [tracks, setTracks] = useState([]);
@@ -104,6 +104,12 @@ export default function SearchAndDisplay(props) {
                 />
             </div>
 
+            <div id='moodsContainer'>
+                {moods.map((mood) => (
+                    <button key={mood}>{mood}</button>
+                ))}
+            </div>
+
             <div className='displaySongs'>
                 <h2>Top songs</h2>
 
@@ -112,6 +118,7 @@ export default function SearchAndDisplay(props) {
                         {tracks.map((track) => (
                             <SongCard
                                 setPlayItem={setPlayItem}
+                                setIsPlaying={setIsPlaying}
                                 key={track?.id}
                                 uri={track?.uri}
                                 name={track?.name}

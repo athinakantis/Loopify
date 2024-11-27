@@ -3,6 +3,7 @@
     grid-auto-flow: column;
     grid-template-rows: repeat(2, 1fr);
     gap: 15px;
+    column-gap: 30px;
     overflow-x: auto;
     overflow-y: hidden;
     width: 100%;
@@ -210,4 +211,22 @@
 
 .albumInfo .albumArtist {
     font-size: 14px;
+}
+
+/* Moods Styling */
+#moodsContainer {
+}
+
+#moodsContainer button {
+    padding: 0.3rem 1.5rem;
+    margin: 0 0.5rem 0.5rem 0;
+    border-radius: 8px;
+    background-color: #8094c0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: all 300ms;
+
+    &:hover {
+        background-color: #abc3f8;
+    }
 }
