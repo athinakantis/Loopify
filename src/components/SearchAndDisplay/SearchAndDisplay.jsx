@@ -140,18 +140,32 @@ export default function SearchAndDisplay(props) {
                             className='album'
                             key={album?.id}
                         >
-                            <button
-                                onClick={() => {
-                                    handlePlay(album?.uri, 'album');
-                                }}
-                            >
+                            <div className='albumImgContainer'>
+                                <div className='albumIcons'>
+                                    <button
+                                        onClick={() => {
+                                            handlePlay(album?.uri, 'album');
+                                        }}
+                                    >
+                                        <img
+                                            src='src/assets/play_arrow.svg'
+                                            alt='Play'
+                                        />
+                                    </button>
+                                    <button>
+                                        <img
+                                            src='src/assets/playlistAddIcon.svg'
+                                            alt='Add to playlist'
+                                        />
+                                    </button>
+                                </div>
                                 <LazyLoadImage
                                     effect='opacity'
                                     src={album?.images?.[0]?.url}
                                     width='150px'
                                     height='150px'
                                 />
-                            </button>
+                            </div>
                             <p className='albumName'>{album?.name}</p>
                             <p>{album?.artists?.[0]?.name}</p>
                         </div>
