@@ -124,7 +124,7 @@
 }
 
 .album:hover {
-    transition: all 0.3 ease-in-out;
+    transition: all 0.3s ease-in-out;
     background-color: #333;
     box-shadow: 0px 8px 15px -16px rgba(255, 255, 255, 0.72);
 }
@@ -154,23 +154,25 @@
     text-overflow: ellipsis;
 }
 
-.albumImg {
+.albumImgContainer {
     position: relative;
     height: 150px;
     width: 150px;
+    overflow: hidden;
 }
 
 .albumIcons {
+    height: 150px;
     opacity: 0;
     position: absolute;
     right: 0;
-    bottom: 10%;
-    z-index: 999;
+    z-index: 2;
     display: flex;
     justify-content: space-between;
-    padding: 0 10px;
+    align-items: end;
+    padding: 0 6px 6px;
     width: 0%;
-    transition: all 0.3 ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .albumIcons span {
@@ -180,14 +182,14 @@
 .album:hover .albumIcons {
     opacity: 1;
     width: 100%;
-    transition: all 0.3 ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
-.album .albumImg img {
+.album .albumImgContainer img {
     display: inline-block;
 }
 
-.album:hover .albumImg::after {
+.album:hover .albumImgContainer::after {
     content: '';
     position: absolute;
     top: 0;
@@ -195,8 +197,8 @@
     right: 0;
     bottom: 0;
     border-radius: var(--radiusSmall);
-    box-shadow: inset 0px -18px 25px 12px #000;
-    transition: all 0.3 ease-in-out;
+    box-shadow: inset 0px -18px 25px 12px rgba(0, 0, 0, 0.7);
+    transition: all 300ms ease-in-out;
 }
 
 .album:hover .albumName {

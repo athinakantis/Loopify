@@ -4,10 +4,7 @@ import useSpotifyToken from '../useSpotifyToken/useSpotifyToken.jsx';
 import SongCard from '../SongCard/SongCard.jsx';
 import './SearchAndDisplay.css';
 import './SearchBar.css';
-import {
-    LazyLoadComponent,
-    LazyLoadImage,
-} from 'react-lazy-load-image-component';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 
 export default function SearchAndDisplay(props) {
