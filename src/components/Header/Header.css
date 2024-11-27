@@ -6,6 +6,7 @@ header {
     position: relative;
     display: flex;
     flex-direction: column;
+    margin: 0 2rem 0 0;
 }
 
 .leftNav {
@@ -15,7 +16,7 @@ header {
 }
 
 .leftNavNarrow {
-    width: 90px;
+    width: 92px;
     position: sticky;
     top: 0;
 }

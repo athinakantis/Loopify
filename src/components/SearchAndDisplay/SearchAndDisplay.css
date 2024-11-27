@@ -144,7 +144,8 @@
     overflow: hidden;
 }
 
-.albumInfo .albumName {
+.albumInfo .albumName,
+.playlistName {
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 10px;
