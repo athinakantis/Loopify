@@ -4,12 +4,16 @@ import PlaylistCard from './PlaylistCard';
 import SongCard from '../SongCard/SongCard';
 import CreatePlaylist from './CreatePlaylist';
 import UpdatePlaylist from './UpdatePlaylist';
+import loopifyLogoDark from '../../assets/loopifyLogo_dark.svg';
 
 const UserPlaylists = ({ accessToken }) => {
   const [playlists, setPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const [tracks, setTracks] = useState([]);
-  const [refreshList, setRefreshList] = useState(0); // State to trigger playlist refresh
+  const [refreshList, setRefreshList] = useState(0);
+  const [isEditing, setIsEditing] = useState(false);
+  const [successMsg, setSuccessMsg] = useState('');
+  const defaultImage = loopifyLogoDark;
 
   useEffect(() => {
     const fetchPlaylists = async () => {
@@ -50,11 +54,22 @@ const UserPlaylists = ({ accessToken }) => {
     const data = await response.json();
     setTracks(data.items);
     setSelectedPlaylist(playlistId);
+    setIsEditing(false);
   };
 
   const backToPlaylists = () => {
     setSelectedPlaylist(null); // reset the selected playlist to show playlists again
     setTracks([]);
+  };
+
+  const toggleEdit = () => {
+    setIsEditing((prev) => !prev);
+  };
+
+  const handleUpdate = (message) => {
+    setIsEditing(false); // exit edit mode
+    setSuccessMsg(message); //show success message
+    setTimeout(() => setSuccessMsg(''), 3000);
   };
 
   const selectedPlaylistDetails = playlists.find((playlist) => playlist.id === selectedPlaylist);
@@ -64,19 +79,34 @@ const UserPlaylists = ({ accessToken }) => {
       {selectedPlaylist ? (
         <div>
           <button className='playlistBtn' onClick={backToPlaylists}>&larr; Back To Playlists</button>
+
+          {successMsg && (
+                <div className='success'>
+                    {successMsg}
+                </div>
+            )}
+
           <h2>
             {selectedPlaylistDetails.name}
           </h2>
 
           <div>
-            <UpdatePlaylist
-              accessToken={accessToken}
-              playlist_id={selectedPlaylist}
-              playlist={selectedPlaylistDetails?.name}
-              description={selectedPlaylistDetails?.description}
-              isItPublic={selectedPlaylistDetails?.public}
-            />
+            <button className='editBtn' onClick={toggleEdit}>
+              {isEditing ? 'Close Edit' : 'Edit Playlist'}
+            </button>
           </div>
+
+          {isEditing && (
+            <UpdatePlaylist
+            accessToken={accessToken}
+            playlist_id={selectedPlaylist}
+            playlist={selectedPlaylistDetails?.name}
+            description={selectedPlaylistDetails?.description}
+            isItPublic={selectedPlaylistDetails?.public}
+            onUpdate={handleUpdate}
+          />
+          )}
+
           <div className='songStyle'>
             {tracks.length > 0 ? (
               <div className='songStyle'>
@@ -96,14 +126,28 @@ const UserPlaylists = ({ accessToken }) => {
         </div>
       ) : (
         <div>
-          <h2>Your Playlists <CreatePlaylist accessToken={accessToken} refreshPlaylists={refreshPlaylists}/></h2>
+          <div className='playlistHeader'>
+            <h2>Your Playlists</h2>
+            {successMsg && (
+                <div className='success'>
+                    {successMsg}
+                </div>
+            )}
+            <div className='createBtn'>
+              <CreatePlaylist
+                accessToken={accessToken}
+                refreshPlaylists={refreshPlaylists}
+                playlistCreated={handleUpdate}
+              />
+            </div>
+          </div>  
           <div className='playlistStyle'>
             {playlists.length > 0 && playlists.map((playlist) => (
               <PlaylistCard
                 key={playlist.id}
                 onClick={() => playlistClick(playlist.id)}
                 playlistName={playlist.name}
-                img={playlist?.images?.[0]?.url}
+                img={playlist?.images?.[0]?.url || defaultImage}
               />
             ))}
           </div>

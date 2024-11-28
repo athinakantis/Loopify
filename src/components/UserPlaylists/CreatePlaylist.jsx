@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './CreatePlaylist.css';
 
-const CreatePlaylist = ({ accessToken, refreshPlaylists }) => {
+const CreatePlaylist = ({ accessToken, refreshPlaylists, playlistCreated }) => {
 
     const [playlistName, setPlaylistName] = useState('');
     const [playlistDescription, setPlaylistDescription] = useState('');
@@ -35,6 +35,7 @@ const CreatePlaylist = ({ accessToken, refreshPlaylists }) => {
             if (playlistResponse.ok) {
                 const playlistData = await playlistResponse.json();
                 console.log('Playlist created:', playlistData);
+                playlistCreated(`Playlist ${playlistName} created`);
                 refreshPlaylists(); // Trigger refresh
             } else {
                 const errorData = await playlistResponse.json();
@@ -47,15 +48,7 @@ const CreatePlaylist = ({ accessToken, refreshPlaylists }) => {
 
     return (
         <div className='create-container'>
-            <button
-                className='addButton' 
-                onClick={() => setFormIsShowing(true)}
-            >
-            <img className='addButton' src="src/assets/addCircle.svg" alt="New Playlist" />
-            <span>Create a New Playlist</span>
-            </button>
-
-            {formIsShowing && (
+            {formIsShowing ? (
                 <div className='form-container'>
                     <h3>Create a New Playlist</h3>
                     <form
@@ -101,6 +94,14 @@ const CreatePlaylist = ({ accessToken, refreshPlaylists }) => {
                         className='formButton'
                     >&larr; Back</button>
                 </div>
+            ) : (
+            <button
+                className='addButton' 
+                onClick={() => setFormIsShowing(true)}
+            >
+                <img className='addButton' src="src/assets/addCircle.svg" alt="New Playlist" />
+                <span>Create a New Playlist</span>
+            </button>
             )}
         </div>
     );

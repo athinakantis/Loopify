@@ -6,10 +6,15 @@ ul {
   padding: 1rem;
 }
 
-h2 {
-  padding-bottom: 2rem;
+.playlistHeader {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  padding-bottom: 2rem;
+}
+
+h2 {
+  margin: 0;
 }
 
 .playlistStyle {
@@ -37,4 +42,22 @@ h2 {
   background-color: var(--backgroundDark);
   cursor: pointer;
   padding-bottom: 1rem;
+}
+
+.editBtn {
+  color: var(--accentDark);
+  background-color: var(--backgroundDark);
+  cursor: pointer;
+  padding: 1rem 0;
+}
+
+.success {
+  width: 250px;
+  margin: 10px auto;
+  padding: 10px;
+  color: var(--backgroundDark);
+  background-color: var(--accentDark);
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: center;
 }
