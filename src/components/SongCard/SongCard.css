@@ -2,7 +2,7 @@
     background-color: var(--accentDark);
     color: var(--backgroundDark);
     height: 70px;
-    width: 200px;
+    width: 240px;
     display: flex;
     border-radius: var(--radiusSmall);
     overflow: hidden;
@@ -10,41 +10,45 @@
     transition: all 0.3s ease-in-out;
 }
 
-.songCard:hover {
-    box-shadow: 0px 4px 11px -4px rgba(255, 255, 255, 0.72)
-}
-
 .songCard .songDetails {
-    width: 70%;
-    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.2rem;
     overflow: hidden;
 }
 
 .songCard button {
-    width: 30%;
-    overflow: hidden;
+    height: 70px;
+    width: 70px;
+    background-color: var(--accentDark);
+
+    &:hover ::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+    }
 }
 
 .songCard img {
-    height: 100%;
+    max-height: 70px;
 }
 
 .songCard .songDetails p {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.songCard .songDetails p.songName {
-    margin-bottom: 10px;
-}
-
-.songCard .songDetails:hover p.songName {
+.songCard:hover .songDetails p.songName {
     overflow: visible;
     white-space: nowrap;
     animation: scroll-text 5s linear infinite;
+    transform-origin: left;
 }
 
 .songCard .songDetails p.songArtist {
@@ -54,7 +58,7 @@
 /* Animation for scrolling text */
 @keyframes scroll-text {
     0% {
-        transform: translateX(100%);
+        transform: translateX(0);
     }
 
     100% {

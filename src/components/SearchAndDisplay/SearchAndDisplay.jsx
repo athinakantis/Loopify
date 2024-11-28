@@ -4,6 +4,9 @@ import useSpotifyToken from '../useSpotifyToken/useSpotifyToken.jsx';
 import SongCard from '../SongCard/SongCard.jsx';
 import './SearchAndDisplay.css';
 import './SearchBar.css';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/opacity.css';
+import moods from '../../moods.js';
 
 export default function SearchAndDisplay(props) {
     const {
@@ -16,14 +19,13 @@ export default function SearchAndDisplay(props) {
         ...rest
     } = props;
     const classes = clsx(className);
-
     const accessToken = useSpotifyToken();
     const [searchTerm, setSearchTerm] = useState('');
     const [tracks, setTracks] = useState([]);
     const [albums, setAlbums] = useState([]);
     const [playlists, setPlaylists] = useState([]);
 
-    function handlePlay(uri, type) {
+    function handlePlay(uri, type = 'track') {
         setPlayItem({
             uri: uri,
             type: type,
@@ -64,7 +66,7 @@ export default function SearchAndDisplay(props) {
                 { headers: { Authorization: `Bearer ${accessToken}` } }
             )
                 .then((response) => response.json())
-                .then((data) => setAlbums(data.playlists.items))
+                .then((data) => setPlaylists(data.playlists.items))
                 .catch((error) =>
                     console.error('Error fetching playlists:', error)
                 );
@@ -87,7 +89,7 @@ export default function SearchAndDisplay(props) {
 
     return (
         <>
-            <div className="search-bar">
+            <div className='search-bar'>
                 <input
                     onKeyUp={handleKeyUp}
                     className={classes}
@@ -96,20 +98,27 @@ export default function SearchAndDisplay(props) {
                     name={name}
                     {...rest}
                 />
-                <a href="#">
-                    <span class="material-symbols-outlined">search</span>
-                </a>
+                <img
+                    src='src/assets/searchIcon.svg'
+                    alt='Search Icon'
+                />
             </div>
 
-            <div className="displaySongs">
+            <div id='moodsContainer'>
+                {moods.map((mood) => (
+                    <button key={mood}>{mood}</button>
+                ))}
+            </div>
+
+            <div className='displaySongs'>
                 <h2>Top songs</h2>
 
                 {tracks.length > 0 && (
-                    <div className="top-songs">
+                    <div className='top-songs'>
                         {tracks.map((track) => (
                             <SongCard
-                                setIsPlaying={setIsPlaying}
                                 setPlayItem={setPlayItem}
+                                setIsPlaying={setIsPlaying}
                                 key={track?.id}
                                 uri={track?.uri}
                                 name={track?.name}
@@ -123,55 +132,53 @@ export default function SearchAndDisplay(props) {
                 )}
             </div>
 
-            <div className="displayAlbums">
+            <div className='displayAlbums'>
                 <h2>Albums</h2>
-                <div className="albums">
+                <div className='albums'>
                     {albums.map((album) => (
                         <div
-                            className="album"
+                            className='album'
                             key={album?.id}
                         >
-                            <div className="albumImgContainer">
-                                <div className="albumIcons">
+                            <div className='albumImgContainer'>
+                                <div className='albumIcons'>
                                     <button
                                         onClick={() => {
                                             handlePlay(album?.uri, 'album');
                                         }}
                                     >
                                         <img
-                                            src="src/assets/play_arrow.svg"
-                                            alt="Play"
+                                            src='src/assets/play_arrow.svg'
+                                            alt='Play'
                                         />
                                     </button>
                                     <button>
                                         <img
-                                            src="src/assets/playlistAddIcon.svg"
-                                            alt="Add to playlist"
+                                            src='src/assets/playlistAddIcon.svg'
+                                            alt='Add to playlist'
                                         />
                                     </button>
                                 </div>
-                                <img
-                                    className="albumImg"
+                                <LazyLoadImage
+                                    effect='opacity'
                                     src={album?.images?.[0]?.url}
-                                    width="150px"
-                                    height="150px"
+                                    width='150px'
+                                    height='150px'
                                 />
                             </div>
-                            <div className="albumInfo">
-                                <p className="albumName">{album?.name}</p>
-                                <p>{album?.artists?.[0]?.name}</p>
-                            </div>
+                            <p className='albumName'>{album?.name}</p>
+                            <p>{album?.artists?.[0]?.name}</p>
                         </div>
                     ))}
                 </div>
             </div>
 
-            <div className="displayPlaylists">
+            <div className='displayPlaylists'>
                 <h2>Playlists</h2>
-                <div className="playlists">
+                <div className='playlists'>
                     {playlists.map((playlist) => (
                         <div
-                            className="playlist"
+                            className='playlist'
                             key={playlist?.id}
                         >
                             <button
@@ -179,13 +186,14 @@ export default function SearchAndDisplay(props) {
                                     handlePlay(playlist?.uri, 'playlist');
                                 }}
                             >
-                                <img
+                                <LazyLoadImage
+                                    effect='opacity'
                                     src={playlist?.images?.[0]?.url}
-                                    width="150px"
-                                    height="150px"
+                                    width='150px'
+                                    height='150px'
                                 />
                             </button>
-                            <p className="playlistName">{playlist?.name}</p>
+                            <p className='playlistName'>{playlist?.name}</p>
                         </div>
                     ))}
                 </div>

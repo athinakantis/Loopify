@@ -1,5 +1,7 @@
-import "./Player.css";
-import { useState } from "react";
+import './Player.css';
+import { useState } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/opacity.css';
 
 function Player({ isOpen, player, setIsPlaying, displayItem, isPlaying }) {
   const [volume, setVolume] = useState(0.3);
@@ -25,43 +27,52 @@ function Player({ isOpen, player, setIsPlaying, displayItem, isPlaying }) {
   }
 
   return (
-    <div id="player">
-      {isOpen && displayItem && (
-        <div className="playerCard">
-          <p>{displayItem.name}</p>
-          <p>{displayItem.artist}</p>
-          <img src={displayItem.img} alt={displayItem.name} />
+    <div id='player'>
+      <div className='playerCard'>
+        {isOpen && (
+          <>
+            <p>{displayItem.name}</p>
+            <p>{displayItem.artist}</p>
+          </>
+        )}
+        <div className='frame'>
+          <LazyLoadImage
+            className={isOpen ? 'expanded' : 'collapsed'}
+            effect='opacity'
+            src={displayItem.img}
+            alt={displayItem.name}
+          />
         </div>
-      )}
+      </div>
 
-      <div className={isOpen ? "Expanded" : "Collapsed"} id="playerControls">
-        <div className="playPause">
-          <button id="skipPrev" onClick={handleSkipPrevious}>
+      <div className={isOpen ? 'Expanded' : 'Collapsed'} id='playerControls'>
+        <div className='playPause'>
+          <button id='skipPrev' onClick={handleSkipPrevious}>
             <img
-              src="src/assets/player_skipPrevious.svg"
-              alt="Skip to previous song"
+              src='src/assets/player_skipPrevious.svg'
+              alt='Skip to previous song'
             />
           </button>
-          <button id="playPause" onClick={handlePlay}>
+          <button id='playPause' onClick={handlePlay}>
             {isPlaying ? (
-              <img src="src/assets/player_pauseIcon.svg" alt="Pause Icon" />
+              <img src='src/assets/player_pauseIcon.svg' alt='Pause Icon' />
             ) : (
-              <img src="src/assets/player_playIcon.svg" alt="Play Icon" />
+              <img src='src/assets/player_playIcon.svg' alt='Play Icon' />
             )}
           </button>
-          <button id="skipNext" onClick={handleSkipNext}>
-            <img src="src/assets/player_skipNext.svg" alt="Skip to next song" />
+          <button id='skipNext' onClick={handleSkipNext}>
+            <img src='src/assets/player_skipNext.svg' alt='Skip to next song' />
           </button>
         </div>
 
         <input
-          type="range"
+          type='range'
           onChange={handleVolume}
-          name="volume"
-          id="volume"
-          min="0"
-          max="1"
-          step="0.01"
+          name='volume'
+          id='volume'
+          min='0'
+          max='1'
+          step='0.01'
           value={volume}
         />
       </div>

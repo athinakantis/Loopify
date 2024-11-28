@@ -7,3 +7,15 @@ button {
         cursor: pointer;
     }
 }
+
+.album img,
+.songCard img,
+.playlist img {
+    background-color: var(--backgroundDark);
+}
+
+:is(.displaySongs, .displayAlbums, .displayPlaylists) ::-webkit-scrollbar {
+    display: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
