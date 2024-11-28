@@ -15,32 +15,50 @@ const UserPlaylists = ({ accessToken }) => {
   const [successMsg, setSuccessMsg] = useState('');
   const defaultImage = loopifyLogoDark;
 
-  useEffect(() => {
-    const fetchPlaylists = async () => {
-      try {
-        // to add a limit, add => ?limit=10
-        const response = await fetch("https://api.spotify.com/v1/me/playlists", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-          },
-        });
-        const data = await response.json();
-        setPlaylists(data.items);
-      } catch (error) {
-        console.error('Error fetching playlists:', error);
-      }
+    useEffect(() => {
+        const fetchPlaylists = async () => {
+            try {
+                // to add a limit, add => ?limit=10
+                const response = await fetch(
+                    'https://api.spotify.com/v1/me/playlists',
+                    {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json',
+                        },
+                    }
+                );
+                const data = await response.json();
+                setPlaylists(data.items);
+            } catch (error) {
+                console.error('Error fetching playlists:', error);
+            }
+        };
+
+        if (accessToken) {
+            fetchPlaylists();
+        }
+    }, [accessToken, refreshList]); // re-runs useEffect function when accessToken or playlists change
+
+    const refreshPlaylists = () => {
+        setRefreshList((prev) => !prev);
     };
 
-    if (accessToken) {
-      fetchPlaylists();
-    }
-  }, [accessToken, refreshList]); // re-runs useEffect function when accessToken or playlists change
-
-  const refreshPlaylists = () => {
-    setRefreshList((prev) => !prev);
-  };
-
+    // Fetch tracks of the selected playlist
+    const playlistClick = async (playlistId) => {
+        const response = await fetch(
+            `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+        const data = await response.json();
+        setTracks(data.items);
+        setSelectedPlaylist(playlistId);
+    };
   // Fetch tracks of the selected playlist
   const playlistClick = async (playlistId) => {
     const response = await fetch (`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, 
