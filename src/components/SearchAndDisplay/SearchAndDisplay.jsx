@@ -24,6 +24,7 @@ export default function SearchAndDisplay(props) {
     const [tracks, setTracks] = useState([]);
     const [albums, setAlbums] = useState([]);
     const [playlists, setPlaylists] = useState([]);
+    const [currentMood, setCurrentMood] = useState();
 
     function handlePlay(uri, type = 'track') {
         setPlayItem({
@@ -32,6 +33,38 @@ export default function SearchAndDisplay(props) {
         });
         setIsPlaying(true);
     }
+
+    function handleMoodClick(id) {
+        if (currentMood === id) {
+            setCurrentMood();
+        } else {
+            setCurrentMood(id);
+        }
+    }
+
+    //Effect to fetch mood-based playlists
+    useEffect(() => {
+        if (currentMood) {
+            const type = ['playlist'];
+            const q = moods[currentMood].genres[0];
+            const endpoint = `https://api.spotify.com/v1/search?q=${q}&type=${type.join(
+                '+'
+            )}`;
+            console.log(JSON.stringify(endpoint));
+            fetch(endpoint, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            })
+                .then((response) => response.json())
+                .then((data) =>
+                    setPlaylists(
+                        data.playlists.items.filter((items) => items !== null)
+                    )
+                )
+                .catch((err) => console.log);
+        }
+    }, [currentMood]);
 
     useEffect(() => {
         if (searchTerm) {
@@ -42,7 +75,11 @@ export default function SearchAndDisplay(props) {
                 { headers: { Authorization: `Bearer ${accessToken}` } }
             )
                 .then((response) => response.json())
-                .then((data) => setTracks(data.tracks.items))
+                .then((data) => {
+                    setTracks(
+                        data.tracks.items.filter((item) => item !== null)
+                    );
+                })
                 .catch((error) =>
                     console.error('Error fetching tracks:', error)
                 );
@@ -54,7 +91,9 @@ export default function SearchAndDisplay(props) {
                 { headers: { Authorization: `Bearer ${accessToken}` } }
             )
                 .then((response) => response.json())
-                .then((data) => setAlbums(data.albums.items))
+                .then((data) =>
+                    setAlbums(data.albums.items.filter((item) => item !== null))
+                )
                 .catch((error) =>
                     console.error('Error fetching albums:', error)
                 );
@@ -66,7 +105,11 @@ export default function SearchAndDisplay(props) {
                 { headers: { Authorization: `Bearer ${accessToken}` } }
             )
                 .then((response) => response.json())
-                .then((data) => setPlaylists(data.playlists.items))
+                .then((data) =>
+                    setPlaylists(
+                        data.playlists.items.filter((item) => item !== null)
+                    )
+                )
                 .catch((error) =>
                     console.error('Error fetching playlists:', error)
                 );
@@ -98,15 +141,17 @@ export default function SearchAndDisplay(props) {
                     name={name}
                     {...rest}
                 />
-                <img
-                    src='src/assets/searchIcon.svg'
-                    alt='Search Icon'
-                />
+                <img src='src/assets/searchIcon.svg' alt='Search Icon' />
             </div>
 
             <div id='moodsContainer'>
                 {moods.map((mood) => (
-                    <button key={mood}>{mood}</button>
+                    <button
+                        onClick={() => handleMoodClick(mood.id)}
+                        key={mood?.id}
+                    >
+                        {mood?.name}
+                    </button>
                 ))}
             </div>
 
@@ -136,10 +181,7 @@ export default function SearchAndDisplay(props) {
                 <h2>Albums</h2>
                 <div className='albums'>
                     {albums.map((album) => (
-                        <div
-                            className='album'
-                            key={album?.id}
-                        >
+                        <div className='album' key={album?.id}>
                             <div className='albumImgContainer'>
                                 <div className='albumIcons'>
                                     <button
@@ -177,10 +219,7 @@ export default function SearchAndDisplay(props) {
                 <h2>Playlists</h2>
                 <div className='playlists'>
                     {playlists.map((playlist) => (
-                        <div
-                            className='playlist'
-                            key={playlist?.id}
-                        >
+                        <div className='playlist' key={playlist?.id}>
                             <button
                                 onClick={() => {
                                     handlePlay(playlist?.uri, 'playlist');
