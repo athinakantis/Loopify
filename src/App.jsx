@@ -161,7 +161,11 @@ function App() {
                 )}
 
                 {page === 'Playlists' && (
-                    <UserPlaylists accessToken={accessToken} />
+                    <UserPlaylists
+                        accessToken={accessToken}
+                        setPlayItem={setPlayItem}
+                        setIsPlaying={setIsPlaying}
+                    />
                 )}
             </main>
         </>

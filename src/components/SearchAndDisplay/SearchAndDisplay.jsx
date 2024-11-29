@@ -8,6 +8,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 import moods from '../../moods.js';
 import { fetchMoods } from '../../utils/requests/moodFetchRequest.js';
+import Spinner from '../Spinner/Spinner.jsx';
 
 export default function SearchAndDisplay(props) {
     const {
@@ -26,6 +27,7 @@ export default function SearchAndDisplay(props) {
     const [albums, setAlbums] = useState([]);
     const [playlists, setPlaylists] = useState([]);
     const [moodId, setMoodId] = useState();
+    const [loading, setLoading] = useState(false);
 
     function handlePlay(uri, type = 'track') {
         setPlayItem({
@@ -48,15 +50,16 @@ export default function SearchAndDisplay(props) {
         if (moodId) {
             async function getMoodPlaylists() {
                 try {
+                    setLoading(true);
                     setPlaylists(await fetchMoods(moodId));
+                    setLoading(false);
                 } catch (err) {
                     console.error(err);
                 }
             }
-
             getMoodPlaylists();
         } else {
-            setPlaylists([])
+            setPlaylists([]);
         }
     }, [moodId]);
 
@@ -135,13 +138,18 @@ export default function SearchAndDisplay(props) {
                     name={name}
                     {...rest}
                 />
-                <img src='src/assets/searchIcon.svg' alt='Search Icon' />
+                <img
+                    src='src/assets/searchIcon.svg'
+                    alt='Search Icon'
+                />
             </div>
 
             <div id='moodsContainer'>
                 {moods.map((mood) => (
                     <button
-                        className={moodId === mood.id ? 'currentMood' : 'moodButton'}
+                        className={
+                            moodId === mood.id ? 'currentMood' : 'moodButton'
+                        }
                         onClick={() => handleMoodClick(mood.id)}
                         key={mood?.id}
                     >
@@ -176,7 +184,10 @@ export default function SearchAndDisplay(props) {
                 <h2>Albums</h2>
                 <div className='albums'>
                     {albums.map((album) => (
-                        <div className='album' key={album?.id}>
+                        <div
+                            className='album'
+                            key={album?.id}
+                        >
                             <div className='albumImgContainer'>
                                 <div className='albumIcons'>
                                     <button
@@ -213,23 +224,30 @@ export default function SearchAndDisplay(props) {
             <div className={moodId ? `displayMoods` : `displayPlaylists`}>
                 <h2>{moodId ? moods[moodId]?.name : 'Playlists'}</h2>
                 <div className='playlists'>
-                    {playlists.map((playlist) => (
-                        <div className='playlist' key={playlist?.id}>
-                            <button
-                                onClick={() => {
-                                    handlePlay(playlist?.uri, 'playlist');
-                                }}
+                    {loading ? (
+                        <Spinner />
+                    ) : (
+                        playlists.map((playlist) => (
+                            <div
+                                className='playlist'
+                                key={playlist?.id}
                             >
-                                <LazyLoadImage
-                                    effect='opacity'
-                                    src={playlist?.images?.[0]?.url}
-                                    width='150px'
-                                    height='150px'
-                                />
-                            </button>
-                            <p className='playlistName'>{playlist?.name}</p>
-                        </div>
-                    ))}
+                                <button
+                                    onClick={() => {
+                                        handlePlay(playlist?.uri, 'playlist');
+                                    }}
+                                >
+                                    <LazyLoadImage
+                                        effect='opacity'
+                                        src={playlist?.images?.[0]?.url}
+                                        width='150px'
+                                        height='150px'
+                                    />
+                                </button>
+                                <p className='playlistName'>{playlist?.name}</p>
+                            </div>
+                        ))
+                    )}
                 </div>
             </div>
         </>
