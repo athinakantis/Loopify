@@ -141,6 +141,7 @@ export default function SearchAndDisplay(props) {
             <div id='moodsContainer'>
                 {moods.map((mood) => (
                     <button
+                        className={moodId === mood.id ? 'currentMood' : 'moodButton'}
                         onClick={() => handleMoodClick(mood.id)}
                         key={mood?.id}
                     >
@@ -148,7 +149,7 @@ export default function SearchAndDisplay(props) {
                     </button>
                 ))}
             </div>
-
+           
             <div className='displaySongs'>
                 <h2>Top songs</h2>
 
@@ -209,8 +210,8 @@ export default function SearchAndDisplay(props) {
                 </div>
             </div>
 
-            <div className='displayPlaylists'>
-                <h2>Playlists</h2>
+            <div className={moodId ? `displayMoods` : `displayPlaylists`}>
+                <h2>{moodId ? moods[moodId]?.name : 'Playlists'}</h2>
                 <div className='playlists'>
                     {playlists.map((playlist) => (
                         <div className='playlist' key={playlist?.id}>
