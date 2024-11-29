@@ -1,3 +1,23 @@
+.create-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  border: 1px solid var(--accentDark);
+  border-radius: var(--radiusSmall);
+  padding: 20px 5px;
+  width: 400px;
+}
+
 .addButton {
   height: 30px;
   margin-right: 10px;
@@ -8,7 +28,20 @@
   vertical-align: middle;
 }
 
-.addButton:hover {
+.formButton {
+  height: 40px;
+  width: fit-content;
+  padding: 0 20px;
+  border-radius: var(--radiusSmall);
+  background-color: var(--accentDark);
+  color: var(--backgroundDark);
+  font-size: 1rem;
+  text-align: center;
+  vertical-align: middle;
+  margin: 5px 0;
+}
+
+button:hover {
   opacity: 0.75;
   cursor: pointer;
 }

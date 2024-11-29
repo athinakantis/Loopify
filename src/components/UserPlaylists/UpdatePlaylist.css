@@ -7,7 +7,7 @@
   text-align: center;
   width: 100%;
   max-width: 400px;
-  margin: 20px auto;
+  margin: 0 auto 30px auto;
   padding: 20px;
   border: 1px solid var(--accentDark);
   border-radius: var(--radiusSmall);
@@ -34,6 +34,7 @@ label textarea {
   border-radius: var(--radiusSmall);
   border: 1px solid var(--accentDark);
   background-color: var(--accentDark);
+  font-family: var(--mainFont);
 }
 
 textarea{
@@ -51,6 +52,11 @@ label.checkbox {
   align-items: center;
   justify-content: flex-start;
   width: 100%;
+}
+
+textarea::placeholder {
+  color: var(--backgroundDark);
+  font-family: var(--mainFont);
 }
 
 .updateButton {
