@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './UpdatePlaylist.css'
 
-const UpdatePlaylist = ({ accessToken, playlist_id, playlist, description, isItPublic }) => {
+const UpdatePlaylist = ({ accessToken, playlist_id, playlist, description, isItPublic, onUpdate }) => {
     // State for editable playlist details
     const [playlistName, setPlaylistName] = useState(playlist);
     const [playlistDescription, setPlaylistDescription] = useState(description || '');
@@ -31,13 +31,11 @@ const UpdatePlaylist = ({ accessToken, playlist_id, playlist, description, isItP
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error('Failed to update playlist:', errorData);
-                alert('Error updating playlist. See console for details.');
                 return;
             }
-            alert(`Playlist "${playlistName}" updated successfully!`);
+            onUpdate(`Playlist ${playlistName} updated`);
         } catch (error) {
             console.error('Error:', error);
-            alert('An error occurred while updating the playlist.');
         }
     };
 
