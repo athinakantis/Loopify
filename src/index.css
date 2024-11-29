@@ -28,8 +28,6 @@
     height: auto;
 }
 
-
-
 body {
     font-family: var(--mainFont);
     background-color: var(--backgroundDark);
@@ -43,6 +41,8 @@ body :where(h1, h2, h3, h4, h5, h6) {
 
 main {
     overflow: hidden;
-    margin: 20px 40px;
-    flex: 1;
+    margin: 3rem 0 0 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }

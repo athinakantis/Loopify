@@ -13,7 +13,6 @@
     justify-content: center;
     flex-direction: column;
     position: relative;
-    bottom: 20px;
 }
 
 #playerControls {
@@ -73,6 +72,11 @@
 
 .playerCard p:first-of-type {
     font-weight: 500;
+}
+
+.playerCard p {
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 #player input[type='range'] {
