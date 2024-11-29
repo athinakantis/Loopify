@@ -2,6 +2,17 @@
 
 [List of all spotify genres](https://gist.github.com/andytlr/4104c667a62d8145aa3a)
 
+## Making requests
+
+### Query
+
+Takes different filters. Including:
+
+-   Genre (Only works with artists and tracks. Not playlists/albums)
+-   Tag
+    -   Hipster: Returns albums with lowest 10% popularity
+    -   New: Returns albums released from the past 2 weeks
+
 ## High-energy
 
 -   EDM
