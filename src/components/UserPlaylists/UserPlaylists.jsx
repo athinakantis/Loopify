@@ -75,7 +75,7 @@ const UserPlaylists = ({ accessToken }) => {
     setTimeout(() => setSuccessMsg(''), 3000);
   };
 
-  const selectedPlaylistDetails = playlists.find((playlist) => playlist.id === selectedPlaylist);
+  const selectedPlaylistDetails = playlists.find((playlist) => playlist?.id === selectedPlaylist);
 
   return (
     <div className='containerStyle'>
@@ -115,10 +115,10 @@ const UserPlaylists = ({ accessToken }) => {
               <div className='songStyle'>
                 {tracks.map((track) => (
                   <SongCard
-                      key={track.track.id}
-                      name={track.track.name}
-                      artist={track.track.artists.map((artist) => artist.name).join(', ')}
-                      img={track.track.album.images[0]?.url}
+                      key={track?.track?.id}
+                      name={track?.track?.name}
+                      artist={track?.track?.artists.map((artist) => artist?.name).join(', ')}
+                      img={track?.track?.album?.images[0]?.url}
                   />
                 ))}
               </div>
@@ -147,9 +147,9 @@ const UserPlaylists = ({ accessToken }) => {
           <div className='playlistStyle'>
             {playlists.length > 0 && playlists.map((playlist) => (
               <PlaylistCard
-                key={playlist.id}
-                onClick={() => playlistClick(playlist.id)}
-                playlistName={playlist.name}
+                key={playlist?.id}
+                onClick={() => playlistClick(playlist?.id)}
+                playlistName={playlist?.name}
                 img={playlist?.images?.[0]?.url || defaultImage}
               />
             ))}
