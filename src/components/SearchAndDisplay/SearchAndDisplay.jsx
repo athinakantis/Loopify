@@ -55,6 +55,8 @@ export default function SearchAndDisplay(props) {
             }
 
             getMoodPlaylists();
+        } else {
+            setPlaylists([])
         }
     }, [moodId]);
 
