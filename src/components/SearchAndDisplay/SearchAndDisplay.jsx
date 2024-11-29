@@ -149,7 +149,7 @@ export default function SearchAndDisplay(props) {
                     </button>
                 ))}
             </div>
-           
+
             <div className='displaySongs'>
                 <h2>Top songs</h2>
 
