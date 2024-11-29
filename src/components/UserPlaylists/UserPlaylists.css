@@ -1,9 +1,9 @@
 ul {
-  list-style-type: none;
+    list-style-type: none;
 }
 
 .containerStyle {
-  padding: 1rem;
+    padding: 1rem;
 }
 
 .playlistHeader {
@@ -15,33 +15,37 @@ ul {
 
 h2 {
   margin: 0;
+.containerStyle h2 {
+    padding-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
 }
 
 .playlistStyle {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  width: 100%;
-  max-width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    max-width: 100vw;
 }
 
 .songStyle {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  width: 100%;
-  max-width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    max-width: 100vw;
 }
 
 .playlistBtn {
-  color: var(--accentDark);
-  background-color: var(--backgroundDark);
-  cursor: pointer;
-  padding-bottom: 1rem;
+    color: var(--accentDark);
+    background-color: var(--backgroundDark);
+    cursor: pointer;
+    padding-bottom: 1rem;
 }
 
 .editBtn {

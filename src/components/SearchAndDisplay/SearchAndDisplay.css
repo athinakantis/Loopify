@@ -2,7 +2,8 @@
     display: grid;
     grid-auto-flow: column;
     grid-template-rows: repeat(2, 1fr);
-    gap: 10px;
+    gap: 15px;
+    column-gap: 30px;
     overflow-x: auto;
     overflow-y: hidden;
     width: 100%;
@@ -14,37 +15,106 @@
     display: grid;
     grid-auto-flow: column;
     grid-template-rows: repeat(1, 1fr);
-    gap: 10px;
+    gap: 15px;
     overflow-x: auto;
     overflow-y: hidden;
     width: 100%;
     max-width: 100vw;
     padding: 10px 0;
 }
-
 .playlists {
     display: grid;
     grid-auto-flow: column;
     grid-template-rows: repeat(1, 1fr);
-    gap: 10px;
+    gap: 15px;
     overflow-x: auto;
     overflow-y: hidden;
     width: 100%;
     max-width: 100vw;
 }
 
-.displaySongs,
-.displayAlbums,
-.displayPlaylists {
-    margin-bottom: 40px;
+.album {
+    position: relative;
 }
 
-h2 {
-    margin-bottom: 10px;
+.album:first-of-type::after {
+    content: 'L';
+    font-size: 4rem;
+    font-weight: 500;
+    position: absolute;
+    top: 1.8rem;
+    left: 3.6rem;
+    color: var(--accentDark);
+}
+
+.album:nth-of-type(2)::after,
+.album:nth-of-type(3)::after {
+    content: 'O';
+    font-size: 4rem;
+    font-weight: 500;
+    position: absolute;
+    top: 1.8rem;
+    left: 3.6rem;
+    color: var(--accentDark);
+}
+
+.album:nth-of-type(4)::after {
+    content: 'P';
+    font-size: 4rem;
+    font-weight: 500;
+    position: absolute;
+    top: 1.8rem;
+    left: 3.6rem;
+    color: var(--accentDark);
+}
+
+.album:nth-of-type(5)::after {
+    content: 'I';
+    font-size: 4rem;
+    font-weight: 500;
+    position: absolute;
+    top: 1.8rem;
+    left: 3.6rem;
+    color: var(--accentDark);
+}
+
+.album:nth-of-type(6)::after {
+    content: 'F';
+    font-size: 4rem;
+    font-weight: 700;
+    position: absolute;
+    top: 1.8rem;
+    left: 3.6rem;
+    color: var(--accentDark);
+}
+
+.album:nth-of-type(7)::after {
+    content: 'Y';
+    font-size: 4rem;
+    font-weight: 500;
+    position: absolute;
+    top: 1.8rem;
+    left: 3.6rem;
+    color: var(--accentDark);
+}
+
+.album p {
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.album span {
+    position: relative;
+    z-index: 2;
+}
+
+.album button,
+.playlist button {
+    background-color: var(--backgroundDark);
 }
 
 .album {
-    margin-right: 10px;
     border-radius: var(--radiusSmall);
     height: auto;
     width: 166px;
@@ -75,7 +145,8 @@ h2 {
     overflow: hidden;
 }
 
-.albumInfo .albumName {
+.albumInfo .albumName,
+.playlistName {
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 10px;
@@ -96,7 +167,7 @@ h2 {
     opacity: 0;
     position: absolute;
     right: 0;
-    z-index: 2;
+    z-index: 4;
     display: flex;
     justify-content: space-between;
     align-items: end;
@@ -105,8 +176,11 @@ h2 {
     transition: all 0.3s ease-in-out;
 }
 
-.albumIcons span {
-    font-size: 30px;
+.albumIcons button {
+    z-index: 4;
+    background-color: transparent;
+    width: 3rem;
+    height: fit-content;
 }
 
 .album:hover .albumIcons {
@@ -116,7 +190,9 @@ h2 {
 }
 
 .album .albumImgContainer img {
+    background-color: transparent;
     display: inline-block;
+    border-radius: 9px;
 }
 
 .album:hover .albumImgContainer::after {
@@ -126,6 +202,7 @@ h2 {
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 2;
     border-radius: var(--radiusSmall);
     box-shadow: inset 0px -18px 25px 12px rgba(0, 0, 0, 0.7);
     transition: all 300ms ease-in-out;
@@ -141,15 +218,17 @@ h2 {
     font-size: 14px;
 }
 
-.albumIcons button {
-    background: transparent;
-    height: fit-content;
-}
+/* Moods Styling */
+#moodsContainer button {
+    padding: 0.3rem 1.5rem;
+    margin: 0 0.5rem 0.5rem 0;
+    border-radius: 8px;
+    background-color: #8094c0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: all 300ms;
 
-.albumIcons button img {
-    width: 2.2rem;
-}
-
-.albumImg {
-    border-radius: var(--radiusSmall);
+    &:hover {
+        background-color: #abc3f8;
+    }
 }

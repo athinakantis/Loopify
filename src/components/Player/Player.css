@@ -1,97 +1,127 @@
 #player button {
-  background-color: transparent;
+    background-color: transparent;
 }
 
 #player .songCard {
-  border: none;
-  opacity: 0.2;
+    border: none;
+    opacity: 0.2;
 }
 
 #player {
-  margin: auto 1rem 1rem;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  position: relative;
-  bottom: 20px;
+    margin: auto 1rem 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
 }
 
 #playerControls {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 #playerControls.Collapsed {
-  flex-direction: column-reverse;
-  gap: 1rem;
+    flex-direction: column-reverse;
+    gap: 1rem;
 }
 
 .playPause {
-  display: flex;
-  margin: 0.5rem auto;
+    display: flex;
+    margin: 0.5rem auto;
 }
 
 .Collapsed .playPause {
-  flex-direction: column;
+    flex-direction: column;
 }
 
 .Expanded .playPause {
-  flex-direction: row;
+    flex-direction: row;
 }
 
 #playerControls.Expanded {
-  animation: fadeIn 500ms;
+    animation: fadeIn 500ms;
 }
 
 #playerControls.Collapsed .playPause button {
-  display: block;
+    display: block;
 }
 
 #playerControls.Expanded .playPause button {
-  display: inline;
+    display: inline;
 }
 
 @keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
+    0% {
+        opacity: 0;
+    }
 
-  60% {
-    opacity: 0;
-  }
+    60% {
+        opacity: 0;
+    }
 
-  100% {
-    opacity: 1;
-  }
+    100% {
+        opacity: 1;
+    }
 }
 
 .playerCard img {
-  width: 100%;
-  border-radius: 3px;
-  margin: 0.6rem 0 0;
+    width: 100%;
+    border-radius: 3px;
+    margin: 0.6rem 0 0;
 }
 
 .playerCard p:first-of-type {
-  font-weight: 500;
+    font-weight: 500;
 }
 
-#player input[type="range"] {
-  accent-color: var(--accentDark);
+.playerCard p {
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-#player input[type="range"]::-moz-range-thumb {
-  width: 8px;
-  height: 8px;
+#player input[type='range'] {
+    accent-color: var(--accentDark);
 }
 
-#player .Expanded input[type="range"] {
-  height: 4px;
-  width: 100%;
+#player input[type='range']::-moz-range-thumb {
+    width: 8px;
+    height: 8px;
 }
 
-#player .Collapsed input[type="range"] {
-  writing-mode: vertical-rl;
-  width: 4px;
-  margin: 0 auto;
-  height: 6rem;
+#player .Expanded input[type='range'] {
+    height: 4px;
+    width: 100%;
+}
+
+#player .Collapsed input[type='range'] {
+    writing-mode: vertical-rl;
+    width: 4px;
+    margin: 0 auto;
+    height: 6rem;
+}
+
+.playerCard img.collapsed {
+    display: none;
+}
+
+@media only screen and (prefers-contrast: no-preference) {
+    #playerControls button:focus-within img,
+    #playerControls input:focus-within {
+        filter: brightness(0) saturate(100%) invert(100%) sepia(0%)
+            saturate(7500%) hue-rotate(141deg) brightness(101%) contrast(104%)
+            drop-shadow(0px 0px 10px rgba(0, 0, 0, 1));
+    }
+}
+
+#playerControls button:focus-within,
+#playerControls input:focus-within {
+    outline: none;
+}
+
+@media only screen and (prefers-contrast: more) {
+    nav ul button:focus-within,
+    #playerControls button:focus-within,
+    input:focus-within {
+        outline: 2px solid red;
+    }
 }
