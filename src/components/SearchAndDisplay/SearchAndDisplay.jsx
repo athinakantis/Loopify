@@ -7,6 +7,7 @@ import './SearchBar.css';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 import moods from '../../moods.js';
+import { fetchMoods } from '../../utils/requests/moodFetchRequest.js';
 
 export default function SearchAndDisplay(props) {
     const {
@@ -24,7 +25,7 @@ export default function SearchAndDisplay(props) {
     const [tracks, setTracks] = useState([]);
     const [albums, setAlbums] = useState([]);
     const [playlists, setPlaylists] = useState([]);
-    const [currentMood, setCurrentMood] = useState();
+    const [moodId, setMoodId] = useState();
 
     function handlePlay(uri, type = 'track') {
         setPlayItem({
@@ -35,36 +36,27 @@ export default function SearchAndDisplay(props) {
     }
 
     function handleMoodClick(id) {
-        if (currentMood === id) {
-            setCurrentMood();
+        if (moodId === id) {
+            setMoodId();
         } else {
-            setCurrentMood(id);
+            setMoodId(id);
         }
     }
 
     //Effect to fetch mood-based playlists
     useEffect(() => {
-        if (currentMood) {
-            const type = ['playlist'];
-            const q = moods[currentMood].genres[0];
-            const endpoint = `https://api.spotify.com/v1/search?q=${q}&type=${type.join(
-                '+'
-            )}`;
-            console.log(JSON.stringify(endpoint));
-            fetch(endpoint, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            })
-                .then((response) => response.json())
-                .then((data) =>
-                    setPlaylists(
-                        data.playlists.items.filter((items) => items !== null)
-                    )
-                )
-                .catch((err) => console.log);
+        if (moodId) {
+            async function getMoodPlaylists() {
+                try {
+                    setPlaylists(await fetchMoods(moodId));
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+
+            getMoodPlaylists();
         }
-    }, [currentMood]);
+    }, [moodId]);
 
     useEffect(() => {
         if (searchTerm) {
