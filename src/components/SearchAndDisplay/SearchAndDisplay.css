@@ -237,6 +237,7 @@
 
 #moodsContainer button.currentMood {
     background-color: var(--accentDark);
+    opacity: 1;
 }
 
 .displayMoods .playlists {
@@ -256,4 +257,8 @@
 .displayPlaylists .spinner,
 .displayMoods .spinner {
     margin: 4rem auto;
+}
+
+#moodsContainer:has(.currentMood) button:not(.currentMood) {
+    opacity: 0.7;
 }
