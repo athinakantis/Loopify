@@ -58,7 +58,6 @@ function App() {
                 (Date.now() + 3600000).toString()
             );
         }
-
         setLoading(false);
     }, []);
 
