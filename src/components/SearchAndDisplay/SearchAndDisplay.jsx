@@ -37,11 +37,12 @@ export default function SearchAndDisplay(props) {
     }
 
     function handleMoodClick(id) {
-        if (moodId === id) {
+        if (moodId == id) {
             setMoodId();
         } else {
             setMoodId(id.toString());
         }
+        console.log(moodId);
     }
 
     //Effect to fetch mood-based playlists
@@ -126,100 +127,147 @@ export default function SearchAndDisplay(props) {
                 ))}
             </div>
 
-            <div className='displaySongs'>
-                <h2>Top songs</h2>
-
-                {loading ? (
-                    <Spinner />
-                ) : (
-                    <div className='top-songs'>
-                        {tracks.map((track) => (
-                            <SongCard
-                                setPlayItem={setPlayItem}
-                                setIsPlaying={setIsPlaying}
-                                key={track?.id}
-                                uri={track?.uri}
-                                name={track?.name}
-                                artist={track?.artists
-                                    ?.map((artist) => artist?.name)
-                                    ?.join(', ')}
-                                img={track?.album?.images?.[0]?.url}
-                            />
-                        ))}
-                    </div>
-                )}
-            </div>
-
-            <div className='displayAlbums'>
-                <h2>Albums</h2>
-                <div className='albums'>
-                    {albums.map((album) => (
-                        <div
-                            className='album'
-                            key={album?.id}
-                        >
-                            <div className='albumImgContainer'>
-                                <div className='albumIcons'>
+            {moodId ? (
+                <div className='displayMoods'>
+                    <h2>{moods[moodId]?.name}</h2>
+                    <div className='playlists'>
+                        {loading ? (
+                            <Spinner />
+                        ) : (
+                            playlists.map((playlist) => (
+                                <div
+                                    className='playlist'
+                                    key={playlist?.id}
+                                >
                                     <button
                                         onClick={() => {
-                                            handlePlay(album?.uri, 'album');
+                                            handlePlay(
+                                                playlist?.uri,
+                                                'playlist'
+                                            );
                                         }}
                                     >
-                                        <img
-                                            src='src/assets/play_arrow.svg'
-                                            alt='Play'
+                                        <LazyLoadImage
+                                            effect='opacity'
+                                            src={playlist?.images?.[0]?.url}
+                                            width='150px'
+                                            height='150px'
                                         />
                                     </button>
-                                    <button>
-                                        <img
-                                            src='src/assets/playlistAddIcon.svg'
-                                            alt='Add to playlist'
-                                        />
-                                    </button>
+                                    <p className='playlistName'>
+                                        {playlist?.name}
+                                    </p>
                                 </div>
-                                <LazyLoadImage
-                                    effect='opacity'
-                                    src={album?.images?.[0]?.url}
-                                    width='150px'
-                                    height='150px'
-                                />
-                            </div>
-                            <p className='albumName'>{album?.name}</p>
-                            <p>{album?.artists?.[0]?.name}</p>
-                        </div>
-                    ))}
+                            ))
+                        )}
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <>
+                    <div className='displaySongs'>
+                        <h2>Top songs</h2>
 
-            <div className={moodId ? `displayMoods` : `displayPlaylists`}>
-                <h2>{moodId ? moods[moodId]?.name : 'Playlists'}</h2>
-                <div className='playlists'>
-                    {loading ? (
-                        <Spinner />
-                    ) : (
-                        playlists.map((playlist) => (
-                            <div
-                                className='playlist'
-                                key={playlist?.id}
-                            >
-                                <button
-                                    onClick={() => {
-                                        handlePlay(playlist?.uri, 'playlist');
-                                    }}
-                                >
-                                    <LazyLoadImage
-                                        effect='opacity'
-                                        src={playlist?.images?.[0]?.url}
-                                        width='150px'
-                                        height='150px'
+                        {loading ? (
+                            <Spinner />
+                        ) : (
+                            <div className='top-songs'>
+                                {tracks.map((track) => (
+                                    <SongCard
+                                        setPlayItem={setPlayItem}
+                                        setIsPlaying={setIsPlaying}
+                                        key={track?.id}
+                                        uri={track?.uri}
+                                        name={track?.name}
+                                        artist={track?.artists
+                                            ?.map((artist) => artist?.name)
+                                            ?.join(', ')}
+                                        img={track?.album?.images?.[0]?.url}
                                     />
-                                </button>
-                                <p className='playlistName'>{playlist?.name}</p>
+                                ))}
                             </div>
-                        ))
-                    )}
-                </div>
-            </div>
+                        )}
+                    </div>
+
+                    <div className='displayAlbums'>
+                        <h2>Albums</h2>
+                        <div className='albums'>
+                            {albums.map((album) => (
+                                <div
+                                    className='album'
+                                    key={album?.id}
+                                >
+                                    <div className='albumImgContainer'>
+                                        <div className='albumIcons'>
+                                            <button
+                                                onClick={() => {
+                                                    handlePlay(
+                                                        album?.uri,
+                                                        'album'
+                                                    );
+                                                }}
+                                            >
+                                                <img
+                                                    src='src/assets/play_arrow.svg'
+                                                    alt='Play'
+                                                />
+                                            </button>
+                                            <button>
+                                                <img
+                                                    src='src/assets/playlistAddIcon.svg'
+                                                    alt='Add to playlist'
+                                                />
+                                            </button>
+                                        </div>
+                                        <LazyLoadImage
+                                            effect='opacity'
+                                            src={album?.images?.[0]?.url}
+                                            width='150px'
+                                            height='150px'
+                                        />
+                                    </div>
+                                    <p className='albumName'>{album?.name}</p>
+                                    <p>{album?.artists?.[0]?.name}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className='displayPlaylists'>
+                        <h2>Playlists</h2>
+                        <div className='playlists'>
+                            {loading ? (
+                                <Spinner />
+                            ) : (
+                                playlists.map((playlist) => (
+                                    <div
+                                        className='playlist'
+                                        key={playlist?.id}
+                                    >
+                                        <button
+                                            onClick={() => {
+                                                handlePlay(
+                                                    playlist?.uri,
+                                                    'playlist'
+                                                );
+                                            }}
+                                        >
+                                            <LazyLoadImage
+                                                effect='opacity'
+                                                src={playlist?.images?.[0]?.url}
+                                                width='150px'
+                                                height='150px'
+                                            />
+                                        </button>
+                                        <p className='playlistName'>
+                                            {playlist?.name}
+                                        </p>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                    </div>
+                </>
+            )}
         </>
     );
 }
