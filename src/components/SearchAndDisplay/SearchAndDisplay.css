@@ -254,11 +254,12 @@
     text-overflow: ellipsis;
 }
 
-.displayPlaylists .spinner,
-.displayMoods .spinner {
-    margin: 4rem auto;
-}
-
 #moodsContainer:has(.currentMood) button:not(.currentMood) {
     opacity: 0.7;
+}
+
+/* Spinner Styling */
+:is(.displayMoods, .displayPlaylists, .displayAlbums, .displaySongs) .spinner {
+    display: block;
+    margin: 4rem auto;
 }

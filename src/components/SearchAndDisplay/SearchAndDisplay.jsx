@@ -26,7 +26,7 @@ export default function SearchAndDisplay(props) {
     const [albums, setAlbums] = useState([]);
     const [playlists, setPlaylists] = useState([]);
     const [moodId, setMoodId] = useState();
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     function handlePlay(uri, type = 'track') {
         setPlayItem({
@@ -42,7 +42,6 @@ export default function SearchAndDisplay(props) {
         } else {
             setMoodId(id.toString());
         }
-        console.log(moodId);
     }
 
     //Effect to fetch mood-based playlists
@@ -190,46 +189,52 @@ export default function SearchAndDisplay(props) {
 
                     <div className='displayAlbums'>
                         <h2>Albums</h2>
-                        <div className='albums'>
-                            {albums.map((album) => (
-                                <div
-                                    className='album'
-                                    key={album?.id}
-                                >
-                                    <div className='albumImgContainer'>
-                                        <div className='albumIcons'>
-                                            <button
-                                                onClick={() => {
-                                                    handlePlay(
-                                                        album?.uri,
-                                                        'album'
-                                                    );
-                                                }}
-                                            >
-                                                <img
-                                                    src='src/assets/play_arrow.svg'
-                                                    alt='Play'
-                                                />
-                                            </button>
-                                            <button>
-                                                <img
-                                                    src='src/assets/playlistAddIcon.svg'
-                                                    alt='Add to playlist'
-                                                />
-                                            </button>
+                        {loading ? (
+                            <Spinner />
+                        ) : (
+                            <div className='albums'>
+                                {albums.map((album) => (
+                                    <div
+                                        className='album'
+                                        key={album?.id}
+                                    >
+                                        <div className='albumImgContainer'>
+                                            <div className='albumIcons'>
+                                                <button
+                                                    onClick={() => {
+                                                        handlePlay(
+                                                            album?.uri,
+                                                            'album'
+                                                        );
+                                                    }}
+                                                >
+                                                    <img
+                                                        src='src/assets/play_arrow.svg'
+                                                        alt='Play'
+                                                    />
+                                                </button>
+                                                <button>
+                                                    <img
+                                                        src='src/assets/playlistAddIcon.svg'
+                                                        alt='Add to playlist'
+                                                    />
+                                                </button>
+                                            </div>
+                                            <LazyLoadImage
+                                                effect='opacity'
+                                                src={album?.images?.[0]?.url}
+                                                width='150px'
+                                                height='150px'
+                                            />
                                         </div>
-                                        <LazyLoadImage
-                                            effect='opacity'
-                                            src={album?.images?.[0]?.url}
-                                            width='150px'
-                                            height='150px'
-                                        />
+                                        <p className='albumName'>
+                                            {album?.name}
+                                        </p>
+                                        <p>{album?.artists?.[0]?.name}</p>
                                     </div>
-                                    <p className='albumName'>{album?.name}</p>
-                                    <p>{album?.artists?.[0]?.name}</p>
-                                </div>
-                            ))}
-                        </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     <div className='displayPlaylists'>
