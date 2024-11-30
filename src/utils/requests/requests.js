@@ -101,3 +101,32 @@ async function searchPlaylists(query) {
         console.error(err);
     }
 }
+
+// PUT requests
+export async function playSong(playItem, device) {
+    try {
+        fetch(
+            `https://api.spotify.com/v1/me/player/repeat?state=context&device_id=${device}`,
+            {
+                method: 'PUT',
+                headers: { Authorization: `Bearer ${accessToken}` },
+            }
+        );
+
+        let body;
+        playItem.type === 'track'
+            ? (body = JSON.stringify({ uris: [playItem.uri] }))
+            : (body = JSON.stringify({ context_uri: playItem.uri }));
+
+        fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+            },
+            body: body,
+        });
+    } catch (err) {
+        console.error(err);
+    }
+}
