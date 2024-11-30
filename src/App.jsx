@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Header from '../src/components/Header/Header.jsx';
 import UserPlaylists from './components/UserPlaylists/UserPlaylists.jsx';
 import Spinner from './components/Spinner/Spinner.jsx';
+import { playSong } from './utils/requests/requests.js';
 
 function App() {
     const [accessToken, setAccessToken] = useState('');
@@ -15,6 +16,11 @@ function App() {
     const [player, setPlayer] = useState(null);
     const [device, setDevice] = useState('');
     const [displayItem, setDisplayItem] = useState({});
+
+    function handleLogOut() {
+        setAccessToken('');
+        localStorage.clear();
+    }
 
     // Effect that gets accesstoken on mount
     useEffect(() => {
@@ -114,29 +120,14 @@ function App() {
     // When the playItem is updated, a fetch request is sent with the song/context
     useEffect(() => {
         if (isPlaying) {
-            let body;
-            playItem.type === 'track'
-                ? (body = JSON.stringify({ uris: [playItem.uri] }))
-                : (body = JSON.stringify({ context_uri: playItem.uri }));
-
-            fetch(
-                `https://api.spotify.com/v1/me/player/play?device_id=${device}`,
-                {
-                    method: 'PUT',
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                        'Content-Type': 'application/json',
-                    },
-                    body: body,
-                }
-            );
-
-            fetch(`https://api.spotify.com/v1/me/player/repeat?state=context`, {
-                method: 'PUT',
-                headers: { Authorization: `Bearer ${accessToken}` },
-            });
+            try {
+                playSong(playItem, device);
+            } catch (err) {
+                console.error(err);
+            }
         }
     }, [playItem, isPlaying]);
+
     if (loading) return <Spinner />;
 
     return (
@@ -147,6 +138,7 @@ function App() {
                 displayItem={displayItem}
                 setIsPlaying={setIsPlaying}
                 isPlaying={isPlaying}
+                handleLogOut={handleLogOut}
             ></Header>
             <SpotifyPlayer />
             <main>
