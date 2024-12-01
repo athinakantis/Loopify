@@ -240,6 +240,11 @@
     opacity: 1;
 }
 
+.displayMoods h2 {
+    display: inline;
+    margin: 0 0.5rem 0 0;
+}
+
 .displayMoods .playlists {
     grid-template-rows: repeat(2, 1fr);
 }
@@ -260,11 +265,9 @@
 
 .refreshBtn {
     background-color: transparent;
-    display: block;
-    margin: 3rem auto;
 
     & img {
-        width: 3rem;
+        width: 1.6rem;
     }
 }
 
