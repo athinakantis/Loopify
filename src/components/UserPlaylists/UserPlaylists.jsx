@@ -29,7 +29,7 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
                     }
                 );
                 const data = await response.json();
-                setPlaylists(data.items);
+                setPlaylists(data.items.filter((item) => item !== null));
             } catch (error) {
                 console.error('Error fetching playlists:', error);
             }
@@ -45,7 +45,7 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
     };
 
     // Fetch tracks of the selected playlist
-    const playlistClick = async (playlistId) => {
+    const playlistClick = async (playlistId, playlistUri) => {
         const response = await fetch(
             `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
             {
@@ -57,7 +57,10 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
         );
         const data = await response.json();
         setTracks(data.items);
-        setSelectedPlaylist(playlistId);
+        setSelectedPlaylist({
+            id: playlistId,
+            uri: playlistUri,
+        });
         setIsEditing(false);
     };
 
@@ -77,7 +80,7 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
     };
 
     const selectedPlaylistDetails = playlists.find(
-        (playlist) => playlist?.id === selectedPlaylist
+        (playlist) => playlist?.id === selectedPlaylist?.id
     );
 
     return (
@@ -123,6 +126,7 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
                                         setIsPlaying={setIsPlaying}
                                         setPlayItem={setPlayItem}
                                         key={track?.track?.id}
+                                        uri={track?.track?.uri}
                                         name={track?.track?.name}
                                         artist={track?.track?.artists
                                             .map((artist) => artist?.name)
@@ -158,7 +162,12 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
                             playlists.map((playlist) => (
                                 <PlaylistCard
                                     key={playlist?.id}
-                                    onClick={() => playlistClick(playlist?.id)}
+                                    onClick={() =>
+                                        playlistClick(
+                                            playlist?.id,
+                                            playlist?.uri
+                                        )
+                                    }
                                     playlistName={playlist?.name}
                                     img={
                                         playlist?.images?.[0]?.url ||
