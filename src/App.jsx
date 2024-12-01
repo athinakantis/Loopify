@@ -93,14 +93,9 @@ function App() {
                 });
 
                 spotifyPlayer.addListener('ready', ({ device_id }) => {
-                    console.log('Ready with Device ID', device_id);
                     setDevice(device_id);
 
                     spotifyPlayer.setVolume(0.3);
-                });
-
-                spotifyPlayer.addListener('not_ready', ({ device_id }) => {
-                    console.log('Device ID has gone offline', device_id);
                 });
 
                 spotifyPlayer.connect();
@@ -115,6 +110,18 @@ function App() {
             };
         }, [player]);
     };
+
+    useEffect(() => {
+        if (device) {
+            fetch(
+                `https://api.spotify.com/v1/me/player/repeat?state=context&device_id=${device}`,
+                {
+                    method: 'PUT',
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                }
+            );
+        }
+    }, [device]);
 
     // When the playItem is updated, a fetch request is sent with the song/context
     useEffect(() => {
