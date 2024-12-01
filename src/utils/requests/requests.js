@@ -2,7 +2,7 @@ import moods from '../../moods';
 const accessToken = localStorage.getItem('accessToken');
 
 // GET requests
-export async function fetchMoods(moodId) {
+export async function fetchMoods(moodId, offset) {
     try {
         const genres = moods[moodId].genres;
         const limit = 3;
@@ -10,7 +10,7 @@ export async function fetchMoods(moodId) {
         const playlistItems = [];
         for (const genre of genres) {
             const response = await fetch(
-                `https://api.spotify.com/v1/search?q=${genre}&type=${type}&limit=${limit}`,
+                `https://api.spotify.com/v1/search?q=${genre}&type=${type}&limit=${limit}&offset=${offset}`,
                 {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
@@ -105,14 +105,6 @@ async function searchPlaylists(query) {
 // PUT requests
 export async function playSong(playItem, device) {
     try {
-        fetch(
-            `https://api.spotify.com/v1/me/player/repeat?state=context&device_id=${device}`,
-            {
-                method: 'PUT',
-                headers: { Authorization: `Bearer ${accessToken}` },
-            }
-        );
-
         let body;
         playItem.type === 'track'
             ? (body = JSON.stringify({ uris: [playItem.uri] }))
