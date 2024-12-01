@@ -258,6 +258,16 @@
     opacity: 0.7;
 }
 
+.refreshBtn {
+    background-color: transparent;
+    display: block;
+    margin: 3rem auto;
+
+    & img {
+        width: 3rem;
+    }
+}
+
 /* Spinner Styling */
 :is(.displayMoods, .displayPlaylists, .displayAlbums, .displaySongs) .spinner {
     display: block;

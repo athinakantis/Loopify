@@ -27,6 +27,7 @@ export default function SearchAndDisplay(props) {
     const [playlists, setPlaylists] = useState([]);
     const [moodId, setMoodId] = useState();
     const [loading, setLoading] = useState(true);
+    const [offset, setOffset] = useState(0);
 
     function handlePlay(uri, type = 'track') {
         setPlayItem({
@@ -41,6 +42,7 @@ export default function SearchAndDisplay(props) {
             setMoodId();
         } else {
             setMoodId(id.toString());
+            setOffset(0);
         }
     }
 
@@ -50,7 +52,7 @@ export default function SearchAndDisplay(props) {
             async function getMoodPlaylists() {
                 try {
                     setLoading(true);
-                    setPlaylists(await fetchMoods(+moodId));
+                    setPlaylists(await fetchMoods(+moodId, offset));
                     setLoading(false);
                 } catch (err) {
                     console.error(err);
@@ -60,7 +62,7 @@ export default function SearchAndDisplay(props) {
         } else {
             setPlaylists([]);
         }
-    }, [moodId]);
+    }, [moodId, offset]);
 
     useEffect(() => {
         if (searchTerm) {
@@ -129,37 +131,48 @@ export default function SearchAndDisplay(props) {
             {moodId ? (
                 <div className='displayMoods'>
                     <h2>{moods[moodId]?.name}</h2>
-                    <div className='playlists'>
-                        {loading ? (
-                            <Spinner />
-                        ) : (
-                            playlists.map((playlist) => (
-                                <div
-                                    className='playlist'
-                                    key={playlist?.id}
-                                >
-                                    <button
-                                        onClick={() => {
-                                            handlePlay(
-                                                playlist?.uri,
-                                                'playlist'
-                                            );
-                                        }}
+                    {loading ? (
+                        <Spinner />
+                    ) : (
+                        <>
+                            <div className='playlists'>
+                                {playlists.map((playlist) => (
+                                    <div
+                                        className='playlist'
+                                        key={playlist?.id}
                                     >
-                                        <LazyLoadImage
-                                            effect='opacity'
-                                            src={playlist?.images?.[0]?.url}
-                                            width='150px'
-                                            height='150px'
-                                        />
-                                    </button>
-                                    <p className='playlistName'>
-                                        {playlist?.name}
-                                    </p>
-                                </div>
-                            ))
-                        )}
-                    </div>
+                                        <button
+                                            onClick={() => {
+                                                handlePlay(
+                                                    playlist?.uri,
+                                                    'playlist'
+                                                );
+                                            }}
+                                        >
+                                            <LazyLoadImage
+                                                effect='opacity'
+                                                src={playlist?.images?.[0]?.url}
+                                                width='150px'
+                                                height='150px'
+                                            />
+                                        </button>
+                                        <p className='playlistName'>
+                                            {playlist?.name}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                            <button
+                                className='refreshBtn'
+                                onClick={() => setOffset((prev) => prev + 8)}
+                            >
+                                <img
+                                    src='src/assets/refresh.svg'
+                                    alt='Refresh'
+                                />
+                            </button>
+                        </>
+                    )}
                 </div>
             ) : (
                 <>
