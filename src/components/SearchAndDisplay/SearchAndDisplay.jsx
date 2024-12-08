@@ -130,18 +130,20 @@ export default function SearchAndDisplay(props) {
 
             {moodId ? (
                 <div className='displayMoods'>
-                    <h2>{moods[moodId]?.name}</h2>
-                    {!loading && (
-                        <button
-                            className='refreshBtn'
-                            onClick={() => setOffset((prev) => prev + 8)}
-                        >
-                            <img
-                                src='src/assets/refresh.svg'
-                                alt='Refresh'
-                            />
-                        </button>
-                    )}
+                    <div className='moodsTitle'>
+                        <h2>{moods[moodId]?.name}</h2>
+                        {!loading && (
+                            <button
+                                className='refreshBtn'
+                                onClick={() => setOffset((prev) => prev + 8)}
+                            >
+                                <img
+                                    src='src/assets/refresh.svg'
+                                    alt='Refresh'
+                                />
+                            </button>
+                        )}
+                    </div>
                     {loading ? (
                         <Spinner />
                     ) : (

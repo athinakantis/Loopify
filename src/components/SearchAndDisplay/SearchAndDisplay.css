@@ -249,6 +249,11 @@
     grid-template-rows: repeat(2, 1fr);
 }
 
+.moodsTitle {
+    display: flex;
+    align-items: end;
+}
+
 .displayMoods .playlists .playlist {
     width: 166px;
 }
@@ -268,6 +273,11 @@
 
     & img {
         width: 1.6rem;
+        transition: all 300ms ease;
+    }
+
+    &:hover img {
+        transform: rotate(30deg);
     }
 }
 
