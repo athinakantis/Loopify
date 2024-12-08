@@ -166,7 +166,9 @@ export default function SearchAndDisplay(props) {
                         )}
                     </div>
                     {loading ? (
-                        <Spinner />
+                        <div id='spinnerContainer'>
+                            <Spinner />
+                        </div>
                     ) : (
                         <>
                             <div className='playlists'>
