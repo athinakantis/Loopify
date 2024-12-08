@@ -6,7 +6,11 @@ import './SearchBar.css';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 import moods from '../../moods.js';
-import { fetchMoods, fetchSearch } from '../../utils/requests/requests.js';
+import {
+    fetchMoods,
+    fetchSearch,
+    initialFetch,
+} from '../../utils/requests/requests.js';
 import Spinner from '../Spinner/Spinner.jsx';
 
 export default function SearchAndDisplay(props) {
@@ -45,6 +49,24 @@ export default function SearchAndDisplay(props) {
             setOffset(0);
         }
     }
+
+    // Effect to fetch initial play items.
+    // Runs on mount
+    useEffect(() => {
+        async function getInitialItems() {
+            try {
+                const results = await initialFetch();
+                setTracks(results.tracks);
+                setAlbums(results.albums);
+                setPlaylists(results.playlists);
+                setLoading(false);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        getInitialItems();
+    }, []);
 
     //Effect to fetch mood-based playlists
     useEffect(() => {
