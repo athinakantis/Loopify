@@ -104,7 +104,56 @@ async function searchPlaylists(query) {
 }
 
 export async function initialFetch() {
+    const searchResults = {};
+
+    const initialTracks = async () => {
+        const response = await fetch(
+            `https://api.spotify.com/v1/me/top/tracks`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
+        const data = await response.json();
+        return data.items.filter((item) => item !== null);
+    };
+
+    const initialAlbums = async () => {
+        const response = await fetch(
+            `https://api.spotify.com/v1/me/albums?limit=20`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
+        const data = await response.json();
+        return data.items
+            .filter((item) => item !== null)
+            .map((item) => item.album);
+    };
+
+    const initialPlaylists = async () => {
+        const response = await fetch(
+            `https://api.spotify.com/v1/me/playlists?limit=20`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
+        const data = await response.json();
+        return data.items.filter((item) => item !== null);
+    };
     try {
+        const [tracks, albums, playlists] = await Promise.all([
+            initialTracks(),
+            initialAlbums(),
+            initialPlaylists(),
+        ]);
+        Object.assign(searchResults, { tracks, albums, playlists });
+        return searchResults;
     } catch (err) {
         console.error(err);
     }
