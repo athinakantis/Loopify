@@ -53,18 +53,18 @@ export default function SearchAndDisplay(props) {
     // Effect to fetch initial play items.
     // Runs on mount
     useEffect(() => {
-        // async function getInitialItems() {
-        //     try {
-        //         const results = await initialFetch();
-        //         setTracks(results.tracks);
-        //         setAlbums(results.albums);
-        //         setPlaylists(results.playlists);
-        //         setLoading(false);
-        //     } catch (err) {
-        //         console.error(err);
-        //     }
-        // }
-        // getInitialItems();
+        async function getInitialItems() {
+            try {
+                const results = await initialFetch();
+                setTracks(results.tracks);
+                setAlbums(results.albums);
+                setPlaylists(results.playlists);
+                setLoading(false);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        getInitialItems();
     }, []);
 
     //Effect to fetch mood-based playlists

@@ -280,17 +280,3 @@
         transform: rotate(30deg);
     }
 }
-
-/* Spinner Styling */
-.displayMoods .spinner {
-    display: block;
-    margin: 4rem auto;
-}
-
-#spinnerContainer {
-    display: flex;
-    height: 60%;
-    align-items: center;
-    justify-content: center;
-    width: 80%;
-}

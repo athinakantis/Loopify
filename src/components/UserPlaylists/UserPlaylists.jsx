@@ -5,10 +5,12 @@ import SongCard from '../SongCard/SongCard';
 import CreatePlaylist from './CreatePlaylist';
 import UpdatePlaylist from './UpdatePlaylist';
 import loopifyLogoDark from '../../assets/loopifyLogo_dark.svg';
+import Spinner from '../Spinner/Spinner';
 
 const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
     const [playlists, setPlaylists] = useState([]);
     const [selectedPlaylist, setSelectedPlaylist] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [tracks, setTracks] = useState([]);
     const [refreshList, setRefreshList] = useState(0);
     const [isEditing, setIsEditing] = useState(false);
@@ -30,6 +32,7 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
                 );
                 const data = await response.json();
                 setPlaylists(data.items.filter((item) => item !== null));
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching playlists:', error);
             }
@@ -157,25 +160,31 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
                             />
                         </div>
                     </div>
-                    <div className='playlistStyle'>
-                        {playlists.length > 0 &&
-                            playlists.map((playlist) => (
-                                <PlaylistCard
-                                    key={playlist?.id}
-                                    onClick={() =>
-                                        playlistClick(
-                                            playlist?.id,
-                                            playlist?.uri
-                                        )
-                                    }
-                                    playlistName={playlist?.name}
-                                    img={
-                                        playlist?.images?.[0]?.url ||
-                                        defaultImage
-                                    }
-                                />
-                            ))}
-                    </div>
+                    {loading ? (
+                        <div id='spinnerContainer'>
+                            <Spinner />
+                        </div>
+                    ) : (
+                        <div className='playlistStyle'>
+                            {playlists.length > 0 &&
+                                playlists.map((playlist) => (
+                                    <PlaylistCard
+                                        key={playlist?.id}
+                                        onClick={() =>
+                                            playlistClick(
+                                                playlist?.id,
+                                                playlist?.uri
+                                            )
+                                        }
+                                        playlistName={playlist?.name}
+                                        img={
+                                            playlist?.images?.[0]?.url ||
+                                            defaultImage
+                                        }
+                                    />
+                                ))}
+                        </div>
+                    )}
                 </div>
             )}
         </div>
