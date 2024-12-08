@@ -2,8 +2,6 @@
 
 [List of all spotify genres](https://gist.github.com/andytlr/4104c667a62d8145aa3a)
 
-## Making requests
-
 ### Query
 
 Takes different filters. Including:

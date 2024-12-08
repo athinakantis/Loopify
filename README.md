@@ -3,6 +3,12 @@
 An app to help users discover new music based on his/her mood.  
 There is a search functionality which will allow the user to search music.
 
+## Features
+
+-   Search and play music
+-   Filter playlists based on users mood
+-   Playlist creation
+
 ## Technologies used
 
 -   React
