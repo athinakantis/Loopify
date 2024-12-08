@@ -33,12 +33,13 @@ export async function fetchSearch(query) {
     const searchResults = {};
 
     try {
-        Object.assign(searchResults, { tracks: await searchSongs(query) });
-        Object.assign(searchResults, { albums: await searchAlbums(query) });
-        Object.assign(searchResults, {
-            playlists: await searchPlaylists(query),
-        });
+        const [tracks, albums, playlists] = await Promise.all([
+            searchSongs(query),
+            searchAlbums(query),
+            searchPlaylists(query),
+        ]);
 
+        Object.assign(searchResults, { tracks, albums, playlists });
         return searchResults;
     } catch (err) {
         console.error(err);
@@ -97,6 +98,13 @@ async function searchPlaylists(query) {
         );
         const data = await response.json();
         return data.playlists.items.filter((item) => item !== null);
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+export async function initialFetch() {
+    try {
     } catch (err) {
         console.error(err);
     }
