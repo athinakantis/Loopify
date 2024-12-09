@@ -1,9 +1,9 @@
 import moods from '../../moods';
-const accessToken = localStorage.getItem('accessToken');
 
 // GET requests
 export async function fetchMoods(moodId, offset) {
     try {
+        const accessToken = localStorage.getItem('accessToken');
         const genres = moods[moodId].genres;
         const limit = 3;
         const type = 'playlist';
@@ -48,6 +48,7 @@ export async function fetchSearch(query) {
 
 async function searchSongs(query) {
     try {
+        const accessToken = localStorage.getItem('accessToken');
         const response = await fetch(
             `https://api.spotify.com/v1/search?q=${encodeURIComponent(
                 query
@@ -67,6 +68,7 @@ async function searchSongs(query) {
 
 async function searchAlbums(query) {
     try {
+        const accessToken = localStorage.getItem('accessToken');
         const response = await fetch(
             `https://api.spotify.com/v1/search?q=${encodeURIComponent(
                 query
@@ -86,6 +88,7 @@ async function searchAlbums(query) {
 
 async function searchPlaylists(query) {
     try {
+        const accessToken = localStorage.getItem('accessToken');
         const response = await fetch(
             `https://api.spotify.com/v1/search?q=${encodeURIComponent(
                 query
@@ -104,6 +107,7 @@ async function searchPlaylists(query) {
 }
 
 export async function initialFetch() {
+    const accessToken = localStorage.getItem('accessToken');
     const searchResults = {};
 
     const initialTracks = async () => {
@@ -162,6 +166,7 @@ export async function initialFetch() {
 // PUT requests
 export async function playSong(playItem, device) {
     try {
+        const accessToken = localStorage.getItem('accessToken');
         let body;
         playItem.type === 'track'
             ? (body = JSON.stringify({ uris: [playItem.uri] }))

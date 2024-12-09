@@ -153,7 +153,7 @@ function App() {
                     <SearchAndDisplay
                         setPlayItem={setPlayItem}
                         setIsPlaying={setIsPlaying}
-                        accesstoken={accessToken}
+                        accessToken={accessToken}
                         placeholder='Search...'
                     />
                 )}
