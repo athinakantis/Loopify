@@ -12,8 +12,8 @@ const moods = [
             'Trap',
             'Dubstep',
             'Industrial',
-            'Metalcore'
-        ]
+            'Metalcore',
+        ],
     },
     {
         id: 1,
@@ -28,8 +28,8 @@ const moods = [
             'Afrobeat',
             'Ska',
             'Reggaeton',
-            'Pop Rock'
-        ]
+            'Pop Rock',
+        ],
     },
     {
         id: 2,
@@ -44,8 +44,8 @@ const moods = [
             'Orchestral',
             'Soul',
             'World Music',
-            'Experimental'
-        ]
+            'Experimental',
+        ],
     },
     {
         id: 3,
@@ -60,8 +60,8 @@ const moods = [
             'Dream Pop',
             'Smooth Jazz',
             'Downtempo',
-            'Folk'
-        ]
+            'Folk',
+        ],
     },
     {
         id: 4,
@@ -76,8 +76,8 @@ const moods = [
             'Minimalism',
             'Ethereal Wave',
             'Acoustic Chill',
-            'Contemporary Instrumental'
-        ]
+            'Contemporary Instrumental',
+        ],
     },
     {
         id: 5,
@@ -92,8 +92,8 @@ const moods = [
             'Trip-Hop',
             'Ambient Drone',
             'Baroque Pop',
-            'Sad Indie'
-        ]
+            'Sad Indie',
+        ],
     },
     {
         id: 6,
@@ -108,8 +108,8 @@ const moods = [
             'Alternative Metal',
             'Rap Metal',
             'Noise Rock',
-            'Industrial Metal'
-        ]
+            'Industrial Metal',
+        ],
     },
     {
         id: 7,
@@ -124,8 +124,8 @@ const moods = [
             'Swing',
             'Electropop',
             'Gospel',
-            "Children's Music"
-        ]
+            "Children's Music",
+        ],
     },
     {
         id: 8,
@@ -134,14 +134,12 @@ const moods = [
             'Christmas',
             'Neo-Classical',
             'Dark Ambient',
-            'Post-Rock',
-            'Chamber Music',
             'Nordic Folk',
             'Piano Ballads',
             'Shoegaze',
             'Drone',
-            'Ethereal Folk'
-        ]
+            'Ethereal Folk',
+        ],
     },
     {
         id: 9,
@@ -156,8 +154,8 @@ const moods = [
             'Ukulele Pop',
             'Cartoon Music',
             'Hyperpop',
-            '8-bit'
-        ]
+            '8-bit',
+        ],
     },
     {
         id: 10,
@@ -172,15 +170,15 @@ const moods = [
             'Harp Music',
             'Nature Sounds',
             'Yoga Tunes',
-            'Minimalist Piano'
-        ]
+            'Minimalist Piano',
+        ],
     },
     {
         id: 11,
         name: 'nostalgic',
         genres: [
             'Retro Wave',
-            'Vintage Jazz',
+            '00s',
             'Oldies',
             'Motown',
             'Classic Rock',
@@ -188,9 +186,9 @@ const moods = [
             '90s Grunge',
             'Doo-Wop',
             'Barbershop Quartet',
-            'Folk Revival'
-        ]
-    }
+            'Folk Revival',
+        ],
+    },
 ];
 
 export default moods;

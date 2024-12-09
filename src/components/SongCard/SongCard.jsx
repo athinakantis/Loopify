@@ -2,11 +2,19 @@ import './SongCard.css';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 
-function SongCard({ name, artist, img, uri, setPlayItem, setIsPlaying }) {
+function SongCard({
+    name,
+    artist,
+    img,
+    uri,
+    setPlayItem,
+    setIsPlaying,
+    type = 'track',
+}) {
     function handlePlay() {
         setPlayItem({
             uri: uri,
-            type: 'track',
+            type: type,
         });
         setIsPlaying(true);
     }

@@ -1,0 +1,27 @@
+.spinner {
+    width: 8rem;
+}
+
+/* Spinner Styling */
+.displayMoods .spinner {
+    display: block;
+    margin: 4rem auto;
+}
+
+#spinnerContainer {
+    display: flex;
+    height: 60%;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+}
+
+.containerStyle #spinnerContainer {
+    width: 60vw;
+    height: 80vh;
+}
+
+.displayMoods #spinnerContainer {
+    height: 51vh;
+    width: 63vw;
+}

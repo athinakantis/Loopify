@@ -14,7 +14,8 @@ button {
     background-color: var(--backgroundDark);
 }
 
-:is(.displaySongs, .displayAlbums, .displayPlaylists) ::-webkit-scrollbar {
+:is(.displaySongs, .displayAlbums, .displayPlaylists, .displayMoods)
+    ::-webkit-scrollbar {
     display: none;
     -ms-overflow-style: none;
     scrollbar-width: none;

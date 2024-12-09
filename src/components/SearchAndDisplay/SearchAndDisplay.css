@@ -11,7 +11,8 @@
     padding: 20px 0;
 }
 
-.albums {
+.albums,
+.playlists {
     display: grid;
     grid-auto-flow: column;
     grid-template-rows: repeat(1, 1fr);
@@ -22,15 +23,11 @@
     max-width: 100vw;
     padding: 10px 0;
 }
-.playlists {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: repeat(1, 1fr);
-    gap: 15px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    width: 100%;
-    max-width: 100vw;
+
+.playlists p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .album {
@@ -219,6 +216,10 @@
 }
 
 /* Moods Styling */
+#moodsContainer {
+    width: 80%;
+}
+
 #moodsContainer button {
     padding: 0.3rem 1.5rem;
     margin: 0 0.5rem 0.5rem 0;
@@ -229,6 +230,53 @@
     transition: all 300ms;
 
     &:hover {
-        background-color: #abc3f8;
+        background-color: var(--accentDark);
+        opacity: 1;
+    }
+}
+
+#moodsContainer button.currentMood {
+    background-color: var(--accentDark);
+    opacity: 1;
+}
+
+.displayMoods h2 {
+    display: inline;
+    margin: 0 0.5rem 0 0;
+}
+
+.displayMoods .playlists {
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.moodsTitle {
+    display: flex;
+    align-items: end;
+}
+
+.displayMoods .playlists .playlist {
+    width: 166px;
+}
+
+.displayMoods .playlists p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#moodsContainer:has(.currentMood) button:not(.currentMood) {
+    opacity: 0.7;
+}
+
+.refreshBtn {
+    background-color: transparent;
+
+    & img {
+        width: 1.6rem;
+        transition: all 300ms ease;
+    }
+
+    &:hover img {
+        transform: rotate(30deg);
     }
 }
