@@ -250,7 +250,7 @@ export default function SearchAndDisplay(props) {
                                                         }}
                                                     >
                                                         <img
-                                                            src='src/assets/play_arrow.svg'
+                                                            src='src/assets/play_arrow_solid.svg'
                                                             alt='Play'
                                                         />
                                                     </button>

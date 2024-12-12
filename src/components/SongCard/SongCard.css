@@ -8,14 +8,17 @@
     overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    position: relative;
 }
 
 .songCard .songDetails {
+    padding: 0 0 0 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 0.2rem;
     overflow: hidden;
+    position: relative;
 }
 
 .songCard button {
@@ -58,7 +61,7 @@
 /* Animation for scrolling text */
 @keyframes scroll-text {
     0% {
-        transform: translateX(0);
+        transform: translateX(0px);
     }
 
     100% {
