@@ -247,10 +247,6 @@
     align-items: end;
 }
 
-.displayMoods .playlists .playlist {
-    width: 166px;
-}
-
 .displayMoods .playlists p {
     overflow: hidden;
     white-space: nowrap;
