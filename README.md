@@ -1,7 +1,10 @@
 # Loopify
 
-An app to help users discover new music based on his/her mood.  
-There is a search functionality which will allow the user to search music.
+An app to help users discover new music based on their mood.
+
+## Background
+
+We are a group of 5 Full-Stack Web Development students from Business College Helsinki who decided to work together to make a Mood playlist generator using the Spotify API.
 
 ## Features
 
@@ -13,6 +16,12 @@ There is a search functionality which will allow the user to search music.
 
 -   React
 -   Spotifty API
+
+## Known Flaws
+
+### - Accesstoken doesn't automatically renew
+
+Because of the 9 week limit, we made the decision to focus on the front-end experience and getting more familiar with API-calls and React. This unfortunately means there is no automatic renewal for the accesstoken and the user has to refresh after the token expires (1 hour)
 
 ## Authors
 
