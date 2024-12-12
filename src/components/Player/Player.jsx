@@ -4,7 +4,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 
 function Player({ isOpen, player, setIsPlaying, displayItem, isPlaying }) {
-    const [loading, setLoading] = useState(false);
+    const [isSetting, setIsSetting] = useState(false);
     const [volume, setVolume] = useState(0.3);
     const [position, setPosition] = useState(0);
 
@@ -29,17 +29,17 @@ function Player({ isOpen, player, setIsPlaying, displayItem, isPlaying }) {
     }
 
     const handlePosition = (e) => {
-        setLoading(true);
+        setIsSetting(true);
         setPosition(e.target.value);
     };
 
     const handleSetPosition = () => {
         player.seek(position);
-        setLoading(false);
+        setIsSetting(false);
     };
 
     useEffect(() => {
-        if (!loading) {
+        if (!isSetting) {
             setPosition(displayItem.position);
         }
     }, [displayItem.position]);
