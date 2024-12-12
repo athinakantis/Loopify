@@ -21,13 +21,22 @@ function SongCard({
 
     return (
         <div className='songCard'>
-            <button onClick={handlePlay}>
+            <div className='songImgContainer'>
                 <LazyLoadImage
                     effect='opacity'
                     src={img}
                     alt={name}
                 />
-            </button>
+                <button
+                    onClick={handlePlay}
+                    className='playBtn'
+                >
+                    <img
+                        src='src/assets/play_arrow_solid.svg'
+                        alt='Play'
+                    />
+                </button>
+            </div>
             <div className='songDetails'>
                 <p className='songName'>{name}</p>
                 <p className='songArtist'>{artist}</p>

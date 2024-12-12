@@ -16,7 +16,7 @@
     display: grid;
     grid-auto-flow: column;
     grid-template-rows: repeat(1, 1fr);
-    gap: 15px;
+    gap: 30px;
     overflow-x: auto;
     overflow-y: hidden;
     width: 100%;
@@ -107,7 +107,8 @@
     background-color: var(--backgroundDark);
 }
 
-.album {
+.album,
+.playlist {
     position: relative;
     border-radius: 3px;
     height: auto;
@@ -147,6 +148,7 @@
     height: 150px;
     width: 150px;
     overflow: hidden;
+    margin: 0 0 0.2rem;
 }
 
 .albumIcons {
@@ -195,7 +197,8 @@
     transition: all 300ms ease-in-out;
 }
 
-.album:hover .albumName {
+.album:hover .albumName,
+.playlist:hover .playlistName {
     overflow: visible;
     white-space: nowrap;
     animation: scroll-text 5s linear;

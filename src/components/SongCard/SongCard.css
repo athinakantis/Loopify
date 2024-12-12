@@ -21,22 +21,60 @@
     position: relative;
 }
 
-.songCard button {
+.songImgContainer {
     height: 70px;
     width: 70px;
     background-color: var(--accentDark);
+    position: relative;
 
-    &:hover ::after {
+    &::after {
+        transition: all 300ms;
         content: '';
         display: block;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.3);
+        background-color: transparent;
+        z-index: 2;
+        position: absolute;
+        left: 0;
+        top: 0;
     }
+
+    &:hover::after {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    &:hover .playBtn img {
+        opacity: 1;
+    }
+}
+
+.playBtn {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent;
+}
+
+.playBtn > img {
+    transition: all 300ms;
+    opacity: 0;
+    position: absolute;
+    z-index: 3;
+    left: -2px;
+    top: 0;
+    width: 3rem;
+    background: transparent;
+    position: relative;
 }
 
 .songCard img {
     max-height: 70px;
+    border-radius: 2px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .songCard .songDetails p {
