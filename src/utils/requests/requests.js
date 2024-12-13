@@ -167,10 +167,21 @@ export async function initialFetch() {
 export async function playSong(playItem, device) {
     try {
         const accessToken = localStorage.getItem('accessToken');
+        const { type, uri, playlistUri } = playItem
         let body;
-        playItem.type === 'track'
-            ? (body = JSON.stringify({ uris: [playItem.uri] }))
-            : (body = JSON.stringify({ context_uri: playItem.uri }));
+
+        if (type === 'playlist' && playlistUri) {
+            body = JSON.stringify({
+                context_uri: playlistUri,
+                offset: {
+                    uri: uri
+                }
+            })
+        } else if (type === 'album' || type === 'playlist' && !playlistUri) {
+            body = JSON.stringify({ context_uri: uri })
+        } else {
+            body = JSON.stringify({ uris: [uri] })
+        }
 
         fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device}`, {
             method: 'PUT',
