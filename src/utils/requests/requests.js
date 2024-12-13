@@ -183,8 +183,6 @@ export async function playSong(playItem, device) {
             body = JSON.stringify({ uris: [uri] })
         }
 
-        console.log(body)
-
         fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device}`, {
             method: 'PUT',
             headers: {
