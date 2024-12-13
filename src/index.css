@@ -41,7 +41,7 @@ body :where(h1, h2, h3, h4, h5, h6) {
 
 main {
     overflow: hidden;
-    margin: 3rem 0 0 4rem;
+    padding: 3rem 0 0 4rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;

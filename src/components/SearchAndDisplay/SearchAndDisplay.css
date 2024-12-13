@@ -22,6 +22,7 @@
     max-width: 100vw;
     padding: 10px 0;
 }
+
 .playlists {
     display: grid;
     grid-auto-flow: column;
