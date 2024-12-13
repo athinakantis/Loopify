@@ -10,11 +10,13 @@ function SongCard({
     setPlayItem,
     setIsPlaying,
     type = 'track',
+    playlistUri = null
 }) {
     function handlePlay() {
         setPlayItem({
             uri: uri,
             type: type,
+            playlistUri: playlistUri
         });
         setIsPlaying(true);
     }

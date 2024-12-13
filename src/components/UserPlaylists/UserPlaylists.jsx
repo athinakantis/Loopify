@@ -124,8 +124,10 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
                     <div className='songStyle'>
                         {tracks.length > 0 ? (
                             <div className='songStyle'>
-                                {tracks.map((track) => (
+                                {tracks.map((track, index) => (
                                     <SongCard
+                                        playlistUri={selectedPlaylist.uri}
+                                        type='playlist'
                                         setIsPlaying={setIsPlaying}
                                         setPlayItem={setPlayItem}
                                         key={track?.track?.id}
