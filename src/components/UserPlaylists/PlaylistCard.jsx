@@ -11,7 +11,7 @@ function PlaylistCard(props) {
                 onClick={props.onClick}
                 effect='opacity'
             />
-            <p onClick={props.onClick}>{props.playlistName}</p>
+            <p className='playlistName' onClick={props.onClick}>{props.playlistName}</p>
         </div>
     );
 }

@@ -1,12 +1,12 @@
 .playlistCard img {
-  width: 150px;
-  height: 150px;
-  border-radius: var(--radiusSmall);
+    width: 150px;
+    height: 150px;
+    border-radius: var(--radiusSmall);
 }
 
 .playlistCard {
-  cursor: pointer;
-  width: 150px;
-  height: 150px;
-  margin: 10px;
+    cursor: pointer;
+    width: 150px;
+    height: 150px;
+    margin: 10px;
 }
