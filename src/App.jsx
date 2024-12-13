@@ -83,18 +83,8 @@ function App() {
                     },
                 });
 
-                spotifyPlayer.addListener('player_state_changed', (state) => {
-                    const currentTrack = state.track_window.current_track;
-                    setDisplayItem({
-                        name: currentTrack?.name,
-                        artist: currentTrack?.artists?.[0]?.name,
-                        img: currentTrack?.album?.images?.[0]?.url,
-                    });
-                });
-
                 spotifyPlayer.addListener('ready', ({ device_id }) => {
                     setDevice(device_id);
-
                     spotifyPlayer.setVolume(0.3);
                 });
 
@@ -123,6 +113,33 @@ function App() {
         }
     }, [device]);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            player
+                .getCurrentState()
+                .then((state) => {
+                    if (!state) return;
+
+                    const currentTrack = state.track_window.current_track;
+                    setDisplayItem({
+                        name: currentTrack?.name,
+                        artist: currentTrack?.artists?.[0]?.name,
+                        img: currentTrack?.album?.images?.[0]?.url,
+                        position: state.position,
+                        songLength: currentTrack?.duration_ms,
+                    });
+                })
+                .catch((error) => {
+                    console.error(
+                        'Error fetching Spotify player state:',
+                        error
+                    );
+                });
+        }, 500);
+
+        return () => clearInterval(interval);
+    }, [player]);
+
     // When the playItem is updated, a fetch request is sent with the song/context
     useEffect(() => {
         if (isPlaying) {
@@ -145,6 +162,8 @@ function App() {
                 setIsPlaying={setIsPlaying}
                 isPlaying={isPlaying}
                 handleLogOut={handleLogOut}
+                setPlayItem={setPlayItem}
+                playItem={playItem}
             ></Header>
             <SpotifyPlayer />
             <main>

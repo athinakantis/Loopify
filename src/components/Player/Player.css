@@ -88,7 +88,16 @@
     height: 8px;
 }
 
-#player .Expanded input[type='range'] {
+#progressSlider.Collapsed {
+    display: none;
+}
+
+#progressSlider {
+    margin: 1.3rem 0 0.8rem;
+}
+
+#player .Expanded input[type='range'],
+#progressSlider {
     height: 4px;
     width: 100%;
 }
