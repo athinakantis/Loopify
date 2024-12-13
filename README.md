@@ -6,6 +6,39 @@ An app to help users discover new music based on their mood.
 
 We are a group of 5 Full-Stack Web Development students from Business College Helsinki who decided to work together to make a Mood playlist generator using the Spotify API.
 
+## Prerequisites
+
+### Spotify Premium
+
+To use the app to it's full extent you need a **spotify premium** account
+
+## Installation
+
+If you wish to run the project locally, do as the following:
+
+1. Clone the repository  
+   `git clone https://github.com/athinakantis/Loopify.git`
+
+2. Create your spotify app at [Spotify for Developers](https://developer.spotify.com/dashboard)
+
+3. In the project settings:
+
+    1. Define the redirect uri you will be using for your project
+    2. Add the Client ID and redirect URI to the **LandingPage component**
+
+    ```js
+    // In LandingPage.jsx
+
+    const clientID = 'YOUR_CLIENT_ID_HERE';
+    const redirectURI = 'http://your_redirect_uri:3000';
+    ```
+
+4. Install the dependencies  
+   `npm install`
+
+5. Run the project  
+   `npm run dev`
+
 ## Features
 
 -   Search and play music
