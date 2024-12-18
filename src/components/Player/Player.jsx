@@ -51,8 +51,8 @@ function Player({ isOpen, player, displayItem }) {
             <div className='playerCard'>
                 {isOpen && (
                     <>
-                        <p>{displayItem.name}</p>
-                        <p>{displayItem.artist}</p>
+                        <p className='title'>{displayItem.name}</p>
+                        <p className='artist'>{displayItem.artist}</p>
                     </>
                 )}
                 <div className='frame'>

@@ -8,6 +8,7 @@
 }
 
 #player {
+    overflow: hidden;
     margin: auto 1rem 1rem;
     display: flex;
     justify-content: center;
@@ -83,6 +84,20 @@
 .playerCard p {
     white-space: nowrap;
     overflow: hidden;
+    max-width: 260px;
+}
+
+.playerCard p.title {
+    text-overflow: ellipsis;
+}
+.playerCard p.title:hover {
+    overflow: visible;
+    white-space: nowrap;
+    animation: scroll-text 5s linear;
+}
+
+.playerCard p.artist {
+    font-size: 1rem;
 }
 
 #player input[type='range'] {
@@ -138,5 +153,16 @@
     #playerControls button:focus-within,
     input:focus-within {
         outline: 2px solid red;
+    }
+}
+
+/* ANIMATION */
+@keyframes scroll-text {
+    0% {
+        transform: translateX(0px);
+    }
+
+    100% {
+        transform: translateX(-100%);
     }
 }

@@ -18,18 +18,21 @@ const CreatePlaylist = ({ accessToken, refreshPlaylists, playlistCreated }) => {
             const userId = data.id;
 
             // Create a new playlist through POST method with name, description, and public/private in the request body
-            const playlistResponse = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: playlistName,
-                    description: playlistDescription,
-                    public: !isPrivate,
-                }),
-            });
+            const playlistResponse = await fetch(
+                `https://api.spotify.com/v1/users/${userId}/playlists`,
+                {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: playlistName,
+                        description: playlistDescription,
+                        public: !isPrivate,
+                    }),
+                }
+            );
 
             if (playlistResponse.ok) {
                 const playlistData = await playlistResponse.json();
@@ -46,21 +49,24 @@ const CreatePlaylist = ({ accessToken, refreshPlaylists, playlistCreated }) => {
     };
 
     return (
-        <div className="create-container">
+        <div className='create-container'>
             <button
-                className="addButton"
+                className='addButton'
                 onClick={() => setFormIsShowing(true)}
             >
-                <img src="src/assets/addCircle.svg" alt="New Playlist" />
+                <img src='src/assets/addCircle.svg' alt='New Playlist' />
                 <span>Create a New Playlist</span>
             </button>
 
             {formIsShowing && (
                 <>
                     {/* Overlay background that dims the screen */}
-                    <div className="create-overlay" onClick={() => setFormIsShowing(false)}></div>
+                    <div
+                        className='create-overlay'
+                        onClick={() => setFormIsShowing(false)}
+                    ></div>
 
-                    <div className="form-container">
+                    <div className='form-container'>
                         <h3>Create a New Playlist</h3>
                         <form
                             onSubmit={(e) => {
@@ -72,9 +78,11 @@ const CreatePlaylist = ({ accessToken, refreshPlaylists, playlistCreated }) => {
                             <label>
                                 Playlist Name:
                                 <input
-                                    type="text"
+                                    type='text'
                                     value={playlistName}
-                                    onChange={(e) => setPlaylistName(e.target.value)}
+                                    onChange={(e) =>
+                                        setPlaylistName(e.target.value)
+                                    }
                                     required
                                 />
                             </label>
@@ -82,29 +90,34 @@ const CreatePlaylist = ({ accessToken, refreshPlaylists, playlistCreated }) => {
                                 Description:
                                 <textarea
                                     value={playlistDescription}
-                                    onChange={(e) => setPlaylistDescription(e.target.value)}
-                                    placeholder="Description (optional)"
+                                    onChange={(e) =>
+                                        setPlaylistDescription(e.target.value)
+                                    }
+                                    placeholder='Description (optional)'
                                 />
                             </label>
-                            <label className="checkbox">
+                            <label className='checkbox'>
                                 <input
-                                    type="checkbox"
+                                    type='checkbox'
                                     checked={isPrivate}
-                                    onChange={(e) => setIsPrivate(e.target.checked)}
+                                    onChange={(e) =>
+                                        setIsPrivate(e.target.checked)
+                                    }
                                 />
                                 Make Playlist Private
                             </label>
-                            <button type="submit" className="formButton">
-                                Create Playlist
-                            </button>
+                            <div className='buttonContainer'>
+                                <button
+                                    onClick={() => setFormIsShowing(false)}
+                                    className='formButton'
+                                >
+                                    &larr; Back
+                                </button>
+                                <button type='submit' className='formButton'>
+                                    Create Playlist
+                                </button>
+                            </div>
                         </form>
-
-                        <button
-                            onClick={() => setFormIsShowing(false)}
-                            className="formButton"
-                        >
-                            &larr; Back
-                        </button>
                     </div>
                 </>
             )}
