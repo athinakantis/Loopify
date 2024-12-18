@@ -1,31 +1,53 @@
 .create-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.form-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px;
-  font-size: 1.2rem;
-  line-height: 1.8;
-  border: 1px solid var(--accentDark);
-  border-radius: var(--radiusSmall);
-  padding: 20px 5px;
-  width: 400px;
+  position: relative;
 }
 
 .addButton {
-  height: 30px;
-  margin-right: 10px;
-  background-color: var(--backgroundDark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color:var(--backgroundDark);
   color: var(--accentDark);
-  font-size: 1rem;
-  text-align: center;
-  vertical-align: middle;
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-size: inherit;
+  position: relative;
+  z-index: 10; 
+  margin-right: 100px;
+}
+
+.addButton img {
+  width: 20px;
+  margin: 4px 10px 0 0;
+}
+
+.form-container {
+  background-color: var(--backgroundDark);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  width: 400px;
+  max-width: 100%;
+  position: fixed; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 2;
+}
+
+.create-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
 }
 
 .formButton {
@@ -37,11 +59,7 @@
   color: var(--backgroundDark);
   font-size: 1rem;
   text-align: center;
-  vertical-align: middle;
-  margin: 5px 0;
-}
-
-button:hover {
-  opacity: 0.75;
+  margin: 10px auto;
+  display: block;
   cursor: pointer;
 }
