@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './CreatePlaylist.css';
 
 const CreatePlaylist = ({ accessToken, refreshPlaylists, playlistCreated }) => {
-
     const [playlistName, setPlaylistName] = useState('');
     const [playlistDescription, setPlaylistDescription] = useState('');
     const [isPrivate, setIsPrivate] = useState(false);
@@ -18,7 +17,7 @@ const CreatePlaylist = ({ accessToken, refreshPlaylists, playlistCreated }) => {
             const data = await response.json();
             const userId = data.id;
 
-            // create a new playlist through POST method with name, description and public/private in the request body
+            // Create a new playlist through POST method with name, description, and public/private in the request body
             const playlistResponse = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
                 method: 'POST',
                 headers: {
@@ -47,61 +46,67 @@ const CreatePlaylist = ({ accessToken, refreshPlaylists, playlistCreated }) => {
     };
 
     return (
-        <div className='create-container'>
-            {formIsShowing ? (
-                <div className='form-container'>
-                    <h3>Create a New Playlist</h3>
-                    <form
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            createPlaylist();
-                            setFormIsShowing(false);
-                        }}
-                    >
-                        <label>
-                            Playlist Name: 
-                            <input
-                                type='text'
-                                value={playlistName}
-                                onChange={(e) => setPlaylistName(e.target.value)}
-                                required
-                            />
-                        </label>
-                        <label>
-                            Description:
-                            <textarea
-                                value={playlistDescription}
-                                onChange={(e) => setPlaylistDescription(e.target.value)}
-                                placeholder="Enter description (optional)"
-                            />
-                        </label>
-                        <label className='checkbox'>
-                            <input
-                                type="checkbox"
-                                checked={isPrivate}
-                                onChange={(e) => setIsPrivate(e.target.checked)}
-                            />
-                            Make Playlist Private
-                        </label>            
-                        <button 
-                            type='submit'
-                            className='formButton'
-                        >Create Playlist</button>
-                    </form>
-
-                    <button 
-                        onClick={() => setFormIsShowing(false)}
-                        className='formButton'
-                    >&larr; Back</button>
-                </div>
-            ) : (
+        <div className="create-container">
             <button
-                className='addButton' 
+                className="addButton"
                 onClick={() => setFormIsShowing(true)}
             >
-                <img className='addButton' src="src/assets/addCircle.svg" alt="New Playlist" />
+                <img src="src/assets/addCircle.svg" alt="New Playlist" />
                 <span>Create a New Playlist</span>
             </button>
+
+            {formIsShowing && (
+                <>
+                    {/* Overlay background that dims the screen */}
+                    <div className="create-overlay" onClick={() => setFormIsShowing(false)}></div>
+
+                    <div className="form-container">
+                        <h3>Create a New Playlist</h3>
+                        <form
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                createPlaylist();
+                                setFormIsShowing(false);
+                            }}
+                        >
+                            <label>
+                                Playlist Name:
+                                <input
+                                    type="text"
+                                    value={playlistName}
+                                    onChange={(e) => setPlaylistName(e.target.value)}
+                                    required
+                                />
+                            </label>
+                            <label>
+                                Description:
+                                <textarea
+                                    value={playlistDescription}
+                                    onChange={(e) => setPlaylistDescription(e.target.value)}
+                                    placeholder="Description (optional)"
+                                />
+                            </label>
+                            <label className="checkbox">
+                                <input
+                                    type="checkbox"
+                                    checked={isPrivate}
+                                    onChange={(e) => setIsPrivate(e.target.checked)}
+                                />
+                                Make Playlist Private
+                            </label>
+                            <button type="submit" className="formButton">
+                                Create Playlist
+                            </button>
+                        </form>
+
+                        <button
+                            onClick={() => setFormIsShowing(false)}
+                            className="formButton"
+                        >
+                            &larr; Back
+                        </button>
+                    </div>
+                </>
             )}
         </div>
     );

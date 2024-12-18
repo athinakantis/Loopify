@@ -86,6 +86,12 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
         (playlist) => playlist?.id === selectedPlaylist?.id
     );
 
+    const [showCreatePlaylist, setShowCreatePlaylist] = useState(false); 
+
+    const handleCreatePlaylistClick = () => {
+        setShowCreatePlaylist(!showCreatePlaylist);
+    };
+
     return (
         <div className='containerStyle'>
             {selectedPlaylist ? (
@@ -154,6 +160,7 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
                         {successMsg && (
                             <div className='success'>{successMsg}</div>
                         )}
+
                         <div className='createBtn'>
                             <CreatePlaylist
                                 accessToken={accessToken}
@@ -162,6 +169,7 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
                             />
                         </div>
                     </div>
+
                     {loading ? (
                         <div id='spinnerContainer'>
                             <Spinner />
