@@ -126,6 +126,8 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
                             <div className='songStyle'>
                                 {tracks.map((track) => (
                                     <SongCard
+                                        playlistUri={selectedPlaylist.uri}
+                                        type='playlist'
                                         setIsPlaying={setIsPlaying}
                                         setPlayItem={setPlayItem}
                                         key={track?.track?.id}

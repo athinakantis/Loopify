@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 
-function Player({ isOpen, player, setIsPlaying, displayItem, isPlaying }) {
+function Player({ isOpen, player, displayItem }) {
     const [isSetting, setIsSetting] = useState(false);
     const [volume, setVolume] = useState(0.3);
     const [position, setPosition] = useState(0);
+    const [isPlaying, setIsPlaying] = useState(false)
 
     function handleVolume(e) {
         setVolume(e.target.value);
@@ -14,8 +15,9 @@ function Player({ isOpen, player, setIsPlaying, displayItem, isPlaying }) {
     }
 
     function handlePlay() {
-        setIsPlaying((prev) => !prev);
         player.togglePlay();
+
+        player.getCurrentState().then(state => !state.paused ? setIsPlaying(false) : setIsPlaying(true)) 
     }
 
     function handleSkipNext() {

@@ -6,7 +6,7 @@ function LandingPage() {
     const [index, setIndex] = useState(0);
 
     const clientID = '31b7c8cccb774c259278744de0c20018';
-    const redirectURI = 'http://localhost:5173/'; // Update URI after deployment
+    const redirectURI = 'http://localhost:5173/';
     const scopes = [
         'playlist-read-private',
         'playlist-read-collaborative',
