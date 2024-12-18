@@ -40,7 +40,7 @@ const UpdatePlaylist = ({ accessToken, playlist_id, playlist, description, isItP
     };
 
     return (
-        <div className='container'>
+        <div className='container editPlaylist'>
             <h3>Edit Playlist Details</h3>
             <label htmlFor='playlistName'>
                 Playlist Name:
