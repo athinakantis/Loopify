@@ -34,6 +34,34 @@
         inset 40px 0px 14px -5px rgb(0 0 0 / 71%);*/
 }
 
+.songImgContainer {
+    height: 70px;
+    width: 70px;
+    background-color: var(--accentDark);
+    position: relative;
+
+    &::after {
+        transition: all 300ms;
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        z-index: 2;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    &:hover::after {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    &:hover .playBtn img {
+        opacity: 1;
+    }
+}
+
 .songCard:hover .songCardIcons {
     width: 240px;
     left: 0;
