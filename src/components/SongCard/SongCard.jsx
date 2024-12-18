@@ -23,7 +23,7 @@ function SongCard({
   return (
     <div className="songCard">
       <div className="songCardIcons">
-        <button>
+        <button onClick={handlePlay}>
           <img src="src/assets/play_arrow.svg" alt="Play" />
         </button>
         <button>
