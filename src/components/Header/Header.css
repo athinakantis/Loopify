@@ -10,13 +10,14 @@ header {
 }
 
 .leftNav {
-    width: 250px;
+    min-width: 260px;
     position: sticky;
     top: 0;
+    overflow: hidden;
 }
 
 .leftNavNarrow {
-    width: 92px;
+    min-width: 92px;
     position: sticky;
     top: 0;
 }
