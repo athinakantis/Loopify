@@ -50,21 +50,22 @@ export default function SearchAndDisplay(props) {
         }
     }
 
+    async function getInitialItems() {
+        try {
+            const results = await initialFetch();
+            setTracks(results.tracks);
+            setAlbums(results.albums);
+            setPlaylists(results.playlists);
+            setLoading(false);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+    
     // Effect to fetch initial play items.
     // Runs on mount
     useEffect(() => {
         if (accessToken) {
-            async function getInitialItems() {
-                try {
-                    const results = await initialFetch();
-                    setTracks(results.tracks);
-                    setAlbums(results.albums);
-                    setPlaylists(results.playlists);
-                    setLoading(false);
-                } catch (err) {
-                    console.error(err);
-                }
-            }
             getInitialItems();
         }
     }, [accessToken]);
@@ -103,6 +104,8 @@ export default function SearchAndDisplay(props) {
                 }
             }
             getSearchResults();
+        } else {
+            getInitialItems()
         }
     }, [searchTerm, accessToken]);
 
@@ -250,7 +253,7 @@ export default function SearchAndDisplay(props) {
                                                         }}
                                                     >
                                                         <img
-                                                            src='src/assets/play_arrow.svg'
+                                                            src='src/assets/play_arrow_solid.svg'
                                                             alt='Play'
                                                         />
                                                     </button>

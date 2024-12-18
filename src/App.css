@@ -12,6 +12,7 @@ button {
 .songCard img,
 .playlist img {
     background-color: var(--backgroundDark);
+    border-radius: var(--radiusSmall);
 }
 
 :is(.displaySongs, .displayAlbums, .displayPlaylists, .displayMoods)

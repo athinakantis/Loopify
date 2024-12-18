@@ -1,6 +1,7 @@
 import './PlaylistCard.css';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
+import '../SearchAndDisplay/SearchAndDisplay.css'
 
 function PlaylistCard(props) {
     return (
@@ -11,7 +12,7 @@ function PlaylistCard(props) {
                 onClick={props.onClick}
                 effect='opacity'
             />
-            <p onClick={props.onClick}>{props.playlistName}</p>
+            <p className='playlistName' onClick={props.onClick}>{props.playlistName}</p>
         </div>
     );
 }
