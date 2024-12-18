@@ -20,21 +20,27 @@ function SongCard({
         });
         setIsPlaying(true);
     }
-    return (
-        <div className='songCard'>
-            <button onClick={handlePlay}>
-                <LazyLoadImage
-                    effect='opacity'
-                    src={img}
-                    alt={name}
-                />
-            </button>
-            <div className='songDetails'>
-                <p className='songName'>{name}</p>
-                <p className='songArtist'>{artist}</p>
-            </div>
-        </div>
-    );
+  return (
+    <div className="songCard">
+      <div className="songCardIcons">
+        <button>
+          <img src="src/assets/play_arrow.svg" alt="Play" />
+        </button>
+        <button>
+          <img src="src/assets/playlistAddIcon.svg" alt="Add to playlist" />
+        </button>
+      </div>
+      <div className="songCardImg">
+        <button onClick={handlePlay}>
+          <LazyLoadImage effect="opacity" src={img} alt={name} />
+        </button>
+      </div>
+      <div className="songDetails">
+        <p className="songName">{name}</p>
+        <p className="songArtist">{artist}</p>
+      </div>
+    </div>
+  );
 }
 
 export default SongCard;

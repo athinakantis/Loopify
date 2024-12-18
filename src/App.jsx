@@ -109,7 +109,7 @@ function App() {
                     method: 'PUT',
                     headers: { Authorization: `Bearer ${accessToken}` },
                 }
-            );
+            )
         }
     }, [device]);
 
