@@ -110,7 +110,7 @@
 .album,
 .playlist {
     position: relative;
-    border-radius: 3px;
+    border-radius: var(--radiusSmall);
     height: auto;
     width: 151px;
     overflow: hidden;
@@ -181,7 +181,7 @@
 .album .albumImgContainer img {
     background-color: transparent;
     display: inline-block;
-    border-radius: 3px;
+    border-radius: var(--radiusSmall);
 }
 
 .album:hover .albumImgContainer::after {
@@ -198,7 +198,8 @@
 }
 
 .album:hover .albumName,
-.playlist:hover .playlistName {
+.playlist:hover .playlistName,
+.playlistCard:hover .playlistName {
     overflow: visible;
     white-space: nowrap;
     animation: scroll-text 5s linear;
