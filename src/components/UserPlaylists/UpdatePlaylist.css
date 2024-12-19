@@ -14,6 +14,18 @@
     background-color: var(--backgroundDark);
 }
 
+.container.editPlaylist label:not(label[class='checkbox']) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 1rem;
+    align-items: center;
+}
+
+.editPlaylist label[class='checkbox'] {
+    margin: 0 0 1.5rem;
+}
+
 .container h3 {
     margin-bottom: 20px;
 }
@@ -68,4 +80,5 @@ textarea::placeholder {
     border-radius: 100px;
     width: 150px;
     padding: 10px;
+    font-size: 1rem;
 }

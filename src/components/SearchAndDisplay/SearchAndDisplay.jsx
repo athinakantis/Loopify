@@ -44,6 +44,7 @@ export default function SearchAndDisplay(props) {
     function handleMoodClick(id) {
         if (moodId == id) {
             setMoodId();
+            getInitialItems()
         } else {
             setMoodId(id.toString());
             setOffset(0);
@@ -116,10 +117,7 @@ export default function SearchAndDisplay(props) {
         setSearchTerm(query);
 
         if (query.trim() === '') {
-            setTracks([]);
-            setAlbums([]);
-            setPlaylists([]);
-            return;
+            getInitialItems()
         }
     }
 
