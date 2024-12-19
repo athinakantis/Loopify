@@ -109,7 +109,7 @@ function App() {
                     method: 'PUT',
                     headers: { Authorization: `Bearer ${accessToken}` },
                 }
-            )
+            );
         }
     }, [device]);
 
@@ -127,6 +127,7 @@ function App() {
                         img: currentTrack?.album?.images?.[0]?.url,
                         position: state.position,
                         songLength: currentTrack?.duration_ms,
+                        isPlaying: !state.paused,
                     });
                 })
                 .catch((error) => {

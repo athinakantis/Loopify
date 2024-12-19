@@ -86,7 +86,7 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
         (playlist) => playlist?.id === selectedPlaylist?.id
     );
 
-    const [showCreatePlaylist, setShowCreatePlaylist] = useState(false); 
+    const [showCreatePlaylist, setShowCreatePlaylist] = useState(false);
 
     const handleCreatePlaylistClick = () => {
         setShowCreatePlaylist(!showCreatePlaylist);

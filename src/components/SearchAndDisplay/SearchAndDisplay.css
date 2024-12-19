@@ -170,11 +170,6 @@
     background-color: transparent;
     width: 2.5rem;
     height: fit-content;
-    filter: brightness(0.8);
-
-    &:hover {
-        filter: brightness(1);
-    }
 }
 
 .album:hover .albumIcons {
@@ -184,7 +179,7 @@
 }
 
 .albumIcons button:hover {
-    filter: brightness(1);
+    filter: brightness(0.8);
 }
 
 .album .albumImgContainer img {
