@@ -26,6 +26,16 @@
     transition: all 0.5s ease-in-out;
 }
 
+.songCardIcons button:has([alt='Play']) {
+    filter: brightness(0.9);
+    position: relative;
+    left: 2px;
+
+    &:hover {
+        filter: brightness(1);
+    }
+}
+
 .songImgContainer {
     height: 70px;
     width: 70px;
@@ -123,7 +133,7 @@
 }
 
 .songCard:hover .songCardImg button::after {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .songCardImg img {
