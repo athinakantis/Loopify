@@ -7,7 +7,7 @@ function Player({ isOpen, player, displayItem }) {
     const [isSetting, setIsSetting] = useState(false);
     const [volume, setVolume] = useState(0.3);
     const [position, setPosition] = useState(0);
-    const [isPlaying, setIsPlaying] = useState(false)
+    const [isPlaying, setIsPlaying] = useState(false);
 
     function handleVolume(e) {
         setVolume(e.target.value);
@@ -16,8 +16,6 @@ function Player({ isOpen, player, displayItem }) {
 
     function handlePlay() {
         player.togglePlay();
-
-        player.getCurrentState().then(state => !state.paused ? setIsPlaying(false) : setIsPlaying(true)) 
     }
 
     function handleSkipNext() {
@@ -45,6 +43,10 @@ function Player({ isOpen, player, displayItem }) {
             setPosition(displayItem.position);
         }
     }, [displayItem.position]);
+
+    useEffect(() => {
+        setIsPlaying(displayItem.isPlaying);
+    }, [displayItem.isPlaying]);
 
     return (
         <div id='player'>

@@ -27,12 +27,11 @@
 }
 
 .songCardIcons button:has([alt='Play']) {
-    filter: brightness(0.9);
     position: relative;
     left: 2px;
 
     &:hover {
-        filter: brightness(1);
+        filter: brightness(0.8);
     }
 }
 
