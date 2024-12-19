@@ -10,6 +10,7 @@ header {
 }
 
 .leftNav {
+    max-width: 260px;
     min-width: 260px;
     position: sticky;
     top: 0;
