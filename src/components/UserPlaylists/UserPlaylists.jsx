@@ -86,7 +86,7 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
         (playlist) => playlist?.id === selectedPlaylist?.id
     );
 
-    const [showCreatePlaylist, setShowCreatePlaylist] = useState(false); 
+    const [showCreatePlaylist, setShowCreatePlaylist] = useState(false);
 
     const handleCreatePlaylistClick = () => {
         setShowCreatePlaylist(!showCreatePlaylist);
@@ -119,7 +119,7 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
                     {isEditing && (
                         <UpdatePlaylist
                             accessToken={accessToken}
-                            playlist_id={selectedPlaylist}
+                            playlist_id={selectedPlaylist?.id}
                             playlist={selectedPlaylistDetails?.name}
                             description={selectedPlaylistDetails?.description}
                             isItPublic={selectedPlaylistDetails?.public}
