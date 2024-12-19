@@ -119,7 +119,7 @@ const UserPlaylists = ({ accessToken, setPlayItem, setIsPlaying }) => {
                     {isEditing && (
                         <UpdatePlaylist
                             accessToken={accessToken}
-                            playlist_id={selectedPlaylist}
+                            playlist_id={selectedPlaylist?.id}
                             playlist={selectedPlaylistDetails?.name}
                             description={selectedPlaylistDetails?.description}
                             isItPublic={selectedPlaylistDetails?.public}
