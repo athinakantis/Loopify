@@ -36,7 +36,6 @@ const CreatePlaylist = ({ accessToken, refreshPlaylists, playlistCreated }) => {
 
             if (playlistResponse.ok) {
                 const playlistData = await playlistResponse.json();
-                console.log('Playlist created:', playlistData);
                 playlistCreated(`Playlist ${playlistName} created`);
                 refreshPlaylists(); // Trigger refresh
             } else {
