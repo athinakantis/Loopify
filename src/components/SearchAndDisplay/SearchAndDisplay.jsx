@@ -16,6 +16,8 @@ import Spinner from '../Spinner/Spinner.jsx';
 export default function SearchAndDisplay(props) {
     const {
         type,
+        theme,
+        setTheme,
         placeholder,
         name,
         accessToken,
@@ -44,7 +46,7 @@ export default function SearchAndDisplay(props) {
     function handleMoodClick(id) {
         if (moodId == id) {
             setMoodId();
-            getInitialItems()
+            getInitialItems();
         } else {
             setMoodId(id.toString());
             setOffset(0);
@@ -62,7 +64,7 @@ export default function SearchAndDisplay(props) {
             console.error(err);
         }
     }
-    
+
     // Effect to fetch initial play items.
     // Runs on mount
     useEffect(() => {
@@ -106,7 +108,7 @@ export default function SearchAndDisplay(props) {
             }
             getSearchResults();
         } else {
-            getInitialItems()
+            getInitialItems();
         }
     }, [searchTerm, accessToken]);
 
@@ -117,25 +119,42 @@ export default function SearchAndDisplay(props) {
         setSearchTerm(query);
 
         if (query.trim() === '') {
-            getInitialItems()
+            getInitialItems();
         }
     }
 
+    const handleThemeSwitch = () => {
+        const html = document.querySelector('html');
+        theme === 'light'
+            ? html.setAttribute('data-theme', 'dark')
+            : html.setAttribute('data-theme', 'light');
+        setTheme(html.getAttribute('data-theme'));
+    };
+
     return (
         <>
-            <div className='search-bar'>
-                <input
-                    onKeyUp={handleKeyUp}
-                    className={classes}
-                    type={type}
-                    placeholder={placeholder}
-                    name={name}
-                    {...rest}
-                />
-                <img
-                    src='src/assets/searchIcon.svg'
-                    alt='Search Icon'
-                />
+            <div>
+                <div className='search-bar'>
+                    <input
+                        onKeyUp={handleKeyUp}
+                        className={classes}
+                        type={type}
+                        placeholder={placeholder}
+                        name={name}
+                        {...rest}
+                    />
+                    <img
+                        src='src/assets/searchIcon.svg'
+                        alt='Search Icon'
+                    />
+                </div>
+                <button
+                    id='themeSwitcher'
+                    aria-label='Theme Switcher'
+                    onClick={handleThemeSwitch}
+                >
+                    Switch theme
+                </button>
             </div>
 
             <div id='moodsContainer'>

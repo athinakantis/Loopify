@@ -16,6 +16,7 @@ function App() {
     const [player, setPlayer] = useState(null);
     const [device, setDevice] = useState('');
     const [displayItem, setDisplayItem] = useState({});
+    const [theme, setTheme] = useState('light');
 
     function handleLogOut() {
         setAccessToken('');
@@ -171,6 +172,8 @@ function App() {
                 {!accessToken && <LandingPage />}
                 {page === 'Search' && (
                     <SearchAndDisplay
+                        setTheme={setTheme}
+                        theme={theme}
                         setPlayItem={setPlayItem}
                         setIsPlaying={setIsPlaying}
                         accessToken={accessToken}

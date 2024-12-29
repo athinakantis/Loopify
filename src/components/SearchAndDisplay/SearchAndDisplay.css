@@ -37,7 +37,7 @@
     position: absolute;
     top: 1.8rem;
     left: 3.6rem;
-    color: var(--accentDark);
+    color: var(--accent);
 }
 
 .album:nth-of-type(2)::after,
@@ -48,7 +48,7 @@
     position: absolute;
     top: 1.8rem;
     left: 3.6rem;
-    color: var(--accentDark);
+    color: var(--accent);
 }
 
 .album:nth-of-type(4)::after {
@@ -58,7 +58,7 @@
     position: absolute;
     top: 1.8rem;
     left: 3.6rem;
-    color: var(--accentDark);
+    color: var(--accent);
 }
 
 .album:nth-of-type(5)::after {
@@ -68,7 +68,7 @@
     position: absolute;
     top: 1.8rem;
     left: 3.6rem;
-    color: var(--accentDark);
+    color: var(--accent);
 }
 
 .album:nth-of-type(6)::after {
@@ -78,7 +78,7 @@
     position: absolute;
     top: 1.8rem;
     left: 3.6rem;
-    color: var(--accentDark);
+    color: var(--accent);
 }
 
 .album:nth-of-type(7)::after {
@@ -88,7 +88,7 @@
     position: absolute;
     top: 1.8rem;
     left: 3.6rem;
-    color: var(--accentDark);
+    color: var(--accent);
 }
 
 .album p {
@@ -104,7 +104,7 @@
 
 .album button,
 .playlist button {
-    background-color: var(--backgroundDark);
+    background-color: var(--background);
 }
 
 .album,
@@ -228,13 +228,13 @@
     transition: all 300ms;
 
     &:hover {
-        background-color: var(--accentDark);
+        background-color: var(--accent);
         opacity: 1;
     }
 }
 
 #moodsContainer button.currentMood {
-    background-color: var(--accentDark);
+    background-color: var(--accent);
     opacity: 1;
 }
 

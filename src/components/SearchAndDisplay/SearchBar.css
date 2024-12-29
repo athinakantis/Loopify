@@ -11,12 +11,12 @@
     height: 38px;
     outline: none;
     border: none;
-    background-color: var(--accentDark);
+    background-color: var(--accent);
     font-size: 16px;
     border-radius: var(--radiusRound);
 
     &::placeholder {
-        color: var(--backgroundDark);
+        color: var(--background);
         opacity: 0.5;
     }
 }

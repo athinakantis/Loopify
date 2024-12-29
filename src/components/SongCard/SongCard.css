@@ -1,6 +1,6 @@
 .songCard {
-    background-color: var(--accentDark);
-    color: var(--backgroundDark);
+    background-color: var(--accent);
+    color: var(--background);
     height: 70px;
     width: 240px;
     display: flex;
@@ -38,7 +38,7 @@
 .songImgContainer {
     height: 70px;
     width: 70px;
-    background-color: var(--accentDark);
+    background-color: var(--accent);
     position: relative;
 
     &::after {
@@ -83,7 +83,7 @@
 }
 
 .songCard .songCardIcons button:last-child {
-    background-color: var(--backgroundDark);
+    background-color: var(--background);
     border-radius: var(--radiusSmall);
     height: 35px;
 }
@@ -114,7 +114,7 @@
 .songCardImg button {
     height: 70px;
     width: 70px;
-    background-color: var(--accentDark);
+    background-color: var(--accent);
     position: relative;
 
     &::after {
