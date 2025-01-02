@@ -16,8 +16,6 @@ import Spinner from '../Spinner/Spinner.jsx';
 export default function SearchAndDisplay(props) {
   const {
     type,
-    theme,
-    toggleTheme,
     placeholder,
     name,
     accessToken,
