@@ -1,23 +1,23 @@
 button {
-    border: none;
-    font-size: inherit;
-    font-family: inherit;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
 
-    &:hover {
-        cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .album img,
 .songCard img,
 .playlist img {
-    background-color: var(--backgroundDark);
-    border-radius: var(--radiusSmall);
+  background-color: var(--background);
+  border-radius: var(--radiusSmall);
 }
 
 :is(.displaySongs, .displayAlbums, .displayPlaylists, .displayMoods)
-    ::-webkit-scrollbar {
-    display: none;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  ::-webkit-scrollbar {
+  display: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

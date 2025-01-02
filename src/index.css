@@ -13,13 +13,23 @@
     --headings: 'Ubuntu';
     --mainFont: 'Familjen Grotesk';
 
-    --backgroundDark: #17191c;
-    --accentDark: #abc3f8;
+    --background: #17191c;
+    --accent: #abc3f8;
 
     --radiusSmall: 5px;
     --radiusRound: 100px;
 
     --shadow: drop-shadow(4px 6px 10px rgba(0, 0, 0, 0.4));
+}
+
+[data-theme='light'] {
+    --background: #f7fbff;
+    --accent: #425ea6;
+}
+
+[data-theme='dark'] {
+    --background: #17191c;
+    --accent: #abc3f8;
 }
 
 #root {
@@ -30,8 +40,8 @@
 
 body {
     font-family: var(--mainFont);
-    background-color: var(--backgroundDark);
-    color: var(--accentDark);
+    background-color: var(--background);
+    color: var(--accent);
     font-size: 18px;
 }
 

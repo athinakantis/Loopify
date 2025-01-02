@@ -1,169 +1,154 @@
 #player button {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #player .songCard {
-    border: none;
-    opacity: 0.2;
+  border: none;
+  opacity: 0.2;
 }
 
 #player {
-    overflow: hidden;
-    margin: auto 1rem 1rem;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    position: relative;
+  overflow: hidden;
+  margin: auto 1rem 1rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
 }
 
 #playerControls {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 #playerControls.Collapsed {
-    flex-direction: column-reverse;
-    gap: 1rem;
+  flex-direction: column-reverse;
+  gap: 1rem;
 }
 
 .playPause {
-    display: flex;
-    margin: 0.5rem auto;
+  display: flex;
+  margin: 0.5rem auto;
+}
+
+[data-theme='light'] .playPause button img {
+  filter: brightness(0) saturate(100%) invert(19%) sepia(12%) saturate(2965%)
+    hue-rotate(186deg) brightness(96%) contrast(95%);
 }
 
 .Collapsed .playPause {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 .Expanded .playPause {
-    flex-direction: row;
+  flex-direction: row;
 }
 
 #playerControls.Expanded {
-    animation: fadeIn 500ms;
+  animation: fadeIn 500ms;
 }
 
 #playerControls.Collapsed .playPause button {
-    display: block;
+  display: block;
 }
 
 #playerControls.Expanded .playPause button {
-    display: inline;
+  display: inline;
 }
 
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
+  0% {
+    opacity: 0;
+  }
 
-    60% {
-        opacity: 0;
-    }
+  60% {
+    opacity: 0;
+  }
 
-    100% {
-        opacity: 1;
-    }
+  100% {
+    opacity: 1;
+  }
 }
 
 .playerCard img {
-    width: 100%;
-    border-radius: var(--radiusSmall);
-    margin: 0.6rem 0 0;
-    transition: width 300ms;
-    max-width: 260px;
+  width: 100%;
+  border-radius: var(--radiusSmall);
+  margin: 0.6rem 0 0;
+  transition: width 300ms;
+  max-width: 260px;
+  transition: width 300ms;
 }
 
 .playerCard img.collapsed {
-    width: 0%;
+  width: 0;
+  transition: all 0s;
 }
 
 .playerCard p:first-of-type {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .playerCard p {
-    white-space: nowrap;
-    overflow: hidden;
-    max-width: 260px;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 260px;
 }
 
 .playerCard p.title {
-    text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
 .playerCard p.title:hover {
-    overflow: visible;
-    white-space: nowrap;
-    animation: scroll-text 5s linear;
+  overflow: visible;
+  white-space: nowrap;
+  animation: scroll-text 5s linear;
 }
 
 .playerCard p.artist {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 #player input[type='range'] {
-    accent-color: var(--accentDark);
+  accent-color: var(--accent);
 }
 
 #player input[type='range']::-moz-range-thumb {
-    width: 8px;
-    height: 8px;
+  width: 8px;
+  height: 8px;
 }
 
 #progressSlider.Collapsed {
-    display: none;
+  display: none;
 }
 
 #progressSlider {
-    margin: 1.3rem 0 0.8rem;
+  margin: 1.3rem 0 0.8rem;
 }
 
 #player .Expanded input[type='range'],
 #progressSlider {
-    height: 4px;
-    width: 100%;
+  height: 4px;
+  width: 100%;
 }
 
 #player .Collapsed input[type='range'] {
-    writing-mode: vertical-rl;
-    width: 4px;
-    margin: 0 auto;
-    height: 6rem;
+  writing-mode: vertical-rl;
+  width: 4px;
+  margin: 0 auto;
+  height: 6rem;
 }
 
 .playerCard img.collapsed {
-    width: 0;
-    transition: all 0s;
-}
-
-@media only screen and (prefers-contrast: no-preference) {
-    #playerControls button:focus-within img,
-    #playerControls input:focus-within {
-        filter: brightness(0) saturate(100%) invert(100%) sepia(0%)
-            saturate(7500%) hue-rotate(141deg) brightness(101%) contrast(104%)
-            drop-shadow(0px 0px 10px rgba(0, 0, 0, 1));
-    }
-}
-
-#playerControls button:focus-within,
-#playerControls input:focus-within {
-    outline: none;
-}
-
-@media only screen and (prefers-contrast: more) {
-    nav ul button:focus-within,
-    #playerControls button:focus-within,
-    input:focus-within {
-        outline: 2px solid red;
-    }
+  width: 0;
+  transition: all 0s;
 }
 
 /* ANIMATION */
 @keyframes scroll-text {
-    0% {
-        transform: translateX(0px);
-    }
+  0% {
+    transform: translateX(0px);
+  }
 
-    100% {
-        transform: translateX(-100%);
-    }
+  100% {
+    transform: translateX(-100%);
+  }
 }

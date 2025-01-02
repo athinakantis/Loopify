@@ -1,96 +1,100 @@
 header {
-    transition: all 500ms;
-    background-color: var(--backgroundDark);
-    height: 100vh;
-    border-right: 1px solid rgba(171, 195, 248, 0.5);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    margin: 0 2rem 0 0;
+  transition: min-width 500ms;
+  background-color: var(--background);
+  height: 100vh;
+  border-right: 1px solid rgba(171, 195, 248, 0.5);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0 2rem 0 0;
 }
 
 .leftNav {
-    min-width: 260px;
-    position: sticky;
-    top: 0;
-    overflow: hidden;
+  min-width: 260px;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
 }
 
 .leftNavNarrow {
-    min-width: 92px;
-    position: sticky;
-    top: 0;
+  min-width: 92px;
+  position: sticky;
+  top: 0;
 }
 
 .menuButton {
-    outline: none;
-    background: none;
-    border: none;
+  outline: none;
+  background: none;
+  border: none;
 }
 
 nav ul {
-    color: var(--accentDark);
-    margin: 8rem 2rem;
+  color: var(--accent);
+  margin: 8rem 2rem;
 }
 
 nav ul button {
-    text-decoration: none;
-    color: var(--accentDark);
-    margin: 0 0 2rem;
-    border: none;
-    outline: none;
-    background-color: transparent;
+  text-decoration: none;
+  color: var(--accent);
+  margin: 0 0 2rem;
+  border: none;
+  outline: none;
+  background-color: transparent;
 
-    &:hover {
-        cursor: pointer;
-    }
-
-    &:focus-within {
-        filter: brightness(0) saturate(100%) invert(100%) sepia(0%)
-            saturate(7500%) hue-rotate(141deg) brightness(101%) contrast(104%)
-            drop-shadow(0px 0px 10px rgba(0, 0, 0, 1));
-    }
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 nav ul img {
-    height: fit-content;
-    width: 1.7rem;
+  height: fit-content;
+  width: 1.7rem;
 }
 
 #logInButton {
-    color: var(--accentDark);
-    width: max-content;
+  color: var(--accent);
+  width: max-content;
 }
 
 #logInButton:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #logoutIcon {
-    height: 33px;
+  height: 33px;
 }
 
 .visible {
-    transition: opacity 150ms;
-    transition-delay: 300ms;
-    opacity: 1;
+  transition: opacity 150ms;
+  transition-delay: 300ms;
+  opacity: 1;
 }
 
 .invisible {
-    transition: opacity 150ms;
-    opacity: 0;
+  transition: opacity 150ms;
+  opacity: 0;
 }
 
 .menuButton img {
-    position: absolute;
-    left: 2rem;
-    top: 2rem;
+  position: absolute;
+  left: 2rem;
+  top: 2rem;
 
-    &:hover {
-        cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 #menuIcon {
-    top: 3rem;
+  top: 3rem;
+}
+
+/* LIGHT theme - Header */
+[data-theme='light'] header {
+  border-right: 1px solid rgba(35, 53, 100, 0.5);
+}
+
+[data-theme='light'] header :is(nav img, #logo, #menuIcon) {
+  filter: brightness(0) saturate(100%) invert(19%) sepia(12%) saturate(2965%)
+    hue-rotate(186deg) brightness(96%) contrast(95%);
 }
