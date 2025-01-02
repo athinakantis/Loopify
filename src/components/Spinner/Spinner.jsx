@@ -1,13 +1,18 @@
+import { useContext } from 'react';
 import './Spinner.css';
+import { ThemeContext } from '../../App';
 
 function Spinner() {
-    return (
-        <img
-            className='spinner'
-            src='src/assets/spinner.gif'
-            alt='Loading...'
-        />
-    );
+  const { theme } = useContext(ThemeContext);
+  return (
+    <img
+      className='spinner'
+      src={`src/assets/spinner${
+        theme === 'light' ? 'LightMode' : 'DarkMode'
+      }.gif`}
+      alt='Loading...'
+    />
+  );
 }
 
 export default Spinner;
