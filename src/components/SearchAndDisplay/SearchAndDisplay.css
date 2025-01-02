@@ -1,276 +1,298 @@
 .top-songs {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: repeat(2, 1fr);
-    gap: 15px;
-    column-gap: 30px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    width: 100%;
-    max-width: 100vw;
-    padding: 20px 0;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 15px;
+  column-gap: 30px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  max-width: 100vw;
+  padding: 20px 0;
 }
 
 .albums,
 .playlists {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: repeat(1, 1fr);
-    gap: 30px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    width: 100%;
-    max-width: 100vw;
-    padding: 10px 0;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(1, 1fr);
+  gap: 30px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  max-width: 100vw;
+  padding: 10px 0;
 }
 
 .playlists p {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .album:first-of-type::after {
-    content: 'L';
-    font-size: 4rem;
-    font-weight: 500;
-    position: absolute;
-    top: 1.8rem;
-    left: 3.6rem;
-    color: var(--accent);
+  content: 'L';
+  font-size: 4rem;
+  font-weight: 500;
+  position: absolute;
+  top: 1.8rem;
+  left: 3.6rem;
+  color: var(--accent);
 }
 
 .album:nth-of-type(2)::after,
 .album:nth-of-type(3)::after {
-    content: 'O';
-    font-size: 4rem;
-    font-weight: 500;
-    position: absolute;
-    top: 1.8rem;
-    left: 3.6rem;
-    color: var(--accent);
+  content: 'O';
+  font-size: 4rem;
+  font-weight: 500;
+  position: absolute;
+  top: 1.8rem;
+  left: 3.6rem;
+  color: var(--accent);
 }
 
 .album:nth-of-type(4)::after {
-    content: 'P';
-    font-size: 4rem;
-    font-weight: 500;
-    position: absolute;
-    top: 1.8rem;
-    left: 3.6rem;
-    color: var(--accent);
+  content: 'P';
+  font-size: 4rem;
+  font-weight: 500;
+  position: absolute;
+  top: 1.8rem;
+  left: 3.6rem;
+  color: var(--accent);
 }
 
 .album:nth-of-type(5)::after {
-    content: 'I';
-    font-size: 4rem;
-    font-weight: 500;
-    position: absolute;
-    top: 1.8rem;
-    left: 3.6rem;
-    color: var(--accent);
+  content: 'I';
+  font-size: 4rem;
+  font-weight: 500;
+  position: absolute;
+  top: 1.8rem;
+  left: 3.6rem;
+  color: var(--accent);
 }
 
 .album:nth-of-type(6)::after {
-    content: 'F';
-    font-size: 4rem;
-    font-weight: 700;
-    position: absolute;
-    top: 1.8rem;
-    left: 3.6rem;
-    color: var(--accent);
+  content: 'F';
+  font-size: 4rem;
+  font-weight: 700;
+  position: absolute;
+  top: 1.8rem;
+  left: 3.6rem;
+  color: var(--accent);
 }
 
 .album:nth-of-type(7)::after {
-    content: 'Y';
-    font-size: 4rem;
-    font-weight: 500;
-    position: absolute;
-    top: 1.8rem;
-    left: 3.6rem;
-    color: var(--accent);
+  content: 'Y';
+  font-size: 4rem;
+  font-weight: 500;
+  position: absolute;
+  top: 1.8rem;
+  left: 3.6rem;
+  color: var(--accent);
 }
 
 .album p {
-    font-size: 1rem;
-    white-space: nowrap;
-    overflow: hidden;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .album span {
-    position: relative;
-    z-index: 2;
+  position: relative;
+  z-index: 2;
 }
 
 .album button,
 .playlist button {
-    background-color: var(--background);
+  background-color: var(--background);
 }
 
 .album,
 .playlist {
-    position: relative;
-    border-radius: var(--radiusSmall);
-    height: auto;
-    width: 151px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
+  position: relative;
+  border-radius: var(--radiusSmall);
+  height: auto;
+  width: 151px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .album button img {
-    border-radius: var(--radiusSmall);
+  border-radius: var(--radiusSmall);
 }
 
 .album button {
-    border-radius: var(--radiusSmall);
-    position: relative;
-    height: 150px;
+  border-radius: var(--radiusSmall);
+  position: relative;
+  height: 150px;
 }
 
 .albumInfo {
-    margin: 5px 0;
-    overflow: hidden;
+  margin: 5px 0;
+  overflow: hidden;
 }
 
 .albumInfo .albumName,
 .playlistName {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 10px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .albumImgContainer {
-    position: relative;
-    height: 150px;
-    width: 150px;
-    overflow: hidden;
-    margin: 0 0 0.2rem;
+  position: relative;
+  height: 150px;
+  width: 150px;
+  overflow: hidden;
+  margin: 0 0 0.2rem;
 }
 
 .albumIcons {
-    height: 150px;
-    opacity: 0;
-    position: absolute;
-    right: 0;
-    z-index: 4;
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    padding: 0 6px 6px;
-    width: 100%;
-    transition: all 0.3s ease-in-out;
+  height: 150px;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  padding: 0 6px 6px;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
 }
 
 .albumIcons button {
-    z-index: 4;
-    background-color: transparent;
-    width: 2.5rem;
-    height: fit-content;
+  z-index: 4;
+  background-color: transparent;
+  width: 2.5rem;
+  height: fit-content;
 }
 
 .album:hover .albumIcons {
-    opacity: 1;
-    width: 100%;
-    transition: all 0.3s ease-in-out;
+  opacity: 1;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
 }
 
 .albumIcons button:hover {
-    filter: brightness(0.8);
+  filter: brightness(0.8);
 }
 
 .album .albumImgContainer img {
-    background-color: transparent;
-    display: inline-block;
-    border-radius: var(--radiusSmall);
+  background-color: transparent;
+  display: inline-block;
+  border-radius: var(--radiusSmall);
 }
 
 .album:hover .albumImgContainer::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-    border-radius: 2px;
-    box-shadow: inset 0px -18px 90px 22px rgba(0, 0, 0, 0.9);
-    transition: all 300ms ease-in-out;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  border-radius: 2px;
+  box-shadow: inset 0px -18px 90px 22px rgba(0, 0, 0, 0.9);
+  transition: all 300ms ease-in-out;
 }
 
 .album:hover .albumName,
 .playlist:hover .playlistName,
 .playlistCard:hover .playlistName {
-    overflow: visible;
-    white-space: nowrap;
-    animation: scroll-text 5s linear;
+  overflow: visible;
+  white-space: nowrap;
+  animation: scroll-text 5s linear;
 }
 
 .albumInfo .albumArtist {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 /* Moods Styling */
 #moodsContainer {
-    width: 80%;
+  width: 80%;
 }
 
 #moodsContainer button {
-    padding: 0.3rem 1.5rem;
-    margin: 0 0.5rem 0.5rem 0;
-    border-radius: 8px;
-    background-color: #8094c0;
-    font-size: 0.9rem;
-    font-weight: 700;
-    transition: all 300ms;
+  padding: 0.3rem 1.5rem;
+  margin: 0 0.5rem 0.5rem 0;
+  border-radius: 8px;
+  background-color: #8094c0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: all 300ms;
 
-    &:hover {
-        background-color: var(--accent);
-        opacity: 1;
-    }
+  &:hover {
+    background-color: var(--accent);
+    opacity: 1;
+  }
 }
 
 #moodsContainer button.currentMood {
-    background-color: var(--accent);
-    opacity: 1;
+  background-color: var(--accent);
+  opacity: 1;
 }
 
 .displayMoods h2 {
-    display: inline;
-    margin: 0 0.5rem 0 0;
+  display: inline;
+  margin: 0 0.5rem 0 0;
 }
 
 .displayMoods .playlists {
-    grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
 }
 
 .moodsTitle {
-    display: flex;
-    align-items: end;
+  display: flex;
+  align-items: end;
 }
 
 .displayMoods .playlists p {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 #moodsContainer:has(.currentMood) button:not(.currentMood) {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .refreshBtn {
-    background-color: transparent;
+  background-color: transparent;
 
-    & img {
-        width: 1.6rem;
-        transition: all 300ms ease;
-    }
+  & img {
+    width: 1.6rem;
+    transition: all 300ms ease;
+  }
 
-    &:hover img {
-        transform: rotate(30deg);
-    }
+  &:hover img {
+    transform: rotate(30deg);
+  }
+}
+
+/* LIGHT theme */
+[data-theme='light'] .refreshBtn {
+  filter: brightness(0) saturate(100%) invert(19%) sepia(12%) saturate(2965%)
+    hue-rotate(186deg) brightness(96%) contrast(95%);
+}
+
+[data-theme='light'] #moodsContainer button {
+  background-color: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+
+  &.currentMood {
+    background-color: var(--accent);
+    color: var(--background);
+  }
+
+  &:hover {
+    background-color: var(--accent);
+    color: var(--background);
+  }
 }
